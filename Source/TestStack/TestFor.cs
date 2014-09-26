@@ -14,7 +14,7 @@ namespace TestStack
         {
             if (this.Subject == null)
             {
-                this.Subject = forSubjectFunc == null ? forSubjectFunc(Container): ForSubject();
+                this.Subject = forSubjectFunc != null ? forSubjectFunc(Container): ForSubject();
             }
         }
 
@@ -40,7 +40,7 @@ namespace TestStack
         {
             if (this.Subject == null)
             {
-                this.Subject = forSubjectFunc == null ? forSubjectFunc(Container) : ForSubject();
+                this.Subject = forSubjectFunc != null ? forSubjectFunc(Container) : ForSubject();
             }
         }
 

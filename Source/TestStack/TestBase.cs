@@ -89,6 +89,16 @@ namespace TestStack
             return Container.Resolve<T>();
         }
 
+        protected T GetFromIndex<T>(int index)
+        {
+            var list = Container.Resolve<List<T>>();
+            if (list == null || list.Count >= index)
+            {
+                return default(T);
+            }
+            return list[index];
+        }
+
         /// <summary>
         /// Configure the container to use a specific subject from now on. 
         /// </summary>
@@ -96,10 +106,31 @@ namespace TestStack
         /// <param name="subject"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        protected T Use<T>(T subject, string key = null)
+        protected T Store<T>(T subject, string key = null)
             where T:class
         {
             Container.Provide<T>(subject);
+            return subject;
+        }
+
+        /// <summary>
+        /// Configure the container to use a specific subject from now on. 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="subject"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        protected T StoreAtIndex<T>(int index, T subject, string key = null)
+            where T : class
+        {
+            var list = Container.Resolve<List<T>>();
+            if (list == null)
+            {
+                Container.Provide<List<T>>(new List<T>());
+            }
+
+            list[index] = subject;
+            
             return subject;
         }
 
