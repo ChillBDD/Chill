@@ -129,6 +129,11 @@ namespace TestStack
                 Container.Provide<List<T>>(new List<T>());
             }
 
+            while (list.Count <= index)
+            {
+                list.Add(null);
+            }
+            
             list[index] = subject;
             
             return subject;

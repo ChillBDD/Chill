@@ -46,6 +46,36 @@ namespace TestStack.Examples.Tests
             }
         }
 
+        public class When_retrieving_existing_customer_async : TestFor<CustomerController, Task<View>>
+        {
+            const int customerId = 12;
+
+            public When_retrieving_existing_customer_async()
+            {
+                Given(() =>
+                {
+                    Store(EntityMother.CreateACustomer()
+                        .With(x => x.Id = customerId));
+
+                    The<ICustomerStore>().GetCustomer(customerId).Returns(The<Customer>());
+                });
+
+                When(() => Subject.GetAll(customerId));
+            }
+
+            [Fact]
+            public async Task Then_view_is_returned()
+            {
+                (await Result).Should().NotBeNull();
+            }
+
+            [Fact]
+            public async Task Then_model_is_the_existing_custmoer()
+            {
+                (await Result).Model.Should().Be(The<Customer>());
+            }
+        }
+
         public class When_retrieving_existing_customer_with_other_exists : TestFor<CustomerController, View>
         {
             const int customerId = 12;
@@ -97,6 +127,13 @@ namespace TestStack.Examples.Tests
         }
 
         public View Get(int id)
+        {
+            var customer = store.GetCustomer(id);
+
+            return new View(customer);
+        }
+
+        public async Task<View> GetAll(int id)
         {
             var customer = store.GetCustomer(id);
 
