@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 
 namespace TestStack
 {
 
     public abstract class GivenWhenThen<TResult> : TestBase
     {
-        protected GivenWhenThen(bool suppressInitialization = false) : base()
+        private Func<Task<TResult>> whenAction;
+        private TResult _result;
+
+        protected GivenWhenThen() : base()
         {
         }
-
 
         protected TResult Result
         {
@@ -19,7 +22,7 @@ namespace TestStack
             }
         }
 
-        public Func<TResult> WhenAction
+        public Func<Task<TResult>> WhenAction
         {
             get { return whenAction; }
         }
@@ -29,14 +32,14 @@ namespace TestStack
             
         }
 
-        protected virtual void TriggerWhen()
+        protected override async Task TriggerWhen()
         {
             EnsureContainer();
             BeforeWhen();
-            _result = whenAction();
+            _result = await whenAction();
         }
 
-        protected void When(Func<TResult> whenFunc)
+        protected void When(Func<Task<TResult>> whenFunc)
         {
             EnsureContainer();
             if (WhenAction != null)
@@ -44,48 +47,58 @@ namespace TestStack
                 throw new InvalidOperationException("When already defined");
             }
             whenAction = whenFunc;
-            TriggerWhen();
+            TriggerWhen().Wait();
+        }
+    
+        protected void When(Func<TResult> whenFunc)
+        {
+
+            When(() => Task.Factory.StartNew(whenFunc));
+
         }
 
-        private Func<TResult> whenAction;
-        private TResult _result;
     }
 
     public abstract class GivenWhenThen : TestBase
     {
-        protected GivenWhenThen(bool suppressInitialization = false) : base()
+        protected GivenWhenThen() : base()
         {
         }
 
-        private Action _whenAction;
+        private Func<Task> _whenAction;
         private bool _callWhenAction;
 
-        public Action WhenAction
+        public Func<Task> WhenAction
         {
             get { return _whenAction; }
             set { _whenAction = value; }
         }
 
-        protected override void TriggerWhen()
+        protected override async Task TriggerWhen()
         {
             EnsureContainer();
             BeforeWhen();
-            WhenAction();
+            await WhenAction();
         }
         protected virtual void BeforeWhen()
         {
 
         }
 
-
-        protected void When(Action whenAction)
+        protected void When(Func<Task> whenActionASync)
         {
+            EnsureContainer();
             _callWhenAction = true;
             if (WhenAction != null)
             {
                 throw new InvalidOperationException("When already defined");
             }
-            _whenAction = whenAction;
+            _whenAction = whenActionASync;
+            TriggerWhen().Wait();
+        }
+        protected void When(Action whenAction)
+        {
+            When(() => Task.Factory.StartNew(whenAction));
         }
     }
 }

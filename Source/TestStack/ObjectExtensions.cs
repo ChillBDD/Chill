@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 namespace TestStack
 {
@@ -8,6 +9,11 @@ namespace TestStack
         {
             func(subject);
             return subject;
+        }
+
+        public static Task<T> Asynchronously<T>(this T subject)
+        {
+            return Task.Run(() => subject);
         }
 
     }

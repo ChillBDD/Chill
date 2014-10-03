@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace TestStack
 {
@@ -30,7 +31,7 @@ namespace TestStack
             }
         }
 
-        protected virtual void TriggerWhen()
+        protected virtual async Task TriggerWhen()
         {
             
         }

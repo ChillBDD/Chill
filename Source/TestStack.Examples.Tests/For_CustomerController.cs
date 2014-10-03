@@ -2,39 +2,35 @@
 using System.Threading.Tasks;
 
 using FluentAssertions;
-
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
 using Ploeh.AutoFixture;
-using AutofacContrib.NSubstitute;
 using TestStack.Examples.Tests.TestSubjects;
 using Xunit;
 
 namespace TestStack.Examples.Tests
 {
-    public class AutoFacNSubstituteAutoMockingContainer : IAutoMockingContainer
-    {
-        private AutoSubstitute container = new AutoSubstitute();
-        public T Get<T>() where T : class
-        {
-            return container.Resolve<T>();
-        }
-
-        public T Set<T>(T valueToSet) where T : class
-        {
-            return container.Provide(valueToSet);
-
-        }
-
-        public void Dispose()
-        {
-            container.Dispose();
-        }
-    }
-
-
     namespace For_CustomerController
     {
+        [TestClass]
+        public class When_deleting_customer : TestFor<CustomerController>
+        {
+            const int customerId = 12;
+            public When_deleting_customer()
+            {
+                When(() => Subject.Delete(customerId));
+            }
+
+
+            [TestMethod]
+            public void Then_model_is_the_existing_custmoer()
+            {
+                The<ICustomerStore>().Received().DeleteCustomer(customerId);
+            }
+            
+        }
+
         public class When_retrieving_existing_customer : TestFor<CustomerController, View>
         {
             const int customerId = 12;
@@ -50,10 +46,7 @@ namespace TestStack.Examples.Tests
                     
                 });
 
-                When(() =>
-                {
-                    return Subject.Get(customerId);
-                });
+                When(() => Subject.Get(customerId));
             }
 
   
@@ -71,7 +64,7 @@ namespace TestStack.Examples.Tests
             }
         }
 
-        public class When_retrieving_existing_customer_async : TestFor<CustomerController, Task<View>>
+        public class When_retrieving_existing_customer_async : TestFor<CustomerController, View>
         {
             const int customerId = 12;
 
@@ -82,22 +75,24 @@ namespace TestStack.Examples.Tests
                     Store(EntityMother.BuildACustomer()
                         .With(x => x.Id = customerId));
 
-                    The<ICustomerStore>().GetCustomer(customerId).Returns(The<Customer>());
+                    The<ICustomerStore>()
+                        .GetCustomerAsync(customerId)
+                        .Returns(The<Customer>().Asynchronously());
                 });
 
                 When(() => Subject.GetAsync(customerId));
             }
 
             [Fact]
-            public async Task Then_view_is_returned()
+            public void Then_view_is_returned()
             {
-                (await Result).Should().NotBeNull();
+                Result.Should().NotBeNull();
             }
 
             [Fact]
-            public async Task Then_model_is_the_existing_custmoer()
+            public void Then_model_is_the_existing_custmoer()
             {
-                (await Result).Model.Should().Be(The<Customer>());
+                Result.Model.Should().Be(The<Customer>());
             }
         }
 

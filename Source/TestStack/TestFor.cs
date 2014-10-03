@@ -6,9 +6,7 @@ namespace TestStack
     public abstract class TestFor<TSubject, TResult> : GivenWhenThen<TResult>
         where TSubject : class
     {
-        protected TestFor(bool suppressInitialization = false) : base(suppressInitialization)
-        {
-        }
+  
 
         private Func<IAutoMockingContainer, TSubject> forSubjectFunc;
         protected TSubject Subject;
@@ -36,10 +34,6 @@ namespace TestStack
     public abstract class TestFor<TSubject> : GivenWhenThen
         where TSubject : class
     {
-        protected TestFor(bool suppressInitialization = false) : base(suppressInitialization)
-        {
-        }
-
         private Func<IAutoMockingContainer, TSubject> forSubjectFunc;
         protected TSubject Subject;
 
@@ -49,6 +43,12 @@ namespace TestStack
             {
                 this.Subject = forSubjectFunc != null ? forSubjectFunc(Container) : ForSubject();
             }
+        }
+
+
+        protected void ForSubject(Func<IAutoMockingContainer, TSubject> subjectFactory)
+        {
+            forSubjectFunc = subjectFactory;
         }
 
         protected virtual TSubject ForSubject()
