@@ -1,16 +1,19 @@
 ﻿using System;
 
-using AutofacContrib.NSubstitute;
 
 namespace TestStack
 {
     public abstract class TestFor<TSubject, TResult> : GivenWhenThen<TResult>
         where TSubject : class
     {
-        private Func<AutoSubstitute, TSubject> forSubjectFunc;
+        protected TestFor(bool suppressInitialization = false) : base(suppressInitialization)
+        {
+        }
+
+        private Func<IAutoMockingContainer, TSubject> forSubjectFunc;
         protected TSubject Subject;
 
-        protected override void AfterGiven()
+        protected override void BeforeWhen()
         {
             if (this.Subject == null)
             {
@@ -18,7 +21,7 @@ namespace TestStack
             }
         }
 
-        protected void ForSubject(Func<AutoSubstitute, TSubject> subjectFactory)
+        protected void ForSubject(Func<IAutoMockingContainer, TSubject> subjectFactory)
         {
             forSubjectFunc = subjectFactory;
         }
@@ -26,17 +29,21 @@ namespace TestStack
 
         protected virtual TSubject ForSubject()
         {
-            return Container.Resolve<TSubject>();
+            return Container.Get<TSubject>();
         }
     }
 
     public abstract class TestFor<TSubject> : GivenWhenThen
         where TSubject : class
     {
-        private Func<AutoSubstitute, TSubject> forSubjectFunc;
+        protected TestFor(bool suppressInitialization = false) : base(suppressInitialization)
+        {
+        }
+
+        private Func<IAutoMockingContainer, TSubject> forSubjectFunc;
         protected TSubject Subject;
 
-        protected override void AfterGiven()
+        protected override void BeforeWhen()
         {
             if (this.Subject == null)
             {
@@ -46,7 +53,7 @@ namespace TestStack
 
         protected virtual TSubject ForSubject()
         {
-            return Container.Resolve<TSubject>();
+            return Container.Get<TSubject>();
         }
 
     }

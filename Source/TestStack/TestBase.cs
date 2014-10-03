@@ -1,34 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using AutofacContrib.NSubstitute;
-
-using NSubstitute;
-
-using Xunit;
 
 namespace TestStack
 {
     /// <summary>
     /// Base class for tests that use a similar appraoch. 
     /// </summary>
-    public abstract class TestBase : IUseFixture<object>, IDisposable
+    public abstract class TestBase: IDisposable
     {
         protected bool ExpectExceptions;
         protected Exception CaughtException;
-        private List<GivenData> _givens = new List<GivenData>();
-        protected AutoSubstitute Container;
+        protected IAutoMockingContainer Container;
 
-
-        public void SetupTestProcess()
+        protected virtual void OnWhen()
         {
-            Container = BuildUnityContainer();
-
-            Given();
-            AfterGiven();
             try
             {
                 TriggerWhen();
@@ -42,12 +28,6 @@ namespace TestStack
                 if (ExpectExceptions && CaughtException == null)
                     throw new InvalidOperationException("Expected exception but no exception was thrown");
             }
-            
-        }
-
-        protected virtual void AfterGiven()
-        {
-            
         }
 
         protected virtual void TriggerWhen()
@@ -55,26 +35,43 @@ namespace TestStack
             
         }
 
+
+
+        protected virtual void EnsureContainer()
+        {
+            if (Container == null)
+                Container = BuildContainer();
+        }
+
         public void Given(Action a)
         {
-            _givens.Add(new GivenData()
-            {
-                GivenAction = a
-            });
+            EnsureContainer();
+            a();
         }
 
-        protected virtual void Given()
+
+        private static Type ContainerType;
+
+        protected virtual IAutoMockingContainer BuildContainer()
         {
-            foreach (var given in _givens)
+            if (ContainerType == null)
             {
-                given.GivenAction();
+                var types = AppDomain.CurrentDomain.GetAssemblies()
+                    .SelectMany(s => s.GetTypes())
+                    .Where(p => typeof(IAutoMockingContainer).IsAssignableFrom(p) && p.IsClass)
+                    .ToList();
+
+                if (!types.Any())
+                {
+                    throw new InvalidOperationException("No implementation of IContainer could be found.");
+                }
+
+                if (types.Count() > 1)
+                    throw new InvalidOperationException("More than one implementation of IContainer could be found: " +
+                                                        String.Join(",", types.Select(x => x.Name)));
+                ContainerType = types.First();
             }
-        }
-
-        protected virtual AutoSubstitute BuildUnityContainer()
-        {
-            var buildUnityContainer = new AutoSubstitute();
-            return buildUnityContainer;
+            return (IAutoMockingContainer)Activator.CreateInstance(ContainerType);
         }
 
 
@@ -86,17 +83,7 @@ namespace TestStack
         protected T The<T>()
             where T : class
         {
-            return Container.Resolve<T>();
-        }
-
-        protected T GetFromIndex<T>(int index)
-        {
-            var list = Container.Resolve<List<T>>();
-            if (list == null || list.Count >= index)
-            {
-                return default(T);
-            }
-            return list[index];
+            return Container.Get<T>();
         }
 
         /// <summary>
@@ -107,35 +94,9 @@ namespace TestStack
         /// <param name="key"></param>
         /// <returns></returns>
         protected T Store<T>(T subject, string key = null)
-            where T:class
-        {
-            Container.Provide<T>(subject);
-            return subject;
-        }
-
-        /// <summary>
-        /// Configure the container to use a specific subject from now on. 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="subject"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        protected T StoreAtIndex<T>(int index, T subject, string key = null)
             where T : class
         {
-            var list = Container.Resolve<List<T>>();
-            if (list == null)
-            {
-                Container.Provide<List<T>>(new List<T>());
-            }
-
-            while (list.Count <= index)
-            {
-                list.Add(null);
-            }
-            
-            list[index] = subject;
-            
+            Container.Set<T>(subject);
             return subject;
         }
 
@@ -150,11 +111,6 @@ namespace TestStack
             {
                 Container.Dispose();
             }
-        }
-
-        public void SetFixture(object data)
-        {
-            SetupTestProcess();
         }
     }
 }

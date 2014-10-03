@@ -1,15 +1,20 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TestStack
 {
+
     public abstract class GivenWhenThen<TResult> : TestBase
     {
+        protected GivenWhenThen(bool suppressInitialization = false) : base()
+        {
+        }
+
+
         protected TResult Result
         {
             get
             {
-                if (WhenAction == null)
-                    throw new InvalidOperationException("When function was never assigned, so result was not set");
                 return _result;
             }
         }
@@ -19,26 +24,27 @@ namespace TestStack
             get { return whenAction; }
         }
 
-        protected override void TriggerWhen()
+        protected virtual void BeforeWhen()
         {
-            _result = When();
+            
         }
 
-        protected virtual TResult When()
+        protected virtual void TriggerWhen()
         {
-            if (WhenAction != null)
-            {
-                return WhenAction();
-            }
-            return default (TResult);
+            EnsureContainer();
+            BeforeWhen();
+            _result = whenAction();
         }
+
         protected void When(Func<TResult> whenFunc)
         {
+            EnsureContainer();
             if (WhenAction != null)
             {
                 throw new InvalidOperationException("When already defined");
             }
             whenAction = whenFunc;
+            TriggerWhen();
         }
 
         private Func<TResult> whenAction;
@@ -47,6 +53,10 @@ namespace TestStack
 
     public abstract class GivenWhenThen : TestBase
     {
+        protected GivenWhenThen(bool suppressInitialization = false) : base()
+        {
+        }
+
         private Action _whenAction;
         private bool _callWhenAction;
 
@@ -58,15 +68,13 @@ namespace TestStack
 
         protected override void TriggerWhen()
         {
-            When();
+            EnsureContainer();
+            BeforeWhen();
+            WhenAction();
         }
-
-        protected virtual void When()
+        protected virtual void BeforeWhen()
         {
-            if (WhenAction != null && _callWhenAction)
-            {
-                WhenAction();
-            }
+
         }
 
 
