@@ -7,8 +7,8 @@
     <ProjectGuid>{8D10F835-83F1-42EF-A232-EB5806CF9F1C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestStack</RootNamespace>
-    <AssemblyName>TestStack</AssemblyName>
+    <RootNamespace>Chill</RootNamespace>
+    <AssemblyName>Chill</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

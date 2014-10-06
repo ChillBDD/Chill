@@ -1,15 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
-
+﻿using Chill.Examples.Tests.TestSubjects;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-
-using Ploeh.AutoFixture;
-using TestStack.Examples.Tests.TestSubjects;
 using Xunit;
 
-namespace TestStack.Examples.Tests
+namespace Chill.Examples.Tests
 {
     namespace For_CustomerController
     {
@@ -109,16 +104,4 @@ namespace TestStack.Examples.Tests
         }
 
     }
-
-
-        public static class EntityMother
-        {
-            private static Fixture fixture = new Fixture();
-
-            public static Customer BuildACustomer()
-            {
-                return fixture.Create<Customer>();
-            }
-
-        }
 }

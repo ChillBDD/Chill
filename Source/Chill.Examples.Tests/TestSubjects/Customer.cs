@@ -1,4 +1,4 @@
-namespace TestStack.Examples.Tests.TestSubjects
+namespace Chill.Examples.Tests.TestSubjects
 {
     public class Customer
     {

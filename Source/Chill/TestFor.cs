@@ -1,7 +1,6 @@
 ﻿using System;
 
-
-namespace TestStack
+namespace Chill
 {
     public abstract class TestFor<TSubject, TResult> : GivenWhenThen<TResult>
         where TSubject : class

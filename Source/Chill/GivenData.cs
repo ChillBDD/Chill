@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestStack
+namespace Chill
 {
     public class GivenData
     {

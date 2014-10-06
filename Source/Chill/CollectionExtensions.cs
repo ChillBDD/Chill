@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TestStack
+namespace Chill
 {
     public static class CollectionExtensions
     {

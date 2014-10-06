@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TestStack
+namespace Chill
 {
     /// <summary>
     /// Base class for tests that use a similar appraoch. 

@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace TestStack
+namespace Chill
 {
     public static class ObjectExtensions
     {

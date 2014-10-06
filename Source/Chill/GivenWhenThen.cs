@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
-namespace TestStack
+namespace Chill
 {
 
     public abstract class GivenWhenThen<TResult> : TestBase

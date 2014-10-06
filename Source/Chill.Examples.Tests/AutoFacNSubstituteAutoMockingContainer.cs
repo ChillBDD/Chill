@@ -1,6 +1,6 @@
 using AutofacContrib.NSubstitute;
 
-namespace TestStack.Examples.Tests
+namespace Chill.Examples.Tests
 {
     public class AutoFacNSubstituteAutoMockingContainer : IAutoMockingContainer
     {

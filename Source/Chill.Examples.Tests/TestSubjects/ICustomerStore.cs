@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace TestStack.Examples.Tests.TestSubjects
+namespace Chill.Examples.Tests.TestSubjects
 {
     public interface ICustomerStore
     {

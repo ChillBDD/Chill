@@ -1,11 +1,7 @@
-using System;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using TestStack.Examples.Tests.TestSubjects;
+using Chill.Examples.Tests.TestSubjects;
 
-namespace TestStack.Examples.Tests
+namespace Chill.Examples.Tests
 {
     public class CustomerController
     {
