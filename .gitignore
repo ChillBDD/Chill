@@ -139,6 +139,7 @@ publish/
 !**/packages/build/
 # If using the old MSBuild-Integrated Package Restore, uncomment this:
 #!**/packages/repositories.config
+!**/.nuget/*
 
 # Windows Azure Build Output
 csx/
