@@ -1,0 +1,5 @@
+﻿  - provider: NuGet
+    api_key:
+      secure: Cxwo932B51jAcO/vjrYahWmwKanpQeOXB0yiOsSfG1hO5LfQwXtsMz+cGOV3AadT
+    skip_symbols: true
+    artifact: Chill.nupkg
