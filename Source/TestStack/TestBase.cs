@@ -12,13 +12,12 @@ namespace TestStack
     {
         protected bool ExpectExceptions;
         protected Exception CaughtException;
-        protected IAutoMockingContainer Container;
-
+        public IAutoMockingContainer Container { get; private set; }
         protected virtual void OnWhen()
         {
             try
             {
-                TriggerWhen();
+                TriggerWhen().Wait();
             }
             catch (Exception ex)
             {
@@ -31,9 +30,9 @@ namespace TestStack
             }
         }
 
-        protected virtual async Task TriggerWhen()
+        protected virtual Task TriggerWhen()
         {
-            
+            return Task.Run(() => { });
         }
 
 
@@ -76,34 +75,44 @@ namespace TestStack
         }
 
 
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        public IStoreStateBuilder<T> SetThe<T>() where T : class
+        {
+            return new StoreStateBuilder<T>(this);
+        }
+
+
         /// <summary>
         /// Create a substitute and use that from now on. 
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        protected T The<T>()
+        public T The<T>()
             where T : class
         {
             return Container.Get<T>();
         }
 
         /// <summary>
-        /// Configure the container to use a specific subject from now on. 
+        /// Create a substitute and use that from now on. 
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="subject"></param>
-        /// <param name="key"></param>
         /// <returns></returns>
-        protected T Store<T>(T subject, string key = null)
+        public T The<T>(int atIndex)
             where T : class
         {
-            Container.Set<T>(subject);
-            return subject;
-        }
+            var items = Container.Get<List<T>>();
 
-        public void Dispose()
-        {
-            Dispose(true);
+            if (atIndex < items.Count)
+            {
+                return items[atIndex];
+            }
+
+            throw new ArgumentException(string.Format("No object of type {0} was stored at index {1}", typeof(T).Name, atIndex));
         }
 
         protected virtual void Dispose(bool disposing)
@@ -112,6 +121,73 @@ namespace TestStack
             {
                 Container.Dispose();
             }
+        }
+    }
+
+
+    public interface IStoreStateBuilder<T>
+    {
+        TestBase TestBase { get; set; }
+
+        TestBase To(T valueToSet);
+
+    }
+
+    public class StoreStateBuilder<T> : IStoreStateBuilder<T>
+        where T: class
+    {
+        public StoreStateBuilder(TestBase testBase)
+        {
+            TestBase = testBase;
+        }
+
+
+        public virtual TestBase To(T valueToSet)
+        {
+            TestBase.Container.Set(valueToSet);
+            return TestBase;
+        }
+
+
+        public TestBase TestBase { get; set; }
+    }
+
+    public class IndexedStoredStateBuilder<T> : StoreStateBuilder<T> where T : class
+    {
+        public int Index { get; private set; }
+
+        public IndexedStoredStateBuilder(TestBase testBase, int index) : base(testBase)
+        {
+            Index = index;
+        }
+
+        public override TestBase To(T valueToSet)
+        {
+            var list = TestBase.Container.Get<List<T>>();
+
+            if (list == null)
+            {
+                list = new List<T>();
+            }
+
+            while (list.Count < this.Index)
+            {
+                list.Add(default(T));
+            }
+
+            list.Add(valueToSet);
+            TestBase.Container.Set(list);
+
+
+            return TestBase;
+        }
+    }
+
+    public static class StoreStateBuilderExtensions
+    {
+        public static IndexedStoredStateBuilder<T> AtIndex<T>(this IStoreStateBuilder<T> subject, int index) where T : class
+        {
+            return new IndexedStoredStateBuilder<T>(subject.TestBase, index);
         }
     }
 }

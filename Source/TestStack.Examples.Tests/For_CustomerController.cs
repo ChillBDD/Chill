@@ -19,6 +19,10 @@ namespace TestStack.Examples.Tests
             const int customerId = 12;
             public When_deleting_customer()
             {
+                Given(() =>
+                {
+                });
+
                 When(() => Subject.Delete(customerId));
             }
 
@@ -26,7 +30,7 @@ namespace TestStack.Examples.Tests
             [TestMethod]
             public void Then_model_is_the_existing_custmoer()
             {
-                The<ICustomerStore>().Received().DeleteCustomer(customerId);
+                this.The<ICustomerStore>().Received().DeleteCustomer(customerId);
             }
             
         }
@@ -39,7 +43,7 @@ namespace TestStack.Examples.Tests
             {
                 Given(() =>
                 {
-                    Store(EntityMother.BuildACustomer()
+                    SetThe<Customer>().To(EntityMother.BuildACustomer()
                         .With(x => x.Id = customerId));
 
                     The<ICustomerStore>().GetCustomer(customerId).Returns(The<Customer>());
@@ -72,8 +76,10 @@ namespace TestStack.Examples.Tests
             {
                 Given(() =>
                 {
-                    Store(EntityMother.BuildACustomer()
+                    SetThe<Customer>().To(EntityMother.BuildACustomer()
                         .With(x => x.Id = customerId));
+
+                    SetThe<Customer>().AtIndex(1).To(EntityMother.BuildACustomer());
 
                     The<ICustomerStore>()
                         .GetCustomerAsync(customerId)
@@ -81,6 +87,12 @@ namespace TestStack.Examples.Tests
                 });
 
                 When(() => Subject.GetAsync(customerId));
+            }
+
+            [Fact]
+            public void Then_the_second_customer_is_set()
+            {
+                The<Customer>(atIndex: 1).Should().NotBeNull();
             }
 
             [Fact]
@@ -99,14 +111,14 @@ namespace TestStack.Examples.Tests
     }
 
 
-    public static class EntityMother
-    {
-        private static Fixture fixture = new Fixture();
-
-        public static Customer BuildACustomer()
+        public static class EntityMother
         {
-            return fixture.Create<Customer>();
-        }
+            private static Fixture fixture = new Fixture();
 
-    }
+            public static Customer BuildACustomer()
+            {
+                return fixture.Create<Customer>();
+            }
+
+        }
 }

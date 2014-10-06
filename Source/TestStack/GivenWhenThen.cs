@@ -61,12 +61,7 @@ namespace TestStack
 
     public abstract class GivenWhenThen : TestBase
     {
-        protected GivenWhenThen() : base()
-        {
-        }
-
         private Func<Task> _whenAction;
-        private bool _callWhenAction;
 
         public Func<Task> WhenAction
         {
@@ -88,7 +83,6 @@ namespace TestStack
         protected void When(Func<Task> whenActionASync)
         {
             EnsureContainer();
-            _callWhenAction = true;
             if (WhenAction != null)
             {
                 throw new InvalidOperationException("When already defined");
