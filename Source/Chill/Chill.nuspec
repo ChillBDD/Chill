@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Chill</id>
+    <version>0.1</version>
+    <title>Chill BDD Testing</title>
+    <authors>Erwin van der Valk</authors>
+    <owners>Erwin van der Valk</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>http://github.com/erwinvandervalk/chill</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A BDD style testing framework, heavily relying on auto mocking containers. </description>
+    <releaseNotes>
+        First version of the Chill BDD style testing framework. 
+    </releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>BDD TDD AutoMocking</tags>
+  </metadata>
+</package>
