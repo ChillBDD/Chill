@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 using Chill.StateBuilders;
@@ -64,6 +67,12 @@ namespace Chill
         {
             if (ContainerType == null)
             {
+                List<Assembly> allAssemblies = new List<Assembly>();
+                var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                Debug.WriteLine(path);
+                foreach (string dll in Directory.GetFiles(path, "*.dll"))
+                    allAssemblies.Add(Assembly.LoadFile(dll));
+
                 var types = AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(s => s.GetTypes())
                     .Where(p => typeof(IAutoMockingContainer).IsAssignableFrom(p) && p.IsClass)

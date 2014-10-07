@@ -2,7 +2,7 @@ using AutofacContrib.NSubstitute;
 
 namespace Chill.Examples.Tests
 {
-    public class AutoFacNSubstituteAutoMockingContainer : IAutoMockingContainer
+    public class AutofacNSubstituteAutoMockingContainer : IAutoMockingContainer
     {
         private AutoSubstitute container = new AutoSubstitute();
         public T Get<T>() where T : class
