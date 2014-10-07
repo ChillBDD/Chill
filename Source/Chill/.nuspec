@@ -2,9 +2,9 @@
 <package >
   <metadata>
     <id>Chill</id>
-    <version>0.1</version>
+    <version>$version$</version>
     <title>Chill BDD Testing</title>
-    <authors>Erwin van der Valk</authors>
+    <authors>Erwin van der Valk, Dennis Doomen</authors>
     <owners>Erwin van der Valk</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>http://github.com/erwinvandervalk/chill</projectUrl>

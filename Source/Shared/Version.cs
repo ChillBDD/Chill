@@ -1,6 +1,6 @@
 using System.Reflection;
 
-[assembly: AssemblyCompany("www.erwinvandervalk.net")]
+[assembly: AssemblyCompany("www.erwinvandervalk.net, www.dennisdoomen.net")]
 [assembly: AssemblyCopyright("Copyright Erwin van der Valk 2010-2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

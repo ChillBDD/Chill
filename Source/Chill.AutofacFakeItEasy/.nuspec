@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Chill.AutofacFakeItEasy</id>
-    <version>0.1</version>
+    <version>$version$</version>
     <title>Chill BDD Testing</title>
     <authors>Erwin van der Valk, Dennis Doomen</authors>
     <owners>Erwin van der Valk</owners>
