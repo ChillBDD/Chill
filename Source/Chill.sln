@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill", "Chill\Chill.csproj", "{8D10F835-83F1-42EF-A232-EB5806CF9F1C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.Examples.Tests", "Chill.Examples.Tests\Chill.Examples.Tests.csproj", "{1A70F8C2-9C74-4BC3-AB96-89190E2210E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.AutofacFakeItEasy", "Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.csproj", "{CA849AB9-2A34-46AC-8D34-D8E0EE960BF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5D27AD5C-1F45-43A1-8039-12FCA915021D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

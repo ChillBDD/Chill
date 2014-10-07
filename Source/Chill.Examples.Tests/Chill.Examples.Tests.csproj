@@ -66,6 +66,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\Version.cs">
+      <Link>Properties\Version.cs</Link>
+    </Compile>
     <Compile Include="AutoFacNSubstituteAutoMockingContainer.cs" />
     <Compile Include="CustomerController.cs" />
     <Compile Include="For_CustomerController.cs" />
