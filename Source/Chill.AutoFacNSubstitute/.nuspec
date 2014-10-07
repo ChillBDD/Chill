@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Chill.AutofacNSubstitute</id>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <title>Chill Autofac NSubstitute extension</title>
     <authors>Erwin van der Valk, Dennis Doomen</authors>
     <owners>Erwin van der Valk</owners>
