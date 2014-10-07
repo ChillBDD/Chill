@@ -14,6 +14,28 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{599E07
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chill.AutofacNSubstitute", "Chill.AutofacNSubstitute", "{A2494A46-2137-4CD0-BBF9-62602AAFB141}"
+	ProjectSection(SolutionItems) = preProject
+		Chill.AutoFacNSubstitute\.nuspec = Chill.AutoFacNSubstitute\.nuspec
+		Chill.AutoFacNSubstitute\packages.config = Chill.AutoFacNSubstitute\packages.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{61674C8D-7775-4FC7-820B-95BD180D7D1B}"
+	ProjectSection(SolutionItems) = preProject
+		Chill.AutoFacNSubstitute\content\AutoFacNSubstituteAutoMockingContainer.cs = Chill.AutoFacNSubstitute\content\AutoFacNSubstituteAutoMockingContainer.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chill.AutofacFakeItEasy", "Chill.AutofacFakeItEasy", "{E1311665-665F-4EB8-B262-7D867B9054E3}"
+	ProjectSection(SolutionItems) = preProject
+		Chill.AutofacFakeItEasy\.nuspec = Chill.AutofacFakeItEasy\.nuspec
+		Chill.AutofacFakeItEasy\packages.config = Chill.AutofacFakeItEasy\packages.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{956BC950-7C04-45B8-A660-3975368EFFA9}"
+	ProjectSection(SolutionItems) = preProject
+		Chill.AutofacFakeItEasy\Content\AutofacFakeItEasyMockingContainer.cs = Chill.AutofacFakeItEasy\Content\AutofacFakeItEasyMockingContainer.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,5 +53,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{61674C8D-7775-4FC7-820B-95BD180D7D1B} = {A2494A46-2137-4CD0-BBF9-62602AAFB141}
+		{956BC950-7C04-45B8-A660-3975368EFFA9} = {E1311665-665F-4EB8-B262-7D867B9054E3}
 	EndGlobalSection
 EndGlobal

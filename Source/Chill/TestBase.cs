@@ -67,12 +67,6 @@ namespace Chill
         {
             if (ContainerType == null)
             {
-                List<Assembly> allAssemblies = new List<Assembly>();
-                var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                Debug.WriteLine(path);
-                foreach (string dll in Directory.GetFiles(path, "*.dll"))
-                    allAssemblies.Add(Assembly.LoadFile(dll));
-
                 var types = AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(s => s.GetTypes())
                     .Where(p => typeof(IAutoMockingContainer).IsAssignableFrom(p) && p.IsClass)
