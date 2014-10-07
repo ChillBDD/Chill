@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill", "Chill\Chill.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.Examples.Tests", "Chill.Examples.Tests\Chill.Examples.Tests.csproj", "{1A70F8C2-9C74-4BC3-AB96-89190E2210E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.AutofacFakeItEasy", "Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.csproj", "{CA849AB9-2A34-46AC-8D34-D8E0EE960BF9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1A70F8C2-9C74-4BC3-AB96-89190E2210E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A70F8C2-9C74-4BC3-AB96-89190E2210E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A70F8C2-9C74-4BC3-AB96-89190E2210E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA849AB9-2A34-46AC-8D34-D8E0EE960BF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA849AB9-2A34-46AC-8D34-D8E0EE960BF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA849AB9-2A34-46AC-8D34-D8E0EE960BF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA849AB9-2A34-46AC-8D34-D8E0EE960BF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

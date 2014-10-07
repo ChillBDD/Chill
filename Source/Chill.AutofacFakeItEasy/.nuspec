@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Chill.AutofacFakeItEasy</id>
+    <version>0.1</version>
+    <title>Chill BDD Testing</title>
+    <authors>Erwin van der Valk, Dennis Doomen</authors>
+    <owners>Erwin van der Valk</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>http://github.com/erwinvandervalk/chill</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Mocking container based on FakeItEasy and Autofac for the Chill BDD testing library</description>
+    <releaseNotes>
+        
+    </releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>BDD TDD AutoMocking Autofac FakeItEasy</tags>
+  </metadata>
+</package>
