@@ -82,10 +82,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chill.AutoFacNSubstitute\Chill.AutoFacNSubstitute.csproj">
-      <Project>{ec194dd8-89cd-4dbd-8402-0295f3dd8076}</Project>
-      <Name>Chill.AutoFacNSubstitute</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Chill\Chill.csproj">
       <Project>{8D10F835-83F1-42EF-A232-EB5806CF9F1C}</Project>
       <Name>Chill</Name>
