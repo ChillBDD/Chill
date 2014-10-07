@@ -1,5 +1,6 @@
 Chill, a BDD style testing framework
 =====
+##*"If you stick it in a container, Chill will keep it cool."*
 
 The last couple of years, I’ve found myself in a position where I had to ‘sell’ unit testing to my colleagues. Most of them weren't familiar with unit testing, but some were downright against it. So, I tried to work on a way that minimized overhead and maximized readability.
 Unit testing, when done correctly, is a great technique to improve the quality of your code and to speed up development.  When done incorrectly, it will take all technical debt and cast them in concrete, grinding development speed down.
@@ -7,44 +8,38 @@ To overcome this, I’ve worked quite a bit to come up with a set of techniques 
 
 Here’s an example of my preferred style of tests:
 
-```cshar[
+```csharp
 namespace For_CustomerController
 {
-        public class When_retrieving_existing_customer : 
-           TestFor<CustomerController, View> 
+    public class When_retrieving_existing_customer : TestFor<CustomerController, View> 
+    {
+        const int customerId = 12;
+        
+        public When_retrieving_existing_customer()
         {
-            const int customerId = 12;
- 
-            public When_retrieving_existing_customer()
+            Given(() =>
             {
-                Given(() =>
-                {
-                    SetThe<Customer>()
-                        .To(EntityMother.CreateACustomer()
-                            .With(x => x.Id = customerId));
- 
-                    The<ICustomerStore>().GetCustomer(customerId)
-                        .Returns(The<Customer>());
-                });
- 
-                When(() => Subject.Get(customerId));
-            }
- 
-            [Fact]
-            public void Then_view_is_returned()
-            {
-                Result.Should().NotBeNull();
-            }
- 
-            [Fact]
-            public void Then_model_is_the_existing_custmoer()
-            {
-                Result.Model.Should().Be(The<Customer>());
-            }
+                SetThe<Customer>().To(EntityMother.CreateACustomer().With(x => x.Id = customerId));
+            
+                The<ICustomerStore>().GetCustomer(customerId).Returns(The<Customer>());
+            });
+            
+            When(() => Subject.Get(customerId));
         }
+        
+        [Fact]
+        public void Then_view_is_returned()
+        {
+            Result.Should().NotBeNull();
+        }
+        
+        [Fact]
+        public void Then_model_is_the_existing_custmoer()
+        {
+            Result.Model.Should().Be(The<Customer>());
+        }
+    }
 }
-'''
+```
 
-It’s a bit of a mixture between MSpec style, BDD Style testing, and using some really useful frameworks such as XUnit, AutoFac, NSubstitute, FluentAssertions and AutoFixture. So in the next couple of blog posts, I’d like to describe my style of unit testing further.
-
-I've decided to call this framework Chill. "If you stick it in a container, Chill will keep it cool."
+It’s a bit of a mixture between MSpec style, BDD Style testing, and using some really useful frameworks such as [XUnit](https://github.com/xunit/xunit), [AutoFac](http://autofac.org/), [NSubstitute](http://nsubstitute.github.io/), [FluentAssertions](http://www.fluentassertions.com/) and [AutoFixture](https://github.com/AutoFixture/AutoFixture). 
