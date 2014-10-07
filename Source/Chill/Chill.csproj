@@ -40,13 +40,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAutoMockingContainer.cs" />
+    <Compile Include="StateBuilders\IndexedStoredStateBuilder.cs" />
+    <Compile Include="StateBuilders\IStoreStateBuilder.cs" />
+    <Compile Include="StateBuilders\StoreStateBuilder.cs" />
+    <Compile Include="StateBuilders\StoreStateBuilderExtensions.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="CollectionExtensions.cs" />
     <Compile Include="GivenData.cs" />
     <Compile Include="GivenWhenThen.cs" />
-    <Compile Include="TestFor.cs" />
+    <Compile Include="GivenSubject.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestFor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".nuspec" />

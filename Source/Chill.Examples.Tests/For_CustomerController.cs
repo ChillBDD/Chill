@@ -1,4 +1,6 @@
 ﻿using Chill.Examples.Tests.TestSubjects;
+using Chill.StateBuilders;
+
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
@@ -9,7 +11,7 @@ namespace Chill.Examples.Tests
     namespace For_CustomerController
     {
         [TestClass]
-        public class When_deleting_customer : TestFor<CustomerController>
+        public class When_deleting_customer : GivenSubject<CustomerController>
         {
             const int customerId = 12;
             public When_deleting_customer()
@@ -30,7 +32,7 @@ namespace Chill.Examples.Tests
             
         }
 
-        public class When_retrieving_existing_customer : TestFor<CustomerController, View>
+        public class When_retrieving_existing_customer : GivenSubject<CustomerController, View>
         {
             const int customerId = 12;
 
@@ -63,7 +65,7 @@ namespace Chill.Examples.Tests
             }
         }
 
-        public class When_retrieving_existing_customer_async : TestFor<CustomerController, View>
+        public class When_retrieving_existing_customer_async : GivenSubject<CustomerController, View>
         {
             const int customerId = 12;
 

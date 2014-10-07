@@ -1,20 +1,29 @@
-﻿using System;
+using System;
 
 namespace Chill
 {
-    public abstract class TestFor<TSubject, TResult> : GivenWhenThen<TResult>
+    public abstract class TestFor<TSubject>  : TestBase
         where TSubject : class
     {
-  
-
         private Func<IAutoMockingContainer, TSubject> forSubjectFunc;
-        protected TSubject Subject;
+        private TSubject subject;
 
-        protected override void BeforeWhen()
+        protected TSubject Subject
         {
-            if (this.Subject == null)
+            get
             {
-                this.Subject = forSubjectFunc != null ? forSubjectFunc(Container): ForSubject();
+                EnsureSubject();
+
+                return subject;
+            }
+        }
+
+        protected void EnsureSubject()
+        {
+            EnsureContainer();
+            if (this.subject == null)
+            {
+                this.subject = forSubjectFunc != null ? forSubjectFunc(Container) : ForSubject();
             }
         }
 
@@ -28,32 +37,5 @@ namespace Chill
         {
             return Container.Get<TSubject>();
         }
-    }
-
-    public abstract class TestFor<TSubject> : GivenWhenThen
-        where TSubject : class
-    {
-        private Func<IAutoMockingContainer, TSubject> forSubjectFunc;
-        protected TSubject Subject;
-
-        protected override void BeforeWhen()
-        {
-            if (this.Subject == null)
-            {
-                this.Subject = forSubjectFunc != null ? forSubjectFunc(Container) : ForSubject();
-            }
-        }
-
-
-        protected void ForSubject(Func<IAutoMockingContainer, TSubject> subjectFactory)
-        {
-            forSubjectFunc = subjectFactory;
-        }
-
-        protected virtual TSubject ForSubject()
-        {
-            return Container.Get<TSubject>();
-        }
-
     }
 }

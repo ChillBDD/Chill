@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Chill.StateBuilders;
+
 namespace Chill
 {
     /// <summary>
@@ -12,41 +14,47 @@ namespace Chill
     {
         protected bool ExpectExceptions;
         protected Exception CaughtException;
-        public IAutoMockingContainer Container { get; private set; }
-        protected virtual void OnWhen()
+        private IAutoMockingContainer container;
+
+        public IAutoMockingContainer Container
         {
-            try
+            get
             {
-                TriggerWhen().Wait();
-            }
-            catch (Exception ex)
-            {
-                CaughtException = ex;
-            }
-            finally
-            {
-                if (ExpectExceptions && CaughtException == null)
-                    throw new InvalidOperationException("Expected exception but no exception was thrown");
+                EnsureContainer();
+                return container;
             }
         }
 
-        protected virtual Task TriggerWhen()
+        internal void TriggerTest(Func<Task> testAction)
         {
-            return Task.Run(() => { });
+            if (ExpectExceptions)
+            {
+                try
+                {
+                    testAction().Wait();
+                }
+                catch (Exception ex)
+                {
+                    CaughtException = ex;
+                }
+                finally
+                {
+                    if (ExpectExceptions && CaughtException == null)
+                        throw new InvalidOperationException("Expected exception but no exception was thrown");
+                }
+            }
+            else
+            {
+                testAction().Wait();
+            }
         }
 
-
-
-        protected virtual void EnsureContainer()
+        internal void EnsureContainer()
         {
-            if (Container == null)
-                Container = BuildContainer();
-        }
-
-        public void Given(Action a)
-        {
-            EnsureContainer();
-            a();
+            if (container == null)
+            {
+                container = BuildContainer();
+            }
         }
 
 
@@ -121,73 +129,6 @@ namespace Chill
             {
                 Container.Dispose();
             }
-        }
-    }
-
-
-    public interface IStoreStateBuilder<T>
-    {
-        TestBase TestBase { get; set; }
-
-        TestBase To(T valueToSet);
-
-    }
-
-    public class StoreStateBuilder<T> : IStoreStateBuilder<T>
-        where T: class
-    {
-        public StoreStateBuilder(TestBase testBase)
-        {
-            TestBase = testBase;
-        }
-
-
-        public virtual TestBase To(T valueToSet)
-        {
-            TestBase.Container.Set(valueToSet);
-            return TestBase;
-        }
-
-
-        public TestBase TestBase { get; set; }
-    }
-
-    public class IndexedStoredStateBuilder<T> : StoreStateBuilder<T> where T : class
-    {
-        public int Index { get; private set; }
-
-        public IndexedStoredStateBuilder(TestBase testBase, int index) : base(testBase)
-        {
-            Index = index;
-        }
-
-        public override TestBase To(T valueToSet)
-        {
-            var list = TestBase.Container.Get<List<T>>();
-
-            if (list == null)
-            {
-                list = new List<T>();
-            }
-
-            while (list.Count < this.Index)
-            {
-                list.Add(default(T));
-            }
-
-            list.Add(valueToSet);
-            TestBase.Container.Set(list);
-
-
-            return TestBase;
-        }
-    }
-
-    public static class StoreStateBuilderExtensions
-    {
-        public static IndexedStoredStateBuilder<T> AtIndex<T>(this IStoreStateBuilder<T> subject, int index) where T : class
-        {
-            return new IndexedStoredStateBuilder<T>(subject.TestBase, index);
         }
     }
 }
