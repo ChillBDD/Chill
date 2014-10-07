@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".nuspec" />
-    <None Include="AppVeyor.yml" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

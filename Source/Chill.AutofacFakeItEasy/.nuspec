@@ -3,7 +3,7 @@
   <metadata>
     <id>Chill.AutofacFakeItEasy</id>
     <version>$version$</version>
-    <title>Chill BDD Testing</title>
+    <title>Chill Autofac FakeItEasy extension</title>
     <authors>Erwin van der Valk, Dennis Doomen</authors>
     <owners>Erwin van der Valk</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
