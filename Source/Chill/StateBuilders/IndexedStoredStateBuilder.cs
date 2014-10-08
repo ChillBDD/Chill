@@ -20,12 +20,12 @@ namespace Chill.StateBuilders
                 list = new List<T>();
             }
 
-            while (list.Count < this.Index)
+            while (list.Count <= this.Index)
             {
                 list.Add(default(T));
             }
 
-            list.Add(valueToSet);
+            list[Index] = valueToSet;
             TestBase.Container.Set(list);
 
 
