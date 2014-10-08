@@ -1,2 +1,2 @@
-.nuget\nuget.exe pack Chill.AutoFacNSubstitute\.nuspec -BasePath Chill.AutoFacNSubstitute
-.nuget\nuget.exe pack Chill.AutoFacFakeItEasy\.nuspec -BasePath Chill.AutoFacFakeItEasy
+nuget pack Source\Chill.AutoFacNSubstitute\.nuspec -BasePath Source\Chill.AutoFacNSubstitute
+nuget pack Source\Chill.AutoFacFakeItEasy\.nuspec -BasePath Source\Chill.AutoFacFakeItEasy
