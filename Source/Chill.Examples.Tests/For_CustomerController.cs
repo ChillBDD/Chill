@@ -16,13 +16,8 @@ namespace Chill.Examples.Tests
             const int customerId = 12;
             public When_deleting_customer()
             {
-                Given(() =>
-                {
-                });
-
                 When(() => Subject.Delete(customerId));
             }
-
 
             [TestMethod]
             public void Then_model_is_the_existing_custmoer()
@@ -76,20 +71,12 @@ namespace Chill.Examples.Tests
                     SetThe<Customer>().To(EntityMother.BuildACustomer()
                         .With(x => x.Id = customerId));
 
-                    SetThe<Customer>().AtIndex(1).To(EntityMother.BuildACustomer());
-
                     The<ICustomerStore>()
                         .GetCustomerAsync(customerId)
                         .Returns(The<Customer>().Asynchronously());
                 });
 
                 When(() => Subject.GetAsync(customerId));
-            }
-
-            [Fact]
-            public void Then_the_second_customer_is_set()
-            {
-                The<Customer>(atIndex: 1).Should().NotBeNull();
             }
 
             [Fact]

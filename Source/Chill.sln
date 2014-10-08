@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill", "Chill\Chill.csproj", "{8D10F835-83F1-42EF-A232-EB5806CF9F1C}"
 EndProject
@@ -34,6 +34,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{956BC950-7C04-45B8-A660-3975368EFFA9}"
 	ProjectSection(SolutionItems) = preProject
 		Chill.AutofacFakeItEasy\Content\AutofacFakeItEasyMockingContainer.cs = Chill.AutofacFakeItEasy\Content\AutofacFakeItEasyMockingContainer.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{15CA8305-AB53-4C57-99F5-0C4EA698F366}"
+	ProjectSection(SolutionItems) = preProject
+		buildnuget.cmd = buildnuget.cmd
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Global

@@ -11,7 +11,7 @@ Here’s an example of my preferred style of tests:
 ```csharp
 namespace For_CustomerController
 {
-    public class When_retrieving_existing_customer : TestFor<CustomerController, View> 
+    public class When_retrieving_existing_customer : GivenSubject<CustomerController, View> 
     {
         const int customerId = 12;
         
