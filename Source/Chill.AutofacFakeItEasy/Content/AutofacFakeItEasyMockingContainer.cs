@@ -1,4 +1,5 @@
 ﻿using Autofac.Extras.FakeItEasy;
+using Chill;
 
     /// <summary>
     /// An implementation of <see cref="IAutoMockingContainer"/> that uses Autofac and FakeItEasy to build objects
