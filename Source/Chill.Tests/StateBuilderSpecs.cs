@@ -28,13 +28,14 @@ namespace Chill.Tests
                 {
                     SetThe<TestClass>().AtIndex(1).To(new TestClass() { Name = "1" });
                     SetThe<TestClass>().AtIndex(0).To(new TestClass() { Name = "0" });
+                    SetThe<TestClass>().Named("name").To(new TestClass() { Name = "named" });
                 });
             }
 
             [Fact]
             public void Then_testclasses_should_be_found_as_list()
             {
-                The<List<TestClass>>().Count.Should().Be(2);
+                The<List<TestClass>>().Count.Should().Be(3);
             }
 
             [Fact]
@@ -44,6 +45,11 @@ namespace Chill.Tests
                 The<TestClass>(atIndex: 0).Name.Should().Be("0");
             }
 
+            [Fact]
+            public void then_named_testclass_is_present()
+            {
+                The<TestClass>(named: "name").Name.Should().Be("named");
+            }
         }
     }
 
