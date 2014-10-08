@@ -15,5 +15,13 @@
     </releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>BDD TDD AutoMocking Autofac NSubstitute</tags>
+    <dependencies>
+      <group>
+        <dependency id="Chill" />
+        <dependency id="Autofac" />
+        <dependency id="NSubstitute" />
+        <dependency id="AutofacContrib.NSubstitute" />
+      </group>
+    </dependencies>    
   </metadata>
 </package>

@@ -15,5 +15,13 @@
     </releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>BDD TDD AutoMocking Autofac FakeItEasy</tags>
+    <dependencies>
+      <group>
+        <dependency id="Chill" />
+        <dependency id="Autofac" />
+        <dependency id="FakeItEasy" />
+        <dependency id="Autofac.Extras.FakeItEasy" />
+      </group>
+    </dependencies>
   </metadata>
 </package>
