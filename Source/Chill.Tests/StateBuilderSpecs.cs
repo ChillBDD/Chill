@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Chill.StateBuilders;
 using Chill.Tests.TestSubjects;
@@ -12,6 +13,14 @@ namespace Chill.Tests
     public class StateBuilderSpecs : GivenWhenThen
     {
         TestClass expectedTestClass = new TestClass();
+
+        [Fact]
+        public void When_setting_items_directly_then_it_should_be_found()
+        {
+            When(() => UseThe(expectedTestClass));
+        }
+
+
 
         [Fact]
         public void When_setting_testclass_in_container_then_it_should_be_found()

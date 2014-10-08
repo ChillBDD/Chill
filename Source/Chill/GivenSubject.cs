@@ -17,6 +17,11 @@ namespace Chill
         public Func<Task<TResult>> WhenAction
         {
             get { return whenAction; }
+            set
+            {
+                EnsureSubject(); 
+                whenAction = value;
+            }
         }
 
         protected void When(Func<Task<TResult>> whenFunc)
@@ -51,6 +56,11 @@ namespace Chill
         public Func<Task> WhenAction
         {
             get { return _whenAction; }
+            set
+            {
+                EnsureSubject(); 
+                _whenAction = value;
+            }
         }
 
         public void When(Func<Task> whenActionASync)
