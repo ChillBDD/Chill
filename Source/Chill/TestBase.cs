@@ -146,7 +146,7 @@ namespace Chill
         }
 
         /// <summary>
-        /// Get a value from the container, identified by an index.
+        /// Get a value from the container, identified by an index. This should have been set by using <see cref="StoreStateBuilderExtensions.AtIndex{T}"/>.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -161,6 +161,41 @@ namespace Chill
             }
 
             throw new ArgumentException(string.Format("No object of type {0} was stored at index {1}", typeof(T).Name, atIndex));
+        }
+
+        /// <summary>
+        /// Get a value from the container, identified by the name. This should have been set by using <see cref="StoreStateBuilderExtensions.Named{T}"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="named"></param>
+        /// <returns></returns>
+        public T The<T>(string named)
+            where T : class
+        {
+            var items = Container.Get<Dictionary<string, T>>();
+
+            T item;
+            if (!items.TryGetValue(named, out item))
+            {
+                throw new ArgumentException(string.Format("No object of type {0} was stored under name {1}", typeof(T).Name, named));
+            }
+            return item;
+        }
+
+        public IEnumerable<T> All<T>() where T : class
+        {
+            return Container.Get<List<T>>();
+        }
+
+        /// <summary>
+        /// Short hand for setting <see cref="The{T}"/> to a value
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="valueToSet"></param>
+        /// <returns></returns>
+        public T UseThe<T>(T valueToSet) where T : class
+        {
+            return Container.Set<T>(valueToSet);
         }
 
         /// <summary>
