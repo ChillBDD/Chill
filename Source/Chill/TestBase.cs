@@ -125,8 +125,7 @@ namespace Chill
         /// <returns></returns>
         protected static Type FindContainerType()
         {
-            var types = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(s => s.GetTypes())
+            var types = AssemblyTypeResolver.GetAllTypesFromAppDomain()
                 .Where(p => typeof(IAutoMockingContainer).IsAssignableFrom(p) && p.IsClass)
                 .ToList();
 

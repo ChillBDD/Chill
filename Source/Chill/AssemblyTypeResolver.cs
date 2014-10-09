@@ -13,9 +13,9 @@ namespace Chill
     /// This class was adapted from the DefaultReflector from FluentAssertions by Dennis Doomen.
     /// https://github.com/dennisdoomen/fluentassertions/blob/develop/FluentAssertions.Net40/Common/DefaultReflectionProvider.cs
     /// </summary>
-    internal class AssemblyTypeResolver
+    internal static class AssemblyTypeResolver
     {
-        public IEnumerable<Type> GetAllTypesFromAppDomain()
+        public static IEnumerable<Type> GetAllTypesFromAppDomain()
         {
             return AppDomain.CurrentDomain
                 .GetAssemblies()
