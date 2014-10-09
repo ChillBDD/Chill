@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="CustomerController.cs" />
     <Compile Include="For_CustomerController.cs" />
+    <Compile Include="NonChilledTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestSubjects\Customer.cs" />
     <Compile Include="TestSubjects\EntityMother.cs" />
