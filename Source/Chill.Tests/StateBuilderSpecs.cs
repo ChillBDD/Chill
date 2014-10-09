@@ -43,6 +43,13 @@ namespace Chill.Tests
         }
 
         [Fact]
+        public void When_deffering_execution_then_whenaction_can_be_used_to_test_for_exceptions()
+        {
+            When(() => { throw new AbandonedMutexException(); }, deferedExecution: true);
+            WhenAction.ShouldThrow<AbandonedMutexException>();
+        }
+
+        [Fact]
         public void When_no_exception_is_thrown_but_expected_exception_is_used_then_caughtexceptoin_throws()
         {
             When(() => { }, deferedExecution: true);
