@@ -18,9 +18,22 @@ namespace Chill
     /// </summary>
     public abstract class TestBase: IDisposable
     {
-        protected bool ExpectExceptions;
-        protected Exception CaughtException;
+        protected bool DefferedExecution;
+        private bool testTriggered;
+
+        protected Exception CaughtException
+        {
+            get
+            {
+                EnsureTestTriggered(expectExceptions:true);
+                return caughtException;
+            }
+            set { caughtException = value; }
+        }
+
+    
         private IAutoMockingContainer container;
+        private Exception caughtException;
 
         /// <summary>
         /// Automocking IOC container that you can use to build subjects. 
@@ -34,27 +47,42 @@ namespace Chill
             }
         }
 
+        protected internal void EnsureTestTriggered(bool expectExceptions)
+        {
+            if (!testTriggered)
+            {
+                testTriggered = true;
+                TriggerTest(expectExceptions);
+            }
+        }
+
+        internal virtual void TriggerTest(bool expectExceptions)
+        {
+            
+        }
+
         /// <summary>
         /// Trigger a test. If <see cref="ExpectExceptions"/> is true, it will catch any exception and set the
         /// <see cref="CaughtException"/> value to that. Otherwise, the action will just be executed. 
         /// </summary>
         /// <remarks>If <see cref="ExpectExceptions"/> is set and no exception is thrown, an exception will be thrown</remarks>
         /// <param name="testAction"></param>
-        internal void TriggerTest(Func<Task> testAction)
+        /// <param name="expectExceptions"></param>
+        internal void TriggerTest(Func<Task> testAction, bool expectExceptions)
         {
-            if (ExpectExceptions)
+            if (expectExceptions)
             {
                 try
                 {
                     testAction().Wait();
                 }
-                catch (Exception ex)
+                catch (AggregateException ex)
                 {
-                    CaughtException = ex;
+                    CaughtException = ex.GetBaseException();
                 }
                 finally
                 {
-                    if (ExpectExceptions && CaughtException == null)
+                    if (expectExceptions && CaughtException == null)
                         throw new InvalidOperationException("Expected exception but no exception was thrown");
                 }
             }

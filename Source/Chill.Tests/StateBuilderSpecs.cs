@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Chill.StateBuilders;
@@ -20,7 +22,43 @@ namespace Chill.Tests
             When(() => UseThe(expectedTestClass));
         }
 
+        [Fact]
+        public void When_deffering_execution_then_action_is_not_executed_immediately()
+        {
+            When(() => { throw new Exception(); }, deferedExecution:true);
+        }
 
+        [Fact]
+        public void When_deffering_execution_as_property_then_action_is_not_executed_immediately()
+        {
+            DefferedExecution = true;
+            When(() => { throw new Exception(); });
+        }
+
+        [Fact]
+        public void When_exception_is_thrown_in_deffered_execution_expected_exception_is_filled()
+        {
+            When(() => { throw new AbandonedMutexException(); }, deferedExecution:true);
+            CaughtException.Should().BeOfType<AbandonedMutexException>();
+        }
+
+        [Fact]
+        public void When_deffering_execution_then_whenaction_can_be_used_to_test_for_exceptions()
+        {
+            When(() => { throw new AbandonedMutexException(); }, deferedExecution: true);
+            WhenAction.ShouldThrow<AbandonedMutexException>();
+        }
+
+        [Fact]
+        public void When_no_exception_is_thrown_but_expected_exception_is_used_then_caughtexceptoin_throws()
+        {
+            When(() => { }, deferedExecution: true);
+            Action a = () =>
+            {
+                Exception e = CaughtException;
+            };
+            a.ShouldThrow<InvalidOperationException>().WithMessage("Expected exception but no exception was thrown");
+        }
 
         [Fact]
         public void When_setting_testclass_in_container_then_it_should_be_found()
