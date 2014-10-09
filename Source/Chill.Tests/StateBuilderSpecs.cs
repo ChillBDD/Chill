@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Chill.StateBuilders;
@@ -34,6 +35,13 @@ namespace Chill.Tests
             DefferedExecution = true;
             When(() => { throw new Exception(); });
         }
+        public void When_setting_multiple_items_then_they_should_be_set()
+        {
+            When(() => SetAll(new TestClass("1"), new TestClass("2")));
+
+            All<TestClass>().Should().BeEquivalentTo(new[] {new TestClass("1"), new TestClass("2"),});
+        }
+
 
         [Fact]
         public void When_exception_is_thrown_in_deffered_execution_expected_exception_is_filled()
@@ -73,29 +81,22 @@ namespace Chill.Tests
             {
                 Given(() =>
                 {
-                    SetThe<TestClass>().AtIndex(1).To(new TestClass() { Name = "1" });
-                    SetThe<TestClass>().AtIndex(0).To(new TestClass() { Name = "0" });
-                    SetThe<TestClass>().Named("name").To(new TestClass() { Name = "named" });
+                     SetThe<TestClass>().Named("first").To(new TestClass("first"));
+                     SetThe<TestClass>().Named("second").To(new TestClass("second"));
                 });
             }
 
-            [Fact]
-            public void Then_testclasses_should_be_found_as_list()
-            {
-                The<List<TestClass>>().Count.Should().Be(3);
-            }
-
-            [Fact]
-            public void Then_testclasses_should_be_found_at_correct_indexes()
-            {
-                The<TestClass>(atIndex: 1).Name.Should().Be("1");
-                The<TestClass>(atIndex: 0).Name.Should().Be("0");
-            }
 
             [Fact]
             public void then_named_testclass_is_present()
             {
-                The<TestClass>(named: "name").Name.Should().Be("named");
+                TheNamed<TestClass>("first").Name.Should().Be("first");
+            }
+
+            [Fact]
+            public void Then_all_should_be_contain_all_testclasses()
+            {
+                All<TestClass>().Count().Should().Be(2);
             }
         }
     }

@@ -10,6 +10,9 @@ namespace Chill.Examples.Tests
 {
     namespace For_CustomerController
     {
+
+
+
         [TestClass]
         public class When_deleting_customer : GivenSubject<CustomerController>
         {
@@ -24,6 +27,7 @@ namespace Chill.Examples.Tests
             {
                 this.The<ICustomerStore>().Received().DeleteCustomer(customerId);
             }
+
             
         }
 
@@ -33,15 +37,19 @@ namespace Chill.Examples.Tests
 
             public When_retrieving_existing_customer()
             {
+                // Explicit phases for setup
                 Given(() =>
                 {
+                    // Storage for data used in the test. No need to create fields or variables. 
                     SetThe<Customer>().To(EntityMother.BuildACustomer()
                         .With(x => x.Id = customerId));
 
+                    // Automatic creating of mock objects. Here using NSubstitute as a friendly mocking framework
                     The<ICustomerStore>().GetCustomer(customerId).Returns(The<Customer>());
                     
                 });
 
+                // Subject under test is created automatically and accessable via the Subject property
                 When(() => Subject.Get(customerId));
             }
 
@@ -50,12 +58,14 @@ namespace Chill.Examples.Tests
             [Fact]
             public void Then_view_is_returned()
             {
+                // Result property is created automatically, if needed and allows type safe access
                 Result.Should().NotBeNull();
             }
 
             [Fact]
             public void Then_model_is_the_existing_custmoer()
             {
+                // One assert per test
                 Result.Model.Should().Be(The<Customer>());
             }
         }

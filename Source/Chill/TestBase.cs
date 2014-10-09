@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -171,30 +172,12 @@ namespace Chill
         }
 
         /// <summary>
-        /// Get a value from the container, identified by an index. This should have been set by using <see cref="StoreStateBuilderExtensions.AtIndex{T}"/>.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public T The<T>(int atIndex)
-            where T : class
-        {
-            var items = Container.Get<List<T>>();
-
-            if (atIndex < items.Count)
-            {
-                return items[atIndex];
-            }
-
-            throw new ArgumentException(string.Format("No object of type {0} was stored at index {1}", typeof(T).Name, atIndex));
-        }
-
-        /// <summary>
         /// Get a value from the container, identified by the name. This should have been set by using <see cref="StoreStateBuilderExtensions.Named{T}"/>.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="named"></param>
         /// <returns></returns>
-        public T The<T>(string named)
+        public T TheNamed<T>(string named)
             where T : class
         {
             var items = Container.Get<Dictionary<string, T>>();
@@ -207,9 +190,21 @@ namespace Chill
             return item;
         }
 
+        public IEnumerable<T> SetAll<T>(params T[] items)
+            where T : class
+        {
+            return container.AddToList(items);
+        }
+
+        public IEnumerable<T> SetAll<T>(IEnumerable<T> items )
+            where T : class
+        {
+            return container.AddToList(items.ToArray());
+        } 
+
         public IEnumerable<T> All<T>() where T : class
         {
-            return Container.Get<List<T>>();
+            return Container.GetList<T>();
         }
 
         /// <summary>
@@ -233,6 +228,36 @@ namespace Chill
             {
                 Container.Dispose();
             }
+        }
+    }
+
+    public static class AutoMockingContainerExtensions
+    {
+
+        internal static IEnumerable<T> AddToList<T>(this IAutoMockingContainer container, params T[] itemsToAdd)
+            where T:class
+        {
+            var list = GetList<T>(container);
+
+            list.AddRange(itemsToAdd);
+
+
+            return list;
+        }
+
+        internal static List<T> GetList<T>(this IAutoMockingContainer container) where T : class
+        {
+            var dictionary = container.Get<ConcurrentDictionary<Type, object>>();
+
+
+            if (dictionary == null || dictionary.Count == 0)
+            {
+                dictionary = new ConcurrentDictionary<Type, object>();
+            }
+
+            var list = dictionary.GetOrAdd(typeof (T), _ => new List<T>());
+            container.Set(dictionary);
+            return (List<T>)list ;
         }
     }
 }
