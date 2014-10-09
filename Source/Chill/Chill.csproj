@@ -45,7 +45,6 @@
     <Compile Include="IAutoMockingContainer.cs" />
     <Compile Include="AssemblyTypeResolver.cs" />
     <Compile Include="StateBuilders\DictionaryStoredStateBuilder.cs" />
-    <Compile Include="StateBuilders\IndexedStoredStateBuilder.cs" />
     <Compile Include="StateBuilders\IStoreStateBuilder.cs" />
     <Compile Include="StateBuilders\StoreStateBuilder.cs" />
     <Compile Include="StateBuilders\StoreStateBuilderExtensions.cs" />

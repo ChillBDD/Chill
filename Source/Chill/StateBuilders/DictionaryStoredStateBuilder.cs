@@ -21,15 +21,7 @@ namespace Chill.StateBuilders
 
         private void AppendToList(T valueToSet)
         {
-            var list = TestBase.Container.Get<List<T>>();
-
-            if (list == null || list.Count == 0)
-            {
-                list = new List<T>();
-            }
-
-            list.Add(valueToSet);
-            TestBase.Container.Set(list);
+            TestBase.Container.AddToList(valueToSet);
         }
 
         private void AppendToDictionary(T valueToSet)
