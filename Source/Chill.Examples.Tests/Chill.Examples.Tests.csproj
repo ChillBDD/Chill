@@ -66,10 +66,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Chill.AutoFacNSubstitute\content\AutoFacNSubstituteAutoMockingContainer.cs">
+      <Link>AutoFacNSubstituteAutoMockingContainer.cs</Link>
+    </Compile>
     <Compile Include="..\Shared\Version.cs">
       <Link>Properties\Version.cs</Link>
     </Compile>
-    <Compile Include="AutoFacNSubstituteAutoMockingContainer.cs" />
     <Compile Include="CustomerController.cs" />
     <Compile Include="For_CustomerController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
