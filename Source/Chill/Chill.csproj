@@ -43,6 +43,7 @@
       <Link>Properties\Version.cs</Link>
     </Compile>
     <Compile Include="IAutoMockingContainer.cs" />
+    <Compile Include="AssemblyTypeResolver.cs" />
     <Compile Include="StateBuilders\DictionaryStoredStateBuilder.cs" />
     <Compile Include="StateBuilders\IndexedStoredStateBuilder.cs" />
     <Compile Include="StateBuilders\IStoreStateBuilder.cs" />
