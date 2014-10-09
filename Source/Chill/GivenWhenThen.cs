@@ -6,13 +6,13 @@ namespace Chill
     public abstract class GivenWhenThen<TResult> : TestBase
     {
         private Func<Task<TResult>> whenAction;
-        private TResult _result;
+        private TResult result;
 
         protected TResult Result
         {
             get
             {
-                return _result;
+                return result;
             }
         }
 
@@ -26,20 +26,30 @@ namespace Chill
             }
         }
 
-        protected void When(Func<Task<TResult>> whenFunc)
+        protected void When(Func<Task<TResult>> whenFunc, bool? deferedExecution = null)
         {
+            DefferedExecution = deferedExecution ?? DefferedExecution;
             EnsureContainer();
             if (WhenAction != null)
             {
                 throw new InvalidOperationException("When already defined");
             }
             whenAction = whenFunc;
-            TriggerTest(async () => _result = await whenAction());
+            if (!this.DefferedExecution)
+            {
+                EnsureTestTriggered(false);
+            }
+
         }
-    
-        protected void When(Func<TResult> whenFunc)
+
+        internal override void TriggerTest(bool expectExceptions)
         {
-            When(() => Task.Factory.StartNew(whenFunc));
+            TriggerTest(async () => result = await whenAction(), expectExceptions);
+        }
+
+        protected void When(Func<TResult> whenFunc, bool? deferedExecution = null)
+        {
+            When(() => Task.Factory.StartNew(whenFunc), deferedExecution);
 
         }
 
@@ -53,34 +63,42 @@ namespace Chill
 
     public abstract class GivenWhenThen : TestBase
     {
-        private Func<Task> _whenAction;
+        private Func<Task> whenAction;
 
         public Func<Task> WhenAction
         {
-            get { return _whenAction; }
+            get { return whenAction; }
             set
             {
                 EnsureContainer();
-                _whenAction = value;
+                whenAction = value;
             }
         }
 
-        public void When(Func<Task> whenActionASync)
+        public void When(Func<Task> whenActionASync, bool? deferedExecution = null)
         {
+            DefferedExecution = deferedExecution ?? DefferedExecution;
             EnsureContainer();
             if (WhenAction != null)
             {
                 throw new InvalidOperationException("When already defined");
             }
-            _whenAction = whenActionASync;
-            TriggerTest(_whenAction);
+            whenAction = whenActionASync;
+            if (!this.DefferedExecution)
+            {
+                EnsureTestTriggered(false);
+            }
 
         }
-        public void When(Action whenAction)
+        public void When(Action whenAction, bool? deferedExecution = null)
         {
-            When(() => Task.Factory.StartNew(whenAction));
+            When(() => Task.Factory.StartNew(whenAction), deferedExecution);
         }
 
+        internal override void TriggerTest(bool expectExceptions)
+        {
+            TriggerTest(async () => await whenAction(), expectExceptions);
+        }
 
         public void Given(Action a)
         {
