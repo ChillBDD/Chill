@@ -95,7 +95,7 @@ There are a lot of things wrong with this example:
 
 Compare this with a Chill example:
 
-    public class When_retrieving_existing_customer : GivenSubject<CustomerController, View>
+        public class When_retrieving_existing_customer : GivenSubject<CustomerController, View>
         {
             const int customerId = 12;
 
@@ -137,4 +137,46 @@ There is no need to explicitly create mock objects anymore. The **The<>** method
 If you want to explicitly register a value, you can use the **SetThe<>().To()** method to an object. There is also a shorthand for this: **UseThe()**. 
 
 Note the use of the **.With()** extension method. This simple little extension method makes it easy to modify objects afther they have been built, in a very clean way. 
+
+##Asynchronous testing
+Let’s face it. Async programming is difficult. 
+
+The Async Await certainly helps to make the asynchronous code more readable. Along that lines, Chill attempts to help to make your tests more readable as well. 
+
+Assume the following simple example. You have an asynchronous webapi controller. Why is this controller async? Let’s assume it needs to do IO. In this case, this is encapsulated in an async call to ICustomerStore.GetCustomerAsync(). 
+
+        public class When_retrieving_existing_customer_async : GivenSubject<CustomerController, View>
+        {
+            const int customerId = 12;
+
+            public When_retrieving_existing_customer_async()
+            {
+                Given(() =>
+                {
+                    SetThe<Customer>().To(EntityMother.BuildACustomer()
+                        .With(x => x.Id = customerId));
+
+                    The<ICustomerStore>()
+                        .GetCustomerAsync(customerId)
+                        .Returns(The<Customer>().Asynchronously());
+                });
+
+                When(() => Subject.GetAsync(customerId));
+            }
+
+            [Fact]
+            public void Then_view_is_returned()
+            {
+                Result.Should().NotBeNull();
+            }
+
+            [Fact]
+            public void Then_model_is_the_existing_custmoer()
+            {
+                Result.Model.Should().Be(The<Customer>());
+            }
+
+In Chill, you can just define an asynchronous method in your call to **When()**. Chill will take care of handling the asynchronous complexity for you. Now all you need to do is to make sure your dependency return a Task instead of the ‘normal’ result. You can do this by calling the **.Asynchronously()** extension method. 
+
+
 
