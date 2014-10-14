@@ -13,6 +13,7 @@ using Xunit;
 
 namespace Chill.Tests
 {
+    [ChillContainer(typeof(AutofacNSubstituteChillContainer))]
     public class StateBuilderSpecs : GivenWhenThen
     {
         TestClass expectedTestClass = new TestClass();
@@ -75,6 +76,8 @@ namespace Chill.Tests
 
             The<TestClass>().Should().Be(expectedTestClass);
         }
+
+        [ChillContainer(typeof(AutofacNSubstituteChillContainer))]
         public class Given_several_testclasses_in_the_container : GivenWhenThen
         {
             public Given_several_testclasses_in_the_container()

@@ -32,4 +32,9 @@ namespace Chill.Tests.TestSubjects
             return (Name != null ? Name.GetHashCode() : 0);
         }
     }
+
+    public interface ITestService
+    {
+        bool TryMe();
+    }
 }

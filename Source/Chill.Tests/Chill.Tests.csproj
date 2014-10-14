@@ -32,11 +32,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="AutofacContrib.NSubstitute">
+    <Reference Include="Autofac.Extras.FakeItEasy">
+      <HintPath>..\packages\Autofac.Extras.FakeItEasy.3.0.2\lib\net40\Autofac.Extras.FakeItEasy.dll</HintPath>
+    </Reference>
+    <Reference Include="AutofacContrib.NSubstitute, Version=3.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AutofacContrib.NSubstitute.3.3.2\lib\NET40\AutofacContrib.NSubstitute.dll</HintPath>
+    </Reference>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\packages\FakeItEasy.1.18.0\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.dll</HintPath>
@@ -62,6 +70,8 @@
     <Compile Include="..\Chill.AutoFacNSubstitute\content\AutoFacNSubstituteAutoMockingContainer.cs">
       <Link>AutoFacNSubstituteAutoMockingContainer.cs</Link>
     </Compile>
+    <Compile Include="AutofacFakeItEasyMockingContainer.cs" />
+    <Compile Include="AutofacFakeItEasySpec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateBuilderSpecs.cs" />
     <Compile Include="TestSubjects\TestClass.cs" />
@@ -73,6 +83,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

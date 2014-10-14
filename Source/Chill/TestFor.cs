@@ -13,7 +13,7 @@ namespace Chill
     public abstract class TestFor<TSubject>  : TestBase
         where TSubject : class
     {
-        private Func<IAutoMockingContainer, TSubject> subjectFactory;
+        private Func<IChillContainer, TSubject> subjectFactory;
         private TSubject subject;
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Chill
         /// Call this method to override how the subject is being created, or to augment the created subject. 
         /// </summary>
         /// <param name="subjectFactory">The factory method that will create the subject for you. </param>
-        protected void WithSubject(Func<IAutoMockingContainer, TSubject> subjectFactory)
+        protected void WithSubject(Func<IChillContainer, TSubject> subjectFactory)
         {
             this.subjectFactory = subjectFactory;
         }

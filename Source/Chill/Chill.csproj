@@ -42,7 +42,7 @@
     <Compile Include="..\Shared\Version.cs">
       <Link>Properties\Version.cs</Link>
     </Compile>
-    <Compile Include="IAutoMockingContainer.cs" />
+    <Compile Include="IChillContainer.cs" />
     <Compile Include="AssemblyTypeResolver.cs" />
     <Compile Include="StateBuilders\DictionaryStoredStateBuilder.cs" />
     <Compile Include="StateBuilders\IStoreStateBuilder.cs" />

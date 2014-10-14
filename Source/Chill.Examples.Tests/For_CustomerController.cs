@@ -1,4 +1,5 @@
-﻿using Chill.Examples.Tests.TestSubjects;
+﻿using Chill;
+using Chill.Examples.Tests.TestSubjects;
 using Chill.StateBuilders;
 
 using FluentAssertions;
@@ -6,8 +7,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using Xunit;
 
+[assembly: ChillContainer(typeof(AutofacNSubstituteChillContainer))]
+
 namespace Chill.Examples.Tests
 {
+
     namespace For_CustomerController
     {
 

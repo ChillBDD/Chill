@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 using Chill.StateBuilders;
@@ -31,13 +32,13 @@ namespace Chill
         }
 
     
-        private IAutoMockingContainer container;
+        private IChillContainer container;
         private Exception caughtException;
 
         /// <summary>
         /// Automocking IOC container that you can use to build subjects. 
         /// </summary>
-        public IAutoMockingContainer Container
+        public IChillContainer Container
         {
             get
             {
@@ -103,45 +104,31 @@ namespace Chill
         }
 
 
-        private static Type ContainerType;
-
         /// <summary>
         /// Creates an automocking container. By default, it will look in your assemblies to find an implementation 
-        /// of <see cref="IAutoMockingContainer"/> and use that. You can override this method to customize how the container is being 
+        /// of <see cref="IChillContainer"/> and use that. You can override this method to customize how the container is being 
         /// created. 
         /// </summary>
         /// <returns>The automocking container that's used for this test. </returns>
-        protected virtual IAutoMockingContainer BuildContainer()
+        protected virtual IChillContainer BuildContainer()
         {
-            if (ContainerType == null)
-            {
-                ContainerType = FindContainerType();
-            }
-            return (IAutoMockingContainer)Activator.CreateInstance(ContainerType);
+            return (IChillContainer)Activator.CreateInstance(FindContainerType());
         }
 
         /// <summary>
-        /// Searches the loaded assemblies to find an implementation of <see cref="IAutoMockingContainer"/>
+        /// Searches the loaded assemblies to find an implementation of <see cref="IChillContainer"/>
         /// </summary>
         /// <returns></returns>
-        protected static Type FindContainerType()
+        protected Type FindContainerType()
         {
-            var types = AssemblyTypeResolver.GetAllTypesFromAppDomain()
-                .Where(p => typeof(IAutoMockingContainer).IsAssignableFrom(p) && p.IsClass)
-                .ToList();
+            var attribute = this.GetType().GetCustomAttributes(typeof (ChillContainerAttribute)).SingleOrDefault() ??
+                            this.GetType().Assembly.GetCustomAttributes(typeof (ChillContainerAttribute)).SingleOrDefault();
 
-            if (!types.Any())
+            if (attribute == null)
             {
-                throw new InvalidOperationException("No implementation of IContainer could be found.");
+                throw new InvalidOperationException("Could not find the Chill Container. You must have a Chill container registered using the ChillContainerAttribute. Get the Chill Container from one of the extensions. ");
             }
-
-            if (types.Count() > 1)
-            {
-                throw new InvalidOperationException("More than one implementation of IContainer could be found: " +
-                                                    String.Join(",", types.Select(x => x.Name)));
-            }
-            Type containerType = types.First();
-            return containerType;
+            return ((ChillContainerAttribute)attribute).ChillContainerType;
         }
 
 
@@ -234,7 +221,7 @@ namespace Chill
     public static class AutoMockingContainerExtensions
     {
 
-        internal static IEnumerable<T> AddToList<T>(this IAutoMockingContainer container, params T[] itemsToAdd)
+        internal static IEnumerable<T> AddToList<T>(this IChillContainer container, params T[] itemsToAdd)
             where T:class
         {
             var list = GetList<T>(container);
@@ -245,7 +232,7 @@ namespace Chill
             return list;
         }
 
-        internal static List<T> GetList<T>(this IAutoMockingContainer container) where T : class
+        internal static List<T> GetList<T>(this IChillContainer container) where T : class
         {
             var dictionary = container.Get<ConcurrentDictionary<Type, object>>();
 
