@@ -1,10 +1,14 @@
-﻿using Autofac;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Autofac;
 using Autofac.Builder;
 using Autofac.Core;
 using Autofac.Extras.FakeItEasy;
 using Chill;
+using NSubstitute;
 
-    /// <summary>
+/// <summary>
     /// An implementation of <see cref="IAutoMockingContainer"/> that uses Autofac and FakeItEasy to build objects
     /// with mocked dependencies.
     /// </summary>

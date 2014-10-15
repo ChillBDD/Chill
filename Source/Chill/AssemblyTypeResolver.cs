@@ -15,10 +15,9 @@ namespace Chill
     /// </summary>
     internal static class AssemblyTypeResolver
     {
-        public static IEnumerable<Type> GetAllTypesFromAppDomain()
+        public static IEnumerable<Type> GetAllTypesFromAssemblies(IEnumerable<Assembly> assemblies )
         {
-            return AppDomain.CurrentDomain
-                .GetAssemblies()
+            return assemblies
                 .Where(a => !IsDynamic(a))
                 .SelectMany(GetExportedTypes).ToArray();
         }

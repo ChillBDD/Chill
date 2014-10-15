@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using Xunit;
 
-[assembly: ChillContainer(typeof(AutofacNSubstituteChillContainer))]
+[assembly: ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacNSubstituteChillContainer>))]
 
 namespace Chill.Examples.Tests
 {

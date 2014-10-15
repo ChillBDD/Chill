@@ -42,9 +42,11 @@
     <Compile Include="..\Shared\Version.cs">
       <Link>Properties\Version.cs</Link>
     </Compile>
-    <Compile Include="ChillContainerAttribute.cs" />
+    <Compile Include="ChillTestInitializer.cs" />
     <Compile Include="IChillContainer.cs" />
     <Compile Include="AssemblyTypeResolver.cs" />
+    <Compile Include="IChillTestInitializer.cs" />
+    <Compile Include="IAutoMother.cs" />
     <Compile Include="StateBuilders\DictionaryStoredStateBuilder.cs" />
     <Compile Include="StateBuilders\IStoreStateBuilder.cs" />
     <Compile Include="StateBuilders\StoreStateBuilder.cs" />

@@ -13,7 +13,8 @@ using Xunit;
 
 namespace Chill.Tests
 {
-    [ChillContainer(typeof(AutofacNSubstituteChillContainer))]
+    [ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacNSubstituteChillContainer>))]
+
     public class StateBuilderSpecs : GivenWhenThen
     {
         TestClass expectedTestClass = new TestClass();
@@ -77,7 +78,7 @@ namespace Chill.Tests
             The<TestClass>().Should().Be(expectedTestClass);
         }
 
-        [ChillContainer(typeof(AutofacNSubstituteChillContainer))]
+        [ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacFakeItEasyMockingContainer>))]
         public class Given_several_testclasses_in_the_container : GivenWhenThen
         {
             public Given_several_testclasses_in_the_container()
@@ -101,6 +102,31 @@ namespace Chill.Tests
             {
                 All<TestClass>().Count().Should().Be(2);
             }
+        }
+    }
+
+
+    [ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacNSubstituteChillContainer>))]
+    public class AutoMotherSpecs : TestBase
+    {
+        [Fact]
+        public void Can_build_a_type_using_automother()
+        {
+            The<Subject_that_will_be_built_automatically_by_Chill>().Name.Should().Be("I have been built by Chill");
+        }
+
+        [Fact]
+        public void Can_customize_types_built_by_chill()
+        {
+            The<Subject_that_will_be_built_automatically_by_Chill>().Name = "altered";
+            The<Subject_that_will_be_built_automatically_by_Chill>().Name.Should().Be("altered");
+        }
+
+        [Fact]
+        public void Can_customize_named_types_built_by_chill()
+        {
+            TheNamed<Subject_that_will_be_built_automatically_by_Chill>("blah").Name = "altered";
+            TheNamed<Subject_that_will_be_built_automatically_by_Chill>("blah").Name.Should().Be("altered");
         }
     }
 

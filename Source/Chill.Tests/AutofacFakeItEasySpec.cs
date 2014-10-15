@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Chill.Tests
 {
-    [ChillContainer(typeof(AutofacFakeItEasyMockingContainer))]
+    [ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacFakeItEasyMockingContainer>))]
     public class AutofacFakeItEasySpec : TestBase
     {
         [Fact]

@@ -20,6 +20,12 @@ namespace Chill
     {
         protected bool DefferedExecution;
         private bool testTriggered;
+        private bool containerInitialized;
+        internal readonly IChillTestInitializer ChillTestInitializer;
+        public TestBase()
+        {
+            ChillTestInitializer = BuildInitializer();
+        }
 
         protected Exception CaughtException
         {
@@ -101,8 +107,22 @@ namespace Chill
             {
                 container = BuildContainer();
             }
+            EnsureContainerInitialized();
         }
 
+        private void EnsureContainerInitialized()
+        {
+            if (!containerInitialized)
+            {
+                containerInitialized = true;
+                InitializeContainer();
+            }
+        }
+
+        protected virtual void InitializeContainer()
+        {
+            ChillTestInitializer.InitializeContainer(this);
+        }
 
         /// <summary>
         /// Creates an automocking container. By default, it will look in your assemblies to find an implementation 
@@ -112,23 +132,30 @@ namespace Chill
         /// <returns>The automocking container that's used for this test. </returns>
         protected virtual IChillContainer BuildContainer()
         {
-            return (IChillContainer)Activator.CreateInstance(FindContainerType());
+            return ChillTestInitializer.BuildChillContainer();
         }
 
         /// <summary>
         /// Searches the loaded assemblies to find an implementation of <see cref="IChillContainer"/>
         /// </summary>
         /// <returns></returns>
-        protected Type FindContainerType()
+        protected IChillTestInitializer BuildInitializer()
         {
-            var attribute = this.GetType().GetCustomAttributes(typeof (ChillContainerAttribute)).SingleOrDefault() ??
-                            this.GetType().Assembly.GetCustomAttributes(typeof (ChillContainerAttribute)).SingleOrDefault();
+            var attribute = this.GetType().GetCustomAttributes(typeof (ChillTestInitializerAttribute)).SingleOrDefault() ??
+                            this.GetType().Assembly.GetCustomAttributes(typeof(ChillTestInitializerAttribute)).SingleOrDefault();
 
             if (attribute == null)
             {
-                throw new InvalidOperationException("Could not find the Chill Container. You must have a Chill container registered using the ChillContainerAttribute. Get the Chill Container from one of the extensions. ");
+                throw new InvalidOperationException("Could not find the Chill Container. You must have a Chill container registered using the ChillTestInitializer. Get the Chill Container from one of the extensions. ");
             }
-            return ((ChillContainerAttribute)attribute).ChillContainerType;
+            var type = ((ChillTestInitializerAttribute)attribute).ChillTestContextType;
+
+            if (type == null)
+            {
+                throw new InvalidOperationException("The type property on the ChillTestInitializerAttribute should not be null");
+            }
+
+            return (IChillTestInitializer)Activator.CreateInstance(type);
         }
 
 
