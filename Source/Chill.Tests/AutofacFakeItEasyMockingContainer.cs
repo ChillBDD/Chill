@@ -1,4 +1,7 @@
-﻿using Autofac.Extras.FakeItEasy;
+﻿using Autofac;
+using Autofac.Builder;
+using Autofac.Core;
+using Autofac.Extras.FakeItEasy;
 using Chill;
 
     /// <summary>
@@ -9,14 +12,33 @@ using Chill;
     {
         private readonly AutoFake autoFake = new AutoFake();
 
-        public T Get<T>() where T : class
+        public T Get<T>(string key = null) where T : class
         {
-            return autoFake.Resolve<T>();
+            if (key == null)
+            {
+                return autoFake.Resolve<T>();
+            }
+            else
+            {
+                return autoFake.Container.ResolveKeyed<T>(key);
+            }
         }
 
-        public T Set<T>(T valueToSet) where T : class
+        public T Set<T>(T valueToSet, string key = null) where T : class
         {
-            return autoFake.Provide(valueToSet);
+            if (key == null)
+            {
+                return autoFake.Provide(valueToSet);
+            }
+            else
+            {
+                autoFake.Container.ComponentRegistry
+                    .Register(RegistrationBuilder.ForDelegate((c, p) => valueToSet)
+                        .As(new KeyedService(key, typeof (T)))
+                        .InstancePerLifetimeScope().CreateRegistration());
+                return this.autoFake.Container.ResolveKeyed<T>(key);
+
+            }
         }
 
         public void Dispose()

@@ -30,63 +30,29 @@ internal class AutofacNSubstituteChillContainer : IChillContainer
         _substitute.Dispose();
     }
 
-    public T Get<T>() where T : class
+    public T Get<T>(string key = null) where T : class
     {
-        return _substitute.Resolve<T>();
-    }
-
-    public T Set<T>(T valueToSet) where T : class
-    {
-        return _substitute.Provide<T>(valueToSet);
-    }
-}
-
-
-internal class AutofacChillContainer : IChillContainer
-{
-    private IContainer _container;
-    private ContainerBuilder _containerBuilder;
-
-    public AutofacChillContainer() : this(new ContainerBuilder())
-    {
-    }
-    public AutofacChillContainer(IContainer container)
-    {
-        _container = container;
-    }
-
-    public AutofacChillContainer(ContainerBuilder containerBuilder)
-
-    {
-        _containerBuilder = containerBuilder;
-    }
-
-    protected IContainer Container
-    {
-        get
+        if (key == null)
         {
-            if (_container == null)
-                _container = _containerBuilder.Build();
-            return _container;
+            return _substitute.Container.Resolve<T>();
+        }
+        else
+        {
+            return _substitute.Container.ResolveKeyed<T>(key);
         }
     }
 
-    public void Dispose()
+    public T Set<T>(T valueToSet, string key) where T : class
     {
-        Container.Dispose();
-    }
-
-    public T Get<T>() where T : class
-    {
-        return Container.Resolve<T>();
-    }
-
-    public T Set<T>(T valueToSet) where T : class
-    {
-        Container.ComponentRegistry.Register(RegistrationBuilder.ForDelegate((c, p) => valueToSet)
-            .InstancePerLifetimeScope().CreateRegistration()
-        );
-        return Get<T>();
+        if (key == null)
+        {
+            return _substitute.Provide<T>(valueToSet);
+        }
+        else
+        {
+            return _substitute.Provide<T>(valueToSet, key);
+        }
     }
 }
+
 
