@@ -92,7 +92,6 @@ namespace Chill
                 }
                 var item = applicableMothers.First().Create<T>(internalChillContainer);
                 initializedValues.Add(initializedValuesKey, item);
-                Set(item, key);
                 return item;
                 
             }

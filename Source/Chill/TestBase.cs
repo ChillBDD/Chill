@@ -199,7 +199,9 @@ namespace Chill
             T item;
             if (!items.TryGetValue(named, out item))
             {
-                throw new ArgumentException(string.Format("No object of type {0} was stored under name {1}", typeof(T).Name, named));
+                item = Container.Get<T>(named);
+                items.Add(named,item);
+                container.Set(items);
             }
             return item;
         }
