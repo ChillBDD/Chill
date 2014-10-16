@@ -11,7 +11,7 @@ namespace Chill.StateBuilders
 
         public virtual TestBase To(T valueToSet)
         {
-            TestBase.ChillTestInitializer.Set(TestBase, valueToSet);
+            TestBase.Container.Set(valueToSet);
             return TestBase;
         }
 
