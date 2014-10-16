@@ -38,6 +38,12 @@ internal class AutofacChillContainer : IChillContainer
         Container.Dispose();
     }
 
+
+    public void RegisterType<T>()
+    {
+        Container.ComponentRegistry.Register(RegistrationBuilder.ForType<T>().InstancePerLifetimeScope().CreateRegistration());
+    }
+
     public T Get<T>(string key = null) where T : class
     {
         if (key == null)

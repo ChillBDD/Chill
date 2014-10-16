@@ -10,47 +10,61 @@ using AutofacContrib.NSubstitute;
 using Chill;
 using NSubstitute;
 
-internal class AutofacNSubstituteChillContainer : IChillContainer
+internal class AutofacNSubstituteChillContainer : AutofacChillContainer
 {
-    private IContainer _container;
-    private AutoSubstitute _substitute;
 
-
-    public AutofacNSubstituteChillContainer()
+    public AutofacNSubstituteChillContainer() : base(CreateBuilder())
     {
-        _substitute = new AutoSubstitute(ConfigureContainer);
+    }
+
+    static ContainerBuilder CreateBuilder()
+    {
+        var containerBuilder = new ContainerBuilder();
+        containerBuilder.RegisterSource(new NSubstituteRegistrationHandler());
+        return containerBuilder;
     }
 
     private void ConfigureContainer(ContainerBuilder obj)
     {
     }
 
-    public void Dispose()
-    {
-        _substitute.Dispose();
-    }
 
-    public T Get<T>(string key = null) where T : class
+    /// <summary> Resolves unknown interfaces and Mocks using the <see cref="Substitute"/>. </summary>
+    internal class NSubstituteRegistrationHandler : IRegistrationSource
     {
-        if (key == null)
+        /// <summary>
+        /// Retrieve a registration for an unregistered service, to be used
+        /// by the container.
+        /// </summary>
+        /// <param name="service">The service that was requested.</param>
+        /// <param name="registrationAccessor"></param>
+        /// <returns>
+        /// Registrations for the service.
+        /// </returns>
+        public IEnumerable<IComponentRegistration> RegistrationsFor
+            (Service service, Func<Service, IEnumerable<IComponentRegistration>> registrationAccessor)
         {
-            return _substitute.Container.Resolve<T>();
-        }
-        else
-        {
-            return _substitute.Container.ResolveKeyed<T>(key);
-        }
-    }
+            if (service == null)
+                throw new ArgumentNullException("service");
 
-    public T Set<T>(T valueToSet, string key) where T : class
-    {
-        if (key == null)
-        {
-            return _substitute.Provide<T>(valueToSet);
+            var typedService = service as IServiceWithType;
+            if (typedService == null ||
+                !typedService.ServiceType.IsInterface ||
+                typedService.ServiceType.IsGenericType && typedService.ServiceType.GetGenericTypeDefinition() == typeof(IEnumerable<>) ||
+                typedService.ServiceType.IsArray ||
+                typeof(IStartable).IsAssignableFrom(typedService.ServiceType))
+                return Enumerable.Empty<IComponentRegistration>();
+
+            var rb = RegistrationBuilder.ForDelegate((c, p) => Substitute.For(new[] { typedService.ServiceType }, null))
+                .As(service)
+                .InstancePerLifetimeScope();
+
+            return new[] { rb.CreateRegistration() };
         }
-        else
+
+        public bool IsAdapterForIndividualComponents
         {
-            return _substitute.Provide<T>(valueToSet, key);
+            get { return false; }
         }
     }
 }

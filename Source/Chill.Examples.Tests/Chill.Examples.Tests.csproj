@@ -69,6 +69,9 @@
     <Compile Include="..\Chill.AutoFacNSubstitute\content\AutoFacNSubstituteAutoMockingContainer.cs">
       <Link>AutoFacNSubstituteAutoMockingContainer.cs</Link>
     </Compile>
+    <Compile Include="..\Chill.Autofac\Content\Chill\AutofacChillContainer.cs">
+      <Link>AutofacChillContainer.cs</Link>
+    </Compile>
     <Compile Include="..\Shared\Version.cs">
       <Link>Properties\Version.cs</Link>
     </Compile>

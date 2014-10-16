@@ -8,6 +8,8 @@ namespace Chill
     /// </summary>
     public interface IChillContainer : IDisposable
     {
+        void RegisterType<T>();
+
         T Get<T>(string key = null) where T : class;
 
         T Set<T>(T valueToSet, string key = null) where T : class;

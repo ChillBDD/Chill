@@ -26,11 +26,11 @@ namespace Chill.StateBuilders
 
         private void AppendToDictionary(T valueToSet)
         {
-            var dictionary = TestBase.Container.Get<Dictionary<string, T>>();
+            var dictionary = TestBase.Container.Get<Dictionary<string, object>>();
 
             if (dictionary == null || dictionary.Count == 0)
             {
-                dictionary = new Dictionary<string, T>();
+                dictionary = new Dictionary<string, object>();
             }
 
             dictionary[Named] = valueToSet;

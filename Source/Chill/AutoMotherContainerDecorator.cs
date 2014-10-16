@@ -21,6 +21,11 @@ namespace Chill
             internalChillContainer.Dispose();
         }
 
+        public void RegisterType<T>()
+        {
+            internalChillContainer.RegisterType<T>();
+        }
+
         public T Get<T>(string key = null) where T : class
         {
             // Combine the type and key into a string

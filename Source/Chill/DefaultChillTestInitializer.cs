@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -44,6 +45,8 @@ namespace Chill
         {
             if (_container != null)
             {
+                _container.RegisterType<Dictionary<Type, object>>();
+                _container.RegisterType<Dictionary<string, object>>();
                 _container.LoadAutoMothers(FindRelevantAssemblies(test));
             }
         }

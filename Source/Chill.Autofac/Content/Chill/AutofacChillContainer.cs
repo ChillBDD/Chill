@@ -1,4 +1,9 @@
 
+using Autofac;
+using Autofac.Builder;
+using Autofac.Core;
+using Chill;
+
 internal class AutofacChillContainer : IChillContainer
 {
     private IContainer _container;
@@ -33,16 +38,40 @@ internal class AutofacChillContainer : IChillContainer
         Container.Dispose();
     }
 
-    public T Get<T>() where T : class
+
+    public void RegisterType<T>()
     {
-        return Container.Resolve<T>();
+        Container.ComponentRegistry.Register(RegistrationBuilder.ForType<T>().InstancePerLifetimeScope().CreateRegistration());
     }
 
-    public T Set<T>(T valueToSet) where T : class
+    public T Get<T>(string key = null) where T : class
     {
-        Container.ComponentRegistry.Register(RegistrationBuilder.ForDelegate((c, p) => valueToSet)
-            .InstancePerLifetimeScope().CreateRegistration()
-        );
+        if (key == null)
+        {
+            return Container.Resolve<T>();
+        }
+        else
+        {
+            return Container.ResolveKeyed<T>(key);
+        }
+    }
+
+    public T Set<T>(T valueToSet, string key = null) where T : class
+    {
+        if (key == null)
+        {
+            Container.ComponentRegistry
+                .Register(RegistrationBuilder.ForDelegate((c, p) => valueToSet)
+                    .InstancePerLifetimeScope().CreateRegistration());
+
+        }
+        else
+        {
+            Container.ComponentRegistry
+                    .Register(RegistrationBuilder.ForDelegate((c, p) => valueToSet)
+                        .As(new KeyedService(key, typeof(T)))
+                        .InstancePerLifetimeScope().CreateRegistration());
+        }
         return Get<T>();
     }
 }

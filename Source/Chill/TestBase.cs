@@ -194,16 +194,16 @@ namespace Chill
         public T TheNamed<T>(string named)
             where T : class
         {
-            var items = Container.Get<Dictionary<string, T>>();
+            var items = Container.Get<Dictionary<string, object>>(typeof(T).AssemblyQualifiedName);
 
-            T item;
+            object item;
             if (!items.TryGetValue(named, out item))
             {
                 item = Container.Get<T>(named);
                 items.Add(named,item);
-                container.Set(items);
+                container.Set(items, typeof(T).AssemblyQualifiedName);
             }
-            return item;
+            return (T)item;
         }
 
         public IEnumerable<T> SetAll<T>(params T[] items)
@@ -263,16 +263,21 @@ namespace Chill
 
         internal static List<T> GetList<T>(this IChillContainer container) where T : class
         {
-            var dictionary = container.Get<ConcurrentDictionary<Type, object>>();
+            var dictionary = container.Get<Dictionary<Type, object>>();
 
 
             if (dictionary == null || dictionary.Count == 0)
             {
-                dictionary = new ConcurrentDictionary<Type, object>();
+                dictionary = new Dictionary<Type, object>();
             }
 
-            var list = dictionary.GetOrAdd(typeof (T), _ => new List<T>());
-            container.Set(dictionary);
+            object list;
+            if (!dictionary.TryGetValue(typeof (T), out list))
+            {
+                list = new List<T>();
+                dictionary.Add(typeof (T), list);
+                container.Set(dictionary);
+            }
             return (List<T>)list ;
         }
     }

@@ -41,6 +41,7 @@ namespace Chill
             EnsureContainer();
             if (this.subject == null)
             {
+                Container.RegisterType<TSubject>();
                 this.subject = subjectFactory != null ? subjectFactory(Container) : BuildSubject();
             }
         }
