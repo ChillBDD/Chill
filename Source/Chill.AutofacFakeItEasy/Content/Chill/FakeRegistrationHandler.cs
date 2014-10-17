@@ -90,10 +90,11 @@ namespace Autofac.Extras.FakeItEasy
                 throw new ArgumentNullException("service");
             }
 
-            var typedService = service as TypedService;
+            var typedService = service as IServiceWithType;
             if (typedService == null ||
-                (!typedService.ServiceType.IsInterface && !typedService.ServiceType.IsAbstract) ||
-                (typedService.ServiceType.IsGenericType && typedService.ServiceType.GetGenericTypeDefinition() == typeof(IEnumerable<>)) ||
+                !typedService.ServiceType.IsInterface ||
+                typedService.ServiceType.IsGenericType &&
+                typedService.ServiceType.GetGenericTypeDefinition() == typeof(IEnumerable<>) ||
                 typedService.ServiceType.IsArray ||
                 typeof(IStartable).IsAssignableFrom(typedService.ServiceType))
             {
@@ -113,7 +114,7 @@ namespace Autofac.Extras.FakeItEasy
         /// <param name="typedService">The typed service.</param>
         /// <returns>A fake object.</returns>
         [SecuritySafeCritical]
-        private object CreateFake(TypedService typedService)
+        private object CreateFake(IServiceWithType typedService)
         {
             return this._createMethod.MakeGenericMethod(new[] { typedService.ServiceType }).Invoke(this, null);
         }

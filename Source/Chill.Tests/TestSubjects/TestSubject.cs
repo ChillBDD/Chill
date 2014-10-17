@@ -9,6 +9,11 @@ namespace Chill.Tests.TestSubjects
             _testService = testService;
         }
 
+        public bool DoSomething()
+        {
+            return _testService.TryMe();
+        }
+
         public ITestService TestService
         {
             get { return _testService; }

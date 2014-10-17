@@ -236,6 +236,17 @@ namespace Chill
         }
 
         /// <summary>
+        /// Short hand for setting <see cref="The{T}"/> to a value
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="valueToSet"></param>
+        /// <returns></returns>
+        public T UseThe<T>(T valueToSet, string named) where T : class
+        {
+            return Container.Set<T>(valueToSet);
+        }
+
+        /// <summary>
         /// Clean up all instances created by the container. 
         /// </summary>
         /// <param name="disposing"></param>
@@ -281,5 +292,7 @@ namespace Chill
             }
             return (List<T>)list ;
         }
+
+        
     }
 }

@@ -27,11 +27,6 @@ namespace Chill.Autofac
             return containerBuilder;
         }
 
-        private void ConfigureContainer(ContainerBuilder obj)
-        {
-        }
-
-
         /// <summary> Resolves unknown interfaces and Mocks using the <see cref="Substitute"/>. </summary>
         internal class NSubstituteRegistrationHandler : IRegistrationSource
         {

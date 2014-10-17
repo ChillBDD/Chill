@@ -80,9 +80,11 @@
       <Link>Chill\AutofacChillContainer.cs</Link>
     </Compile>
     <Compile Include="AutofacFakeItEasySpec.cs" />
+    <Compile Include="CoreScenarios\GivenSubjectSpecs.cs" />
+    <Compile Include="CoreScenarios\TestBaseSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateBuilderSpecs.cs" />
-    <Compile Include="TestBaseSpecs.cs" />
+    <Compile Include="AutoFacNSubstituteSpecs.cs" />
     <Compile Include="TestSubjects\ITestService.cs" />
     <Compile Include="TestSubjects\Subject_built_By_Chill_AutoMother.cs" />
     <Compile Include="TestSubjects\TestAutoMother.cs" />
