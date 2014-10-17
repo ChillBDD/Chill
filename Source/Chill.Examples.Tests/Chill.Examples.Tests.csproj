@@ -66,11 +66,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Chill.AutoFacNSubstitute\content\AutoFacNSubstituteAutoMockingContainer.cs">
-      <Link>AutoFacNSubstituteAutoMockingContainer.cs</Link>
-    </Compile>
     <Compile Include="..\Chill.Autofac\Content\Chill\AutofacChillContainer.cs">
-      <Link>AutofacChillContainer.cs</Link>
+      <Link>Chill\AutofacChillContainer.cs</Link>
     </Compile>
     <Compile Include="..\Shared\Version.cs">
       <Link>Properties\Version.cs</Link>
@@ -97,6 +94,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <Import Project="..\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems" Label="Shared" Condition="Exists('..\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Chill.Autofac;
 using Chill.StateBuilders;
 using Chill.Tests.TestSubjects;
 

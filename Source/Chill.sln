@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill", "Chill\Chill.csproj", "{8D10F835-83F1-42EF-A232-EB5806CF9F1C}"
 EndProject
@@ -14,28 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{599E07
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chill.AutofacNSubstitute", "Chill.AutofacNSubstitute", "{A2494A46-2137-4CD0-BBF9-62602AAFB141}"
-	ProjectSection(SolutionItems) = preProject
-		Chill.AutoFacNSubstitute\.nuspec = Chill.AutoFacNSubstitute\.nuspec
-		Chill.AutoFacNSubstitute\packages.config = Chill.AutoFacNSubstitute\packages.config
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{61674C8D-7775-4FC7-820B-95BD180D7D1B}"
-	ProjectSection(SolutionItems) = preProject
-		Chill.AutoFacNSubstitute\content\AutoFacNSubstituteAutoMockingContainer.cs = Chill.AutoFacNSubstitute\content\AutoFacNSubstituteAutoMockingContainer.cs
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chill.AutofacFakeItEasy", "Chill.AutofacFakeItEasy", "{E1311665-665F-4EB8-B262-7D867B9054E3}"
-	ProjectSection(SolutionItems) = preProject
-		Chill.AutofacFakeItEasy\.nuspec = Chill.AutofacFakeItEasy\.nuspec
-		Chill.AutofacFakeItEasy\packages.config = Chill.AutofacFakeItEasy\packages.config
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{956BC950-7C04-45B8-A660-3975368EFFA9}"
-	ProjectSection(SolutionItems) = preProject
-		Chill.AutofacFakeItEasy\Content\AutofacFakeItEasyMockingContainer.cs = Chill.AutofacFakeItEasy\Content\AutofacFakeItEasyMockingContainer.cs
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{15CA8305-AB53-4C57-99F5-0C4EA698F366}"
 	ProjectSection(SolutionItems) = preProject
 		buildnuget.cmd = buildnuget.cmd
@@ -44,16 +22,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.Tests", "Chill.Tests\Chill.Tests.csproj", "{10871583-2FE0-4ACD-8787-6D6D285C82D9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chill.Autofac", "Chill.Autofac", "{75B4CB31-EEFD-46A3-991A-073C861EE9C6}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Chill.Autofac", "Chill.Autofac\Chill.Autofac.shproj", "{0153E5BE-FDE8-4B00-84E5-D6C7F0EAB03D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{17F07D12-0A38-4C33-986D-06A1D611CE32}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Chill.AutofacNSubstitute", "Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.shproj", "{BD0E5FD7-97EE-4FB0-A2F3-38A3C5B18C41}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chill", "Chill", "{D2CC72BA-E823-48A0-83F6-BEAE2AF60494}"
-	ProjectSection(SolutionItems) = preProject
-		Chill.Autofac\Content\Chill\AutofacChillContainer.cs = Chill.Autofac\Content\Chill\AutofacChillContainer.cs
-	EndProjectSection
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Chill.AutofacFakeItEasy", "Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.shproj", "{B287D2B7-6050-47BF-8A6C-118AEF6F93C6}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems*{b287d2b7-6050-47bf-8a6c-118aef6f93c6}*SharedItemsImports = 13
+		Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{1a70f8c2-9c74-4bc3-ab96-89190e2210e9}*SharedItemsImports = 4
+		Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{bd0e5fd7-97ee-4fb0-a2f3-38a3c5b18c41}*SharedItemsImports = 13
+		Chill.Autofac\Chill.Autofac.projitems*{0153e5be-fde8-4b00-84e5-d6c7f0eab03d}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -74,11 +55,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{61674C8D-7775-4FC7-820B-95BD180D7D1B} = {A2494A46-2137-4CD0-BBF9-62602AAFB141}
-		{956BC950-7C04-45B8-A660-3975368EFFA9} = {E1311665-665F-4EB8-B262-7D867B9054E3}
-		{17F07D12-0A38-4C33-986D-06A1D611CE32} = {75B4CB31-EEFD-46A3-991A-073C861EE9C6}
-		{D2CC72BA-E823-48A0-83F6-BEAE2AF60494} = {17F07D12-0A38-4C33-986D-06A1D611CE32}
 	EndGlobalSection
 EndGlobal

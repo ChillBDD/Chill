@@ -67,11 +67,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Chill.AutoFacNSubstitute\content\AutoFacNSubstituteAutoMockingContainer.cs">
-      <Link>AutoFacNSubstituteAutoMockingContainer.cs</Link>
+    <Compile Include="..\Chill.AutofacFakeItEasy\Content\Chill\AutofacFakeItEasyMockingContainer.cs">
+      <Link>Chill\AutofacFakeItEasyMockingContainer.cs</Link>
     </Compile>
-    <Compile Include="AutofacChillContainer.cs" />
-    <Compile Include="AutofacFakeItEasyMockingContainer.cs" />
+    <Compile Include="..\Chill.AutofacFakeItEasy\Content\Chill\FakeRegistrationHandler.cs">
+      <Link>Chill\FakeRegistrationHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Chill.AutofacNSubstitute\Content\Chill\AutoFacNSubstituteAutoMockingContainer.cs">
+      <Link>Chill\AutoFacNSubstituteAutoMockingContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\Chill.Autofac\Content\Chill\AutofacChillContainer.cs">
+      <Link>Chill\AutofacChillContainer.cs</Link>
+    </Compile>
     <Compile Include="AutofacFakeItEasySpec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateBuilderSpecs.cs" />

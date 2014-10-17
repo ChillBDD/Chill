@@ -1,4 +1,5 @@
 ﻿using Chill;
+using Chill.Autofac;
 using Chill.Examples.Tests.TestSubjects;
 using Chill.StateBuilders;
 
