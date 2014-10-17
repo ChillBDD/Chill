@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Chill.StateBuilders
@@ -26,14 +27,16 @@ namespace Chill.StateBuilders
 
         private void AppendToDictionary(T valueToSet)
         {
-            var dictionary = TestBase.Container.Get<Dictionary<string, object>>();
+            var dictionary = TestBase.Container.Get<Dictionary<Tuple<Type, string>, object>>();
+
+            var key = Tuple.Create(typeof(T), Named);
 
             if (dictionary == null || dictionary.Count == 0)
             {
-                dictionary = new Dictionary<string, object>();
+                dictionary = new Dictionary<Tuple<Type, string>, object>();
             }
 
-            dictionary[Named] = valueToSet;
+            dictionary[key] = valueToSet;
             TestBase.Container.Set(dictionary);
         }
     }

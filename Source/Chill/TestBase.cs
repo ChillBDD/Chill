@@ -194,14 +194,15 @@ namespace Chill
         public T TheNamed<T>(string named)
             where T : class
         {
-            var items = Container.Get<Dictionary<string, object>>(typeof(T).AssemblyQualifiedName);
+            var items = Container.Get<Dictionary<Tuple<Type, string>, object>>();
+            var key = Tuple.Create(typeof(T), named);
 
             object item;
-            if (!items.TryGetValue(named, out item))
+            if (!items.TryGetValue(key, out item))
             {
                 item = Container.Get<T>(named);
-                items.Add(named,item);
-                container.Set(items, typeof(T).AssemblyQualifiedName);
+                items.Add(key, item);
+                container.Set(items);
             }
             return (T)item;
         }

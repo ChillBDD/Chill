@@ -46,7 +46,7 @@ namespace Chill
             if (_container != null)
             {
                 _container.RegisterType<Dictionary<Type, object>>();
-                _container.RegisterType<Dictionary<string, object>>();
+                _container.RegisterType<Dictionary<Tuple<Type, string>, object>>();
                 _container.LoadAutoMothers(FindRelevantAssemblies(test));
             }
         }
