@@ -86,13 +86,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chill\Chill.csproj">
-      <Project>{8D10F835-83F1-42EF-A232-EB5806CF9F1C}</Project>
-      <Name>Chill</Name>
-    </ProjectReference>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+    <ProjectReference Include="..\Chill.Net45_W8_WP81_WPA81\Chill.Net45_W8_WP81_WPA81.csproj">
+      <Project>{de6907cc-326a-4621-af39-f3c1bfcbd375}</Project>
+      <Name>Chill.Net45_W8_WP81_WPA81</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems" Label="Shared" Condition="Exists('..\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-
 using Chill.StateBuilders;
 
 namespace Chill
@@ -16,12 +13,13 @@ namespace Chill
     /// It also has a convenient method <see cref="TriggerTest"/> you can call that will trigger an async test func
     /// and capture any exceptions that might have occurred. 
     /// </summary>
-    public abstract class TestBase: IDisposable
+    public abstract class TestBase : IDisposable
     {
         protected bool DefferedExecution;
         private bool testTriggered;
         private bool containerInitialized;
         internal readonly IChillTestInitializer ChillTestInitializer;
+
         public TestBase()
         {
             ChillTestInitializer = BuildInitializer();
@@ -31,13 +29,13 @@ namespace Chill
         {
             get
             {
-                EnsureTestTriggered(expectExceptions:true);
+                EnsureTestTriggered(expectExceptions: true);
                 return caughtException;
             }
             set { caughtException = value; }
         }
 
-    
+
         private IChillContainer container;
         private Exception caughtException;
 
@@ -64,7 +62,6 @@ namespace Chill
 
         internal virtual void TriggerTest(bool expectExceptions)
         {
-            
         }
 
         /// <summary>
@@ -141,21 +138,35 @@ namespace Chill
         /// <returns></returns>
         protected IChillTestInitializer BuildInitializer()
         {
-            var attribute = this.GetType().GetCustomAttributes(typeof (ChillTestInitializerAttribute)).SingleOrDefault() ??
-                            this.GetType().Assembly.GetCustomAttributes(typeof(ChillTestInitializerAttribute)).SingleOrDefault();
+#if WINRT
+            var attribute =
+                GetType()
+                    .GetTypeInfo()
+                    .GetCustomAttributes(typeof (ChillTestInitializerAttribute), false)
+                    .SingleOrDefault() ??
+                GetType()
+                    .GetTypeInfo()
+                    .Assembly.GetCustomAttributes(typeof (ChillTestInitializerAttribute))
+                    .SingleOrDefault();
+#else
+            var attribute = GetType().GetCustomAttributes(typeof (ChillTestInitializerAttribute), false).SingleOrDefault() ??
+                            GetType().Assembly.GetCustomAttributes(typeof(ChillTestInitializerAttribute), false).SingleOrDefault();
+#endif
 
             if (attribute == null)
             {
-                throw new InvalidOperationException("Could not find the Chill Container. You must have a Chill container registered using the ChillTestInitializer. Get the Chill Container from one of the extensions. ");
+                throw new InvalidOperationException(
+                    "Could not find the Chill Container. You must have a Chill container registered using the ChillTestInitializer. Get the Chill Container from one of the extensions. ");
             }
-            var type = ((ChillTestInitializerAttribute)attribute).ChillTestContextType;
+            var type = ((ChillTestInitializerAttribute) attribute).ChillTestContextType;
 
             if (type == null)
             {
-                throw new InvalidOperationException("The type property on the ChillTestInitializerAttribute should not be null");
+                throw new InvalidOperationException(
+                    "The type property on the ChillTestInitializerAttribute should not be null");
             }
 
-            return (IChillTestInitializer)Activator.CreateInstance(type);
+            return (IChillTestInitializer) Activator.CreateInstance(type);
         }
 
 
@@ -195,7 +206,7 @@ namespace Chill
             where T : class
         {
             var items = Container.Get<Dictionary<Tuple<Type, string>, object>>();
-            var key = Tuple.Create(typeof(T), named);
+            var key = Tuple.Create(typeof (T), named);
 
             object item;
             if (!items.TryGetValue(key, out item))
@@ -204,7 +215,7 @@ namespace Chill
                 items.Add(key, item);
                 container.Set(items);
             }
-            return (T)item;
+            return (T) item;
         }
 
         public IEnumerable<T> SetAll<T>(params T[] items)
@@ -213,11 +224,11 @@ namespace Chill
             return container.AddToList(items);
         }
 
-        public IEnumerable<T> SetAll<T>(IEnumerable<T> items )
+        public IEnumerable<T> SetAll<T>(IEnumerable<T> items)
             where T : class
         {
             return container.AddToList(items.ToArray());
-        } 
+        }
 
         public IEnumerable<T> All<T>() where T : class
         {
@@ -261,9 +272,8 @@ namespace Chill
 
     public static class AutoMockingContainerExtensions
     {
-
         internal static IEnumerable<T> AddToList<T>(this IChillContainer container, params T[] itemsToAdd)
-            where T:class
+            where T : class
         {
             var list = GetList<T>(container);
 
@@ -290,9 +300,7 @@ namespace Chill
                 dictionary.Add(typeof (T), list);
                 container.Set(dictionary);
             }
-            return (List<T>)list ;
+            return (List<T>) list;
         }
-
-        
     }
 }

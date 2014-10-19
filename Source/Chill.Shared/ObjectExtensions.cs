@@ -13,7 +13,7 @@ namespace Chill
 
         public static Task<T> Asynchronously<T>(this T subject)
         {
-            return Task.Run(() => subject);
+            return Task.Factory.StartNew(() => subject);
         }
 
     }

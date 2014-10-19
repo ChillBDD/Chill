@@ -12,7 +12,8 @@ namespace Chill.Autofac
     /// </summary>
     internal class AutofacFakeItEasyMockingContainer : AutofacChillContainer
     {
-        public AutofacFakeItEasyMockingContainer() : base(CreateContainerBuilder())
+        public AutofacFakeItEasyMockingContainer()
+            : base(CreateContainerBuilder())
         {
 
         }
