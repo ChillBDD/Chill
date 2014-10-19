@@ -47,6 +47,7 @@ namespace Chill.Tests
                 Subject.DoSomething().Should().BeTrue();
                 A.CallTo(() => The<ITestService>().TryMe()).MustHaveHappened();
             }
+
         }
 
         [ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacFakeItEasyMockingContainer>))]

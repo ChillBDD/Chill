@@ -1,3 +1,6 @@
+using System.Threading;
+using System.Threading.Tasks;
+
 using Chill.Tests.TestSubjects;
 
 using FluentAssertions;
@@ -39,6 +42,64 @@ namespace Chill.Tests.CoreScenarios
         public void Can_get_named_service()
         {
             TheNamed<ITestService>("abc").Should().NotBeNull();
+        }
+
+        [Fact]
+        public void Given_is_executed_before_when()
+        {
+            string message = "";
+            Given(() => message += "given");
+            Given(() => message += "given");
+            When(() => message+= "when");
+            message.Should().Be("givengivenwhen");
+        }
+
+        [Fact]
+        public void Can_Defer_when()
+        {
+            string message = "";
+            Given(() => message += "given");
+            When(() => message += "when", deferedExecution:true);
+            message.Should().Be("given");
+            WhenAction().Wait();
+            message.Should().Be("givenwhen");
+        }
+
+        [Fact]
+        public void Can_Defer_when_with_property()
+        {
+            this.DefferedExecution = true;
+            string message = "";
+            Given(() => message += "given");
+            When(() => message += "when");
+            message.Should().Be("given");
+            WhenAction().Wait();
+            message.Should().Be("givenwhen");
+        }
+
+        [Fact]
+        public void Can_execute_async_method()
+        {
+            SetThe<IAsyncService>().To(new AsyncService());
+            bool result = false;
+            When(async () => result = await The<IAsyncService>().DoSomething());
+            result.Should().Be(true);
+        }
+
+        interface IAsyncService
+        {
+            Task<bool> DoSomething();
+
+        }
+
+        private class AsyncService : IAsyncService
+        {
+            public async Task<bool> DoSomething()
+            {
+                await Task.Delay(100);
+                return true;
+            }
+
         }
     }
 }
