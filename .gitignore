@@ -183,3 +183,6 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+Source/Package/Lib/
+Source/Package/*.nupkg
