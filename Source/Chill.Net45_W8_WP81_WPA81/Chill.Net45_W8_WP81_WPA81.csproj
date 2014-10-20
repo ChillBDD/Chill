@@ -40,11 +40,6 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include=".nuspec">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
   <Import Project="..\Chill.Shared\Chill.Shared.projitems" Label="Shared" Condition="Exists('..\Chill.Shared\Chill.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
