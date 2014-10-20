@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill", "Chill\Chill.csproj", "{8D10F835-83F1-42EF-A232-EB5806CF9F1C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.Examples.Tests", "Chill.Examples.Tests\Chill.Examples.Tests.csproj", "{1A70F8C2-9C74-4BC3-AB96-89190E2210E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{599E0765-5AAF-455C-8960-C7DCC2C7CDBF}"
@@ -20,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.Tests", "Chill.Tests\Chill.Tests.csproj", "{10871583-2FE0-4ACD-8787-6D6D285C82D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.Net45.Tests", "Chill.Tests\Chill.Net45.Tests.csproj", "{10871583-2FE0-4ACD-8787-6D6D285C82D9}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Chill.Autofac", "Chill.Autofac\Chill.Autofac.shproj", "{0153E5BE-FDE8-4B00-84E5-D6C7F0EAB03D}"
 EndProject
@@ -28,22 +26,34 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Chill.AutofacNSubstitute", 
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Chill.AutofacFakeItEasy", "Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.shproj", "{B287D2B7-6050-47BF-8A6C-118AEF6F93C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.Net40_SL5", "Chill.Net40_SL5\Chill.Net40_SL5.csproj", "{608F1B86-2D5C-448F-9ECB-F649FB5A5B6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.Net45_W8_WP81_WPA81", "Chill.Net45_W8_WP81_WPA81\Chill.Net45_W8_WP81_WPA81.csproj", "{DE6907CC-326A-4621-AF39-F3C1BFCBD375}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Chill.Shared", "Chill.Shared\Chill.Shared.shproj", "{29CD0883-250A-4121-A344-1377E99E3886}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Chill.Tests.Shared", "Chill.Tests.Shared\Chill.Tests.Shared.shproj", "{48CC618C-DE45-4A20-ACEB-1AE5B2EB5C1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.Net40.Tests", "Chill.Net40.Tests\Chill.Net40.Tests.csproj", "{1C71180A-266B-4D4D-82DB-C5D85C00FEBE}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Chill.Tests.Shared\Chill.Tests.Shared.projitems*{48cc618c-de45-4a20-aceb-1ae5b2eb5c1c}*SharedItemsImports = 13
+		Chill.Shared\Chill.Shared.projitems*{608f1b86-2d5c-448f-9ecb-f649fb5a5b6e}*SharedItemsImports = 4
 		Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems*{b287d2b7-6050-47bf-8a6c-118aef6f93c6}*SharedItemsImports = 13
+		Chill.Tests.Shared\Chill.Tests.Shared.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
 		Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{1a70f8c2-9c74-4bc3-ab96-89190e2210e9}*SharedItemsImports = 4
 		Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{bd0e5fd7-97ee-4fb0-a2f3-38a3c5b18c41}*SharedItemsImports = 13
+		Chill.Shared\Chill.Shared.projitems*{de6907cc-326a-4621-af39-f3c1bfcbd375}*SharedItemsImports = 4
+		Chill.Shared\Chill.Shared.projitems*{29cd0883-250a-4121-a344-1377e99e3886}*SharedItemsImports = 13
 		Chill.Autofac\Chill.Autofac.projitems*{0153e5be-fde8-4b00-84e5-d6c7f0eab03d}*SharedItemsImports = 13
+		Chill.Tests.Shared\Chill.Tests.Shared.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8D10F835-83F1-42EF-A232-EB5806CF9F1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D10F835-83F1-42EF-A232-EB5806CF9F1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D10F835-83F1-42EF-A232-EB5806CF9F1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D10F835-83F1-42EF-A232-EB5806CF9F1C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1A70F8C2-9C74-4BC3-AB96-89190E2210E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A70F8C2-9C74-4BC3-AB96-89190E2210E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A70F8C2-9C74-4BC3-AB96-89190E2210E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -52,6 +62,18 @@ Global
 		{10871583-2FE0-4ACD-8787-6D6D285C82D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10871583-2FE0-4ACD-8787-6D6D285C82D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10871583-2FE0-4ACD-8787-6D6D285C82D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{608F1B86-2D5C-448F-9ECB-F649FB5A5B6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{608F1B86-2D5C-448F-9ECB-F649FB5A5B6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{608F1B86-2D5C-448F-9ECB-F649FB5A5B6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{608F1B86-2D5C-448F-9ECB-F649FB5A5B6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE6907CC-326A-4621-AF39-F3C1BFCBD375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE6907CC-326A-4621-AF39-F3C1BFCBD375}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE6907CC-326A-4621-AF39-F3C1BFCBD375}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE6907CC-326A-4621-AF39-F3C1BFCBD375}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C71180A-266B-4D4D-82DB-C5D85C00FEBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C71180A-266B-4D4D-82DB-C5D85C00FEBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C71180A-266B-4D4D-82DB-C5D85C00FEBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C71180A-266B-4D4D-82DB-C5D85C00FEBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

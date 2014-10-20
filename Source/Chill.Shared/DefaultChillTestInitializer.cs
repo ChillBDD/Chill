@@ -23,7 +23,12 @@ namespace Chill
         /// <returns>List of assemblies to scan.</returns>
         public virtual IEnumerable<Assembly> FindRelevantAssemblies(TestBase test)
         {
+#if WINRT
+            yield return test.GetType().GetTypeInfo().Assembly;
+#else
             yield return test.GetType().Assembly;
+#endif
+
         }
 
         /// <summary>

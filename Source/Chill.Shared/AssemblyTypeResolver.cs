@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 
 namespace Chill
 {
@@ -24,23 +22,22 @@ namespace Chill
 
         private static bool IsDynamic(Assembly assembly)
         {
-            return (assembly is AssemblyBuilder) ||
-                   (assembly.GetType().FullName == "System.Reflection.Emit.InternalAssemblyBuilder");
+            return assembly.GetType().FullName.Contains("InternalAssemblyBuilder");
         }
 
         private static IEnumerable<Type> GetExportedTypes(Assembly assembly)
         {
             try
             {
+#if WINRT
+                return assembly.DefinedTypes.Select(dt => dt.AsType()).ToArray();
+#else
                 return assembly.GetTypes();
+#endif
             }
             catch (ReflectionTypeLoadException ex)
             {
                 return ex.Types;
-            }
-            catch (FileLoadException)
-            {
-                return new Type[0];
             }
             catch (Exception)
             {

@@ -63,13 +63,20 @@ namespace Chill
 
         public void LoadAutoMothers(IEnumerable<Assembly> assemblies)
         {
-            var types = AssemblyTypeResolver.GetAllTypesFromAssemblies(assemblies)
-                .Where(x => typeof(IAutoMother).IsAssignableFrom(x));
-
+            IEnumerable<Type> types = AssemblyTypeResolver.GetAllTypesFromAssemblies(assemblies).Where(IsAutoMother);
             foreach (var type in types)
             {
                 autoMothers.Add((IAutoMother)Activator.CreateInstance(type));
             }
+        }
+
+        private static bool IsAutoMother(Type x)
+        {
+#if WINRT
+            return typeof (IAutoMother).GetTypeInfo().IsAssignableFrom(x.GetTypeInfo());
+#else
+            return typeof(IAutoMother).IsAssignableFrom(x);
+#endif
 
         }
     }
