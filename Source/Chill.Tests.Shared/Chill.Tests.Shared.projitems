@@ -6,7 +6,7 @@
     <SharedGUID>48cc618c-de45-4a20-aceb-1ae5b2eb5c1c</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Chill.Tests.Shared</Import_RootNamespace>
+    <Import_RootNamespace>Chill.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)CoreScenarios\GivenSubjectSpecs.cs" />

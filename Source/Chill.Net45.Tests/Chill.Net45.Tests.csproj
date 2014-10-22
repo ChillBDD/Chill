@@ -36,8 +36,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="FakeItEasy">
-      <HintPath>..\packages\FakeItEasy.1.18.0\lib\net40\FakeItEasy.dll</HintPath>
+    <Reference Include="FakeItEasy, Version=1.24.0.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FakeItEasy.1.24.0\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.dll</HintPath>
@@ -82,9 +83,9 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chill.Net45_W8_WP81_WPA81\Chill.Net45_W8_WP81_WPA81.csproj">
-      <Project>{de6907cc-326a-4621-af39-f3c1bfcbd375}</Project>
-      <Name>Chill.Net45_W8_WP81_WPA81</Name>
+    <ProjectReference Include="..\Chill.Net45\Chill.Net45.csproj">
+      <Project>{b56888bb-74e2-4a75-8fb6-017ba7023874}</Project>
+      <Name>Chill.Net45</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\Chill.Tests.Shared\Chill.Tests.Shared.projitems" Label="Shared" Condition="Exists('..\Chill.Tests.Shared\Chill.Tests.Shared.projitems')" />
