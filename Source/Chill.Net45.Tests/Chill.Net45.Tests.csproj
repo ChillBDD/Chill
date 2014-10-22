@@ -36,13 +36,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Extras.FakeItEasy">
-      <HintPath>..\packages\Autofac.Extras.FakeItEasy.3.0.2\lib\net40\Autofac.Extras.FakeItEasy.dll</HintPath>
-    </Reference>
-    <Reference Include="AutofacContrib.NSubstitute, Version=3.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AutofacContrib.NSubstitute.3.3.2\lib\NET40\AutofacContrib.NSubstitute.dll</HintPath>
-    </Reference>
     <Reference Include="FakeItEasy">
       <HintPath>..\packages\FakeItEasy.1.18.0\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
@@ -59,7 +52,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -90,12 +82,11 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chill.Net40_SL5\Chill.Net40_SL5.csproj">
-      <Project>{608F1B86-2D5C-448F-9ECB-F649FB5A5B6E}</Project>
-      <Name>Chill.Net40_SL5</Name>
+    <ProjectReference Include="..\Chill.Net45_W8_WP81_WPA81\Chill.Net45_W8_WP81_WPA81.csproj">
+      <Project>{de6907cc-326a-4621-af39-f3c1bfcbd375}</Project>
+      <Name>Chill.Net45_W8_WP81_WPA81</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="..\Chill.Tests.Shared\Chill.Tests.Shared.projitems" Label="Shared" Condition="Exists('..\Chill.Tests.Shared\Chill.Tests.Shared.projitems')" />
   <Import Project="..\Chill.Tests.Shared\Chill.Tests.Shared.projitems" Label="Shared" Condition="Exists('..\Chill.Tests.Shared\Chill.Tests.Shared.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

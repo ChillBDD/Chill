@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.Examples.Tests", "Chill.Examples.Tests\Chill.Examples.Tests.csproj", "{1A70F8C2-9C74-4BC3-AB96-89190E2210E9}"
 EndProject
@@ -45,13 +45,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{29
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{DD0DDAC9-872E-4C5B-AB54-97F6103B396E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.Net45", "Chill.Net45\Chill.Net45.csproj", "{B56888BB-74E2-4A75-8FB6-017BA7023874}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Chill.Tests.Shared\Chill.Tests.Shared.projitems*{48cc618c-de45-4a20-aceb-1ae5b2eb5c1c}*SharedItemsImports = 13
 		Chill.Shared\Chill.Shared.projitems*{608f1b86-2d5c-448f-9ecb-f649fb5a5b6e}*SharedItemsImports = 4
+		Chill.Shared\Chill.Shared.projitems*{b56888bb-74e2-4a75-8fb6-017ba7023874}*SharedItemsImports = 4
 		Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems*{b287d2b7-6050-47bf-8a6c-118aef6f93c6}*SharedItemsImports = 13
 		Chill.Tests.Shared\Chill.Tests.Shared.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
-		Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{1a70f8c2-9c74-4bc3-ab96-89190e2210e9}*SharedItemsImports = 4
 		Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{bd0e5fd7-97ee-4fb0-a2f3-38a3c5b18c41}*SharedItemsImports = 13
 		Chill.Shared\Chill.Shared.projitems*{de6907cc-326a-4621-af39-f3c1bfcbd375}*SharedItemsImports = 4
 		Chill.Shared\Chill.Shared.projitems*{29cd0883-250a-4121-a344-1377e99e3886}*SharedItemsImports = 13
@@ -83,6 +85,10 @@ Global
 		{1C71180A-266B-4D4D-82DB-C5D85C00FEBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C71180A-266B-4D4D-82DB-C5D85C00FEBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C71180A-266B-4D4D-82DB-C5D85C00FEBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B56888BB-74E2-4A75-8FB6-017BA7023874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B56888BB-74E2-4A75-8FB6-017BA7023874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B56888BB-74E2-4A75-8FB6-017BA7023874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B56888BB-74E2-4A75-8FB6-017BA7023874}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +104,6 @@ Global
 		{29CD0883-250A-4121-A344-1377E99E3886} = {DD0DDAC9-872E-4C5B-AB54-97F6103B396E}
 		{48CC618C-DE45-4A20-ACEB-1AE5B2EB5C1C} = {7F3C4D9B-4901-47EF-ABB6-B14D9EA3DDFC}
 		{1C71180A-266B-4D4D-82DB-C5D85C00FEBE} = {7F3C4D9B-4901-47EF-ABB6-B14D9EA3DDFC}
+		{B56888BB-74E2-4A75-8FB6-017BA7023874} = {DD0DDAC9-872E-4C5B-AB54-97F6103B396E}
 	EndGlobalSection
 EndGlobal

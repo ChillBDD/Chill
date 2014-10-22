@@ -1,13 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Autofac;
 using Autofac.Builder;
 using Autofac.Core;
-using Autofac.Features.ResolveAnything;
-using AutofacContrib.NSubstitute;
-using Chill;
 using NSubstitute;
 
 namespace Chill.Autofac
