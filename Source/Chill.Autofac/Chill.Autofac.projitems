@@ -6,7 +6,7 @@
     <SharedGUID>0153e5be-fde8-4b00-84e5-d6c7f0eab03d</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Chill.Autofac1</Import_RootNamespace>
+    <Import_RootNamespace>Chill.Autofac</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Content\Chill\AutofacChillContainer.cs" />
