@@ -14,7 +14,7 @@
 [Rr]eleases/
 x64/
 x86/
-build/
+Source/**/build/
 bld/
 [Bb]in/
 [Oo]bj/
@@ -137,6 +137,7 @@ publish/
 **/packages/*
 # except build/, which is used as an MSBuild target.
 !**/packages/build/
+!**/packages/Microsoft.Bcl*/
 # If using the old MSBuild-Integrated Package Restore, uncomment this:
 #!**/packages/repositories.config
 !**/.nuget/*
@@ -183,3 +184,6 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+Source/Package/Lib/
+Source/Package/*.nupkg

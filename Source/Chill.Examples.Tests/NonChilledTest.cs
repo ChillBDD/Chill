@@ -1,13 +1,13 @@
 ﻿using Chill.Examples.Tests.TestSubjects;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using Xunit;
+
 
 namespace Chill.Examples.Tests
 {
-    [TestClass]
     class NonChilledTest
     {
-        [TestMethod]
+        [Fact]
         public void TestWithoutTheChillFactor()
         {
             // You have to explicitly create mocks for your dependencies and store them in variables.
@@ -33,7 +33,7 @@ namespace Chill.Examples.Tests
             var result = sut.Get(123);
 
             // Multiple asserts per test? 
-            Assert.AreSame(expectedCustomer, result.Model);
+            Assert.Same(expectedCustomer, result.Model);
             mockCustomerStore.Received().GetCustomer(123);
         }
     }

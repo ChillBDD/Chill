@@ -1,19 +1,20 @@
-﻿using Chill.Examples.Tests.TestSubjects;
-using Chill.StateBuilders;
-
+﻿using Chill;
+using Chill.Autofac;
+using Chill.Examples.Tests.TestSubjects;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using Xunit;
 
+[assembly: ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacNSubstituteChillContainer>))]
+
 namespace Chill.Examples.Tests
 {
+
     namespace For_CustomerController
     {
 
 
 
-        [TestClass]
         public class When_deleting_customer : GivenSubject<CustomerController>
         {
             const int customerId = 12;
@@ -22,7 +23,7 @@ namespace Chill.Examples.Tests
                 When(() => Subject.Delete(customerId));
             }
 
-            [TestMethod]
+            [Fact]
             public void Then_model_is_the_existing_custmoer()
             {
                 this.The<ICustomerStore>().Received().DeleteCustomer(customerId);

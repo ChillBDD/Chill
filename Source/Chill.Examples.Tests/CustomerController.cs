@@ -1,6 +1,4 @@
 using System.Threading.Tasks;
-using Autofac.Core;
-using AutofacContrib.NSubstitute;
 using Chill.Examples.Tests.TestSubjects;
 
 namespace Chill.Examples.Tests
