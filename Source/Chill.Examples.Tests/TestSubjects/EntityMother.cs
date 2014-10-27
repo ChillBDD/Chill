@@ -2,14 +2,12 @@ using Ploeh.AutoFixture;
 
 namespace Chill.Examples.Tests.TestSubjects
 {
-    public static class EntityMother
+    public class CustomerMother : ObjectMother<Customer>
     {
-        private static Fixture fixture = new Fixture();
-
-        public static Customer BuildACustomer()
+        static Fixture fixture = new Fixture();
+        protected override Customer Create()
         {
             return fixture.Create<Customer>();
         }
-
     }
 }

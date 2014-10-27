@@ -41,9 +41,8 @@ namespace Chill.Examples.Tests
                 // Explicit phases for setup
                 Given(() =>
                 {
-                    // Storage for data used in the test. No need to create fields or variables. 
-                    SetThe<Customer>().To(EntityMother.BuildACustomer()
-                        .With(x => x.Id = customerId));
+                    The<Customer>()
+                        .With(x => x.Id = customerId);
 
                     // Automatic creating of mock objects. Here using NSubstitute as a friendly mocking framework
                     The<ICustomerStore>().GetCustomer(customerId).Returns(The<Customer>());
@@ -79,8 +78,8 @@ namespace Chill.Examples.Tests
             {
                 Given(() =>
                 {
-                    SetThe<Customer>().To(EntityMother.BuildACustomer()
-                        .With(x => x.Id = customerId));
+                    The<Customer>()
+                        .With(x => x.Id = customerId);
 
                     The<ICustomerStore>()
                         .GetCustomerAsync(customerId)

@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Builder;
 using Autofac.Core;
 using Chill;
+using System;
 
 namespace Chill.Autofac
 {
@@ -75,6 +76,17 @@ namespace Chill.Autofac
                         .InstancePerLifetimeScope().CreateRegistration());
             }
             return Get<T>();
+        }
+
+
+        public bool IsRegistered<T>()
+        {
+            return IsRegistered(typeof(T));
+        }
+
+        public bool IsRegistered(System.Type type)
+        {
+            return Container.IsRegistered(type);
         }
     }
 }

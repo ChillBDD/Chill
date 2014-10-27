@@ -13,5 +13,8 @@ namespace Chill
         T Get<T>(string key = null) where T : class;
 
         T Set<T>(T valueToSet, string key = null) where T : class;
+
+        bool IsRegistered<T>();
+        bool IsRegistered(Type type);
     }
 }

@@ -102,7 +102,7 @@ namespace Chill
         {
             if (container == null)
             {
-                container = BuildContainer();
+                container = ChillTestInitializer.BuildChillContainer(this);
             }
             EnsureContainerInitialized();
         }
@@ -127,9 +127,9 @@ namespace Chill
         /// created. 
         /// </summary>
         /// <returns>The automocking container that's used for this test. </returns>
-        protected virtual IChillContainer BuildContainer()
+        public virtual IChillContainer BuildContainer(Type containerType) 
         {
-            return ChillTestInitializer.BuildChillContainer();
+            return (IChillContainer)Activator.CreateInstance(containerType);
         }
 
         /// <summary>

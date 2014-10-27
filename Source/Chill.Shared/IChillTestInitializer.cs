@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Reflection;
+using System;
 
 namespace Chill
 {
@@ -10,7 +11,7 @@ namespace Chill
     {
         IEnumerable<Assembly> FindRelevantAssemblies(TestBase test);
 
-        IChillContainer BuildChillContainer();
+        IChillContainer BuildChillContainer(TestBase test);
 
         void InitializeContainer(TestBase test);
     }

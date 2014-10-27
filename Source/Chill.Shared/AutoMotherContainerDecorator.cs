@@ -28,6 +28,12 @@ namespace Chill
 
         public T Get<T>(string key = null) where T : class
         {
+
+            if (internalChillContainer.IsRegistered<T>())
+            {
+                return internalChillContainer.Get<T>();
+            }
+
             // Combine the type and key into a string
             var initializedValuesKey = new Tuple<Type, string>(typeof (T), key);
             if (initializedValues.ContainsKey(initializedValuesKey))
@@ -63,7 +69,8 @@ namespace Chill
 
         public void LoadAutoMothers(IEnumerable<Assembly> assemblies)
         {
-            IEnumerable<Type> types = AssemblyTypeResolver.GetAllTypesFromAssemblies(assemblies).Where(IsAutoMother);
+            IEnumerable<Type> types = AssemblyTypeResolver.GetAllTypesFromAssemblies(assemblies)
+                .Where(IsAutoMother);
             foreach (var type in types)
             {
                 autoMothers.Add((IAutoMother)Activator.CreateInstance(type));
@@ -75,9 +82,20 @@ namespace Chill
 #if WINRT
             return typeof (IAutoMother).GetTypeInfo().IsAssignableFrom(x.GetTypeInfo());
 #else
-            return typeof(IAutoMother).IsAssignableFrom(x);
+            return typeof(IAutoMother).IsAssignableFrom(x) && !x.IsAbstract;
 #endif
 
+        }
+
+
+        public bool IsRegistered<T>()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsRegistered(Type type)
+        {
+            throw new NotImplementedException();
         }
     }
 }

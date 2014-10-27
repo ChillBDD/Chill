@@ -14,6 +14,7 @@ namespace Chill
     public class DefaultChillTestInitializer<TContainerType> : IChillTestInitializer
         where TContainerType : IChillContainer, new()
     {
+
         private AutoMotherContainerDecorator _container;
 
         /// <summary>
@@ -35,9 +36,9 @@ namespace Chill
         /// Build the Chill Container. This container will be wrapped in a AutoMotherContainerDecorator. 
         /// </summary>
         /// <returns></returns>
-        public virtual IChillContainer BuildChillContainer()
+        public virtual IChillContainer BuildChillContainer(TestBase testBase)
         {
-            return _container =  new AutoMotherContainerDecorator(new TContainerType());
+            return _container =  new AutoMotherContainerDecorator(testBase.BuildContainer(typeof(TContainerType)));
         }
 
         /// <summary>
