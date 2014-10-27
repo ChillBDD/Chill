@@ -13,67 +13,6 @@ namespace Chill.Examples.Tests
 {
 
 
-    public class AutofacChillContainerSpecs
-    {
-        
-        [ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacContainerWithCustomModule>))]
-        public class When_configuring_container_with_module_and_objectmother : GivenWhenThen
-        {
-            [Fact]
-            public void Then_testservice_is_registered_through_module()
-            {
-                The<ITestService>().GetType().Should().Be(typeof(TestService));
-            }
-
-            [Fact]
-            public void Then_customer_is_resolved_through_Customer_Automother()
-            {
-                The<Customer>().Name.Should().NotBeNull();
-            }
-
-            [Fact]
-            public void Then_cannot_resolve_unknown_interface()
-            {
-                Action a = () => The<IAppDomainSetup>();
-
-                a.ShouldThrow<ComponentNotRegisteredException>();
-            }
-
-
-        }
-
-        /// <summary>
-        /// You can define 'non mocking' with all the type registrations that you would otherwise in your application. 
-        /// This can either be done in the App
-        /// </summary>
-        internal class AutofacContainerWithCustomModule : AutofacChillContainer
-        {
-            public AutofacContainerWithCustomModule()
-                : base(CreateContainerBuilder())
-            {
-
-            }
-
-            private static ContainerBuilder CreateContainerBuilder()
-            {
-                var builder = new ContainerBuilder();
-                builder.RegisterModule<CustomAutofacModule>();
-                return builder;
-            }
-        }
-
-
-
-        public class CustomAutofacModule  : Module
-        {
-            protected override void Load(ContainerBuilder builder)
-            {
-                builder.RegisterType<TestService>().As<ITestService>();
-                base.Load(builder);
-            }
-        }
-
-    }
 
     public class IntegrationTests
     {
@@ -92,15 +31,6 @@ namespace Chill.Examples.Tests
 
 
     
-    public interface ITestService
-    {
-
-    }
-    public class TestService : ITestService
-    {
-
-    }
-
     public class ServerMother : ObjectMother<Server>
     {
         protected override Server Create()
