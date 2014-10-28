@@ -18,12 +18,12 @@ namespace Chill.Tests
 
     public class StateBuilderSpecs : GivenWhenThen
     {
-        TestClass expectedTestClass = new TestClass();
+        AClass _expectedAClass = new AClass();
 
         [Fact]
         public void When_setting_items_directly_then_it_should_be_found()
         {
-            When(() => UseThe(expectedTestClass));
+            When(() => UseThe(_expectedAClass));
         }
 
         [Fact]
@@ -40,9 +40,9 @@ namespace Chill.Tests
         }
         public void When_setting_multiple_items_then_they_should_be_set()
         {
-            When(() => SetAll(new TestClass("1"), new TestClass("2")));
+            When(() => SetAll(new AClass("1"), new AClass("2")));
 
-            All<TestClass>().Should().BeEquivalentTo(new[] {new TestClass("1"), new TestClass("2"),});
+            All<AClass>().Should().BeEquivalentTo(new[] {new AClass("1"), new AClass("2"),});
         }
 
 
@@ -74,9 +74,9 @@ namespace Chill.Tests
         [Fact]
         public void When_setting_testclass_in_container_then_it_should_be_found()
         {
-            When(() => SetThe<TestClass>().To(expectedTestClass));
+            When(() => SetThe<AClass>().To(_expectedAClass));
 
-            The<TestClass>().Should().Be(expectedTestClass);
+            The<AClass>().Should().Be(_expectedAClass);
         }
 
         [ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacFakeItEasyMockingContainer>))]
@@ -86,8 +86,8 @@ namespace Chill.Tests
             {
                 Given(() =>
                 {
-                     SetThe<TestClass>().Named("first").To(new TestClass("first"));
-                     SetThe<TestClass>().Named("second").To(new TestClass("second"));
+                     SetThe<AClass>().Named("first").To(new AClass("first"));
+                     SetThe<AClass>().Named("second").To(new AClass("second"));
                 });
             }
 
@@ -95,13 +95,13 @@ namespace Chill.Tests
             [Fact]
             public void then_named_testclass_is_present()
             {
-                TheNamed<TestClass>("first").Name.Should().Be("first");
+                TheNamed<AClass>("first").Name.Should().Be("first");
             }
 
             [Fact]
             public void Then_all_should_be_contain_all_testclasses()
             {
-                All<TestClass>().Count().Should().Be(2);
+                All<AClass>().Count().Should().Be(2);
             }
         }
     }

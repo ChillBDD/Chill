@@ -142,7 +142,7 @@ packages
 # If using the old MSBuild-Integrated Package Restore, uncomment this:
 #!**/packages/repositories.config
 !**/.nuget/*
-
+Package/*
 # Windows Azure Build Output
 csx/
 *.build.csdef

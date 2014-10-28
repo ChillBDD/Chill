@@ -4,7 +4,6 @@ using System;
 using System.Threading;
 using Xunit;
 using Xunit.Extensions;
-using TestClass = Chill.Tests.TestSubjects.TestClass;
 
 namespace Chill.Tests.CoreScenarios
 {
@@ -25,22 +24,22 @@ namespace Chill.Tests.CoreScenarios
         [Fact]
         public void Can_register_object()
         {
-            UseThe(new TestClass("abc"));
-            The<TestClass>().Name.Should().Be("abc");
+            UseThe(new TestSubjects.AClass("abc"));
+            The<TestSubjects.AClass>().Name.Should().Be("abc");
         }
 
         [Fact]
         public void Can_register_named_object()
         {
-            UseThe(new TestClass("abc"));
-            The<TestClass>().Name.Should().Be("abc");
+            UseThe(new TestSubjects.AClass("abc"));
+            The<TestSubjects.AClass>().Name.Should().Be("abc");
         }
 
         [Fact]
         public void Can_register_object_fluently()
         {
-            SetThe<TestClass>().To(new TestClass("abc"));
-            The<TestClass>().Name.Should().Be("abc");
+            SetThe<TestSubjects.AClass>().To(new AClass("abc"));
+            The<AClass>().Name.Should().Be("abc");
         }
 
 

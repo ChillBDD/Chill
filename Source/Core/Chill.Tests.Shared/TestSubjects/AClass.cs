@@ -1,20 +1,20 @@
 namespace Chill.Tests.TestSubjects
 {
-    public class TestClass
+    public class AClass
     {
-        public TestClass()
+        public AClass()
         {
             
         }
 
-        public TestClass(string name)
+        public AClass(string name)
         {
             Name = name;
         }
 
         public string Name { get; set; }
 
-        protected bool Equals(TestClass other)
+        protected bool Equals(AClass other)
         {
             return string.Equals(Name, other.Name);
         }
@@ -24,7 +24,7 @@ namespace Chill.Tests.TestSubjects
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((TestClass) obj);
+            return Equals((AClass) obj);
         }
 
         public override int GetHashCode()

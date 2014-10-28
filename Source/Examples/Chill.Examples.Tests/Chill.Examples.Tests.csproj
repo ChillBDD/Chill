@@ -64,14 +64,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Chill.AutofacNSubstitute\Content\Chill\AutoFacNSubstituteAutoMockingContainer.cs">
-      <Link>AutoFacNSubstituteAutoMockingContainer.cs</Link>
+    <Compile Include="..\..\Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.Shared\Content\Chill\AutoFacNSubstituteAutoMockingContainer.cs">
+      <Link>Chill\AutoFacNSubstituteAutoMockingContainer.cs</Link>
     </Compile>
-    <Compile Include="..\Chill.Autofac\Content\Chill\AutofacChillContainer.cs">
+    <Compile Include="..\..\Plugins\Chill.Autofac\Chill.Autofac.Shared\Content\Chill\AutofacChillContainer.cs">
       <Link>Chill\AutofacChillContainer.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Version.cs">
-      <Link>Properties\Version.cs</Link>
     </Compile>
     <Compile Include="CustomerController.cs" />
     <Compile Include="For_CustomerController.cs" />
@@ -91,7 +88,7 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chill.Net45\Chill.Net45.csproj">
+    <ProjectReference Include="..\..\Core\Chill.Net45\Chill.Net45.csproj">
       <Project>{b56888bb-74e2-4a75-8fb6-017ba7023874}</Project>
       <Name>Chill.Net45</Name>
     </ProjectReference>
