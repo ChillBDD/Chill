@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)CoreScenarios\AutofacChillContainerSpecs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreScenarios\AutoFacNSubstituteSpecs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CoreScenarios\GivenSubjectSpecs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CoreScenarios\TestBaseSpecs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StateBuilderSpecs.cs" />
