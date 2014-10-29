@@ -31,11 +31,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Package\Lib\portable-net40+sl5\</OutputPath>
+    <OutputPath>..\..\..\Package\Chill\Lib\portable-net4+sl5+MonoAndroid1+MonoTouch1\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\Package\Lib\portable-net40+sl5\Chill.XML</DocumentationFile>
+    <DocumentationFile>..\..\..\Package\Chill\Lib\portable-net4+sl5+MonoAndroid1+MonoTouch1\Chill.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->

@@ -5,17 +5,17 @@
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DE6907CC-326A-4621-AF39-F3C1BFCBD375}</ProjectGuid>
+    <ProjectGuid>{AD2FAC47-CBDE-4F65-A985-94DB757A6C62}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chill</RootNamespace>
-    <AssemblyName>Chill</AssemblyName>
+    <RootNamespace>Chill.Autofac.Net45_W8_WP81_WPA81</RootNamespace>
+    <AssemblyName>Chill.Autofac.Net45_W8_WP81_WPA81</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -23,24 +23,37 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINRT</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\Package\Chill\Lib\portable-net45+windows8+windowsphone8+wpa+MonoAndroid1+MonoTouch1\</OutputPath>
-    <DefineConstants>TRACE;WINRT</DefineConstants>
+    <OutputPath>..\..\..\..\Package\Chill.Autofac\Lib\portable-net45+windows8+windowsphone8+wpa+MonoAndroid1+MonoTouch1\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\..\Package\Chill\Lib\portable-net45+windows8+windowsphone8+wpa+MonoAndroid1+MonoTouch1\Chill.XML</DocumentationFile>
+    <DocumentationFile>..\..\..\..\Package\Chill.Autofac\Lib\portable-net45+windows8+windowsphone8+wpa+MonoAndroid1+MonoTouch1\Chill.Autofac.Net45_W8_WP81_WPA81.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <Import Project="..\Chill.Shared\Chill.Shared.projitems" Label="Shared" Condition="Exists('..\Chill.Shared\Chill.Shared.projitems')" />
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Chill.Net45_W8_WP81_WPA81\Chill.Net45_W8_WP81_WPA81.csproj">
+      <Project>{de6907cc-326a-4621-af39-f3c1bfcbd375}</Project>
+      <Name>Chill.Net45_W8_WP81_WPA81</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\Chill.Autofac.Shared\Chill.Autofac.projitems" Label="Shared" Condition="Exists('..\Chill.Autofac.Shared\Chill.Autofac.projitems')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
