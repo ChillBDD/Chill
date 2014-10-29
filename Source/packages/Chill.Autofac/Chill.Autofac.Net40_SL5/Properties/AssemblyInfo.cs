@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Chill.Autofac.Net45_W8_WP81_WPA81")]
+[assembly: AssemblyTitle("Chill.Autofac.Net40_SL5")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Chill.Autofac.Net45_W8_WP81_WPA81")]
+[assembly: AssemblyProduct("Chill.Autofac.Net40_SL5")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

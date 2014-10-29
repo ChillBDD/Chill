@@ -71,18 +71,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.Shared\Content\Chill\AutofacFakeItEasyMockingContainer.cs">
-      <Link>Chill\AutofacFakeItEasyMockingContainer.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.Shared\Content\Chill\FakeRegistrationHandler.cs">
-      <Link>Chill\FakeRegistrationHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.Shared\Content\Chill\AutoFacNSubstituteAutoMockingContainer.cs">
-      <Link>Chill\AutoFacNSubstituteAutoMockingContainer.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Plugins\Chill.Autofac\Chill.Autofac.Shared\Content\Chill\AutofacChillContainer.cs">
-      <Link>Chill\AutofacChillContainer.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +87,9 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\Chill.Tests.Shared\Chill.Tests.Shared.projitems" Label="Shared" Condition="Exists('..\Chill.Tests.Shared\Chill.Tests.Shared.projitems')" />
+  <Import Project="..\..\Plugins\Chill.Autofac\Chill.Autofac.projitems" Label="Shared" Condition="Exists('..\..\Plugins\Chill.Autofac\Chill.Autofac.projitems')" />
+  <Import Project="..\..\Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems" Label="Shared" Condition="Exists('..\..\Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems')" />
+  <Import Project="..\..\Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems" Label="Shared" Condition="Exists('..\..\Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
