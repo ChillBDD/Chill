@@ -53,7 +53,10 @@ Global
 		Core\Chill.Shared\Chill.Shared.projitems*{608f1b86-2d5c-448f-9ecb-f649fb5a5b6e}*SharedItemsImports = 4
 		Core\Chill.Shared\Chill.Shared.projitems*{b56888bb-74e2-4a75-8fb6-017ba7023874}*SharedItemsImports = 4
 		Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems*{b287d2b7-6050-47bf-8a6c-118aef6f93c6}*SharedItemsImports = 13
+		Plugins\Chill.Autofac\Chill.Autofac.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
+		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
 		Core\Chill.Tests.Shared\Chill.Tests.Shared.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
+		Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
 		Plugins\Chill.Autofac\Chill.Autofac.projitems*{1a70f8c2-9c74-4bc3-ab96-89190e2210e9}*SharedItemsImports = 4
 		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{1a70f8c2-9c74-4bc3-ab96-89190e2210e9}*SharedItemsImports = 4
 		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{bd0e5fd7-97ee-4fb0-a2f3-38a3c5b18c41}*SharedItemsImports = 13
