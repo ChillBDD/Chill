@@ -61,7 +61,7 @@ namespace Chill.Tests.CoreScenarios
             Given(() => message += "given");
             When(() => message += "when", deferedExecution:true);
             message.Should().Be("given");
-            WhenAction().Wait();
+            WhenAction();
             message.Should().Be("givenwhen");
         }
 
@@ -73,7 +73,7 @@ namespace Chill.Tests.CoreScenarios
             Given(() => message += "given");
             When(() => message += "when");
             message.Should().Be("given");
-            WhenAction().Wait();
+            WhenAction();
             message.Should().Be("givenwhen");
         }
 

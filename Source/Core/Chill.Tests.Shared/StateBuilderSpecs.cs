@@ -45,11 +45,19 @@ namespace Chill.Tests
             All<AClass>().Should().BeEquivalentTo(new[] {new AClass("1"), new AClass("2"),});
         }
 
+        [Fact]
+        public void When_exception_is_thrown_in_async_method_in_deffered_execution_expected_exception_is_filled()
+        {
+            Func<Task> whenActionASync = () => Task.Factory.StartNew(() => { throw new AbandonedMutexException(); });
+            When(whenActionASync, deferedExecution: true);
+            CaughtException.Should().BeOfType<AbandonedMutexException>();
+        }
 
         [Fact]
         public void When_exception_is_thrown_in_deffered_execution_expected_exception_is_filled()
         {
-            When(() => { throw new AbandonedMutexException(); }, deferedExecution:true);
+            Action whenActionASync = () => { throw new AbandonedMutexException(); };
+            When(whenActionASync, deferedExecution:true);
             CaughtException.Should().BeOfType<AbandonedMutexException>();
         }
 

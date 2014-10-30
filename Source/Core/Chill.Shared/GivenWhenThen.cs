@@ -3,11 +3,20 @@ using System.Threading.Tasks;
 
 namespace Chill
 {
+    /// <summary>
+    /// Baseclass for tests that follow the BDD style GivenWhenThen approach, but do not have 
+    /// a fixed subject. Use the TResult parameter to specify what the result type 
+    /// will be. 
+    /// </summary>
+    /// <typeparam name="TResult">The type of the result that you expect from your tests</typeparam>
     public abstract class GivenWhenThen<TResult> : TestBase
     {
-        private Func<Task<TResult>> whenAction;
+        private Func<TResult> whenAction;
         private TResult result;
 
+        /// <summary>
+        /// The result of your test. 
+        /// </summary>
         protected TResult Result
         {
             get
@@ -16,7 +25,11 @@ namespace Chill
             }
         }
 
-        public Func<Task<TResult>> WhenAction
+        /// <summary>
+        /// The action that triggers the actual test. This can be used in combination with deffered execution and fluent assertions 
+        /// to detect exceptions, if you don't wnat to use the <see cref="TestBase.CaughtException"/>
+        /// </summary>
+        public Func<TResult> WhenAction
         {
             get { return whenAction; }
             set
@@ -26,7 +39,12 @@ namespace Chill
             }
         }
 
-        protected void When(Func<Task<TResult>> whenFunc, bool? deferedExecution = null)
+        /// <summary>
+        /// Records the action that will trigger the actual test
+        /// </summary>
+        /// <param name="whenFunc"></param>
+        /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
+        protected void When(Func<TResult> whenFunc, bool? deferedExecution = null)
         {
             DefferedExecution = deferedExecution ?? DefferedExecution;
             EnsureContainer();
@@ -44,15 +62,24 @@ namespace Chill
 
         internal override void TriggerTest(bool expectExceptions)
         {
-            TriggerTest(async () => result = await whenAction(), expectExceptions);
+            TriggerTest(() => result = whenAction(), expectExceptions);
         }
 
-        protected void When(Func<TResult> whenFunc, bool? deferedExecution = null)
+        /// <summary>
+        /// Records the asynchronous action that will trigger the actual test
+        /// </summary>
+        /// <param name="whenFunc"></param>
+        /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
+        protected void When(Func<Task<TResult>> whenFunc, bool? deferedExecution = null)
         {
-            When(() => Task.Factory.StartNew(whenFunc), deferedExecution);
+            When(() => whenFunc().Result, deferedExecution);
 
         }
 
+        /// <summary>
+        /// Records a precondition
+        /// </summary>
+        /// <param name="a"></param>
         public void Given(Action a)
         {
             EnsureContainer();
@@ -61,11 +88,19 @@ namespace Chill
 
     }
 
+    /// <summary>
+    /// Baseclass for tests that follow the BDD style GivenWhenThen approach, but do not have 
+    /// a fixed subject. This class does not use a predefined subject. 
+    /// </summary>
     public abstract class GivenWhenThen : TestBase
     {
-        private Func<Task> whenAction;
+        private Action whenAction;
 
-        public Func<Task> WhenAction
+        /// <summary>
+        /// The action that triggers the actual test. This can be used in combination with deffered execution and fluent assertions 
+        /// to detect exceptions, if you don't wnat to use the <see cref="TestBase.CaughtException"/>
+        /// </summary>
+        public Action WhenAction
         {
             get { return whenAction; }
             set
@@ -75,7 +110,12 @@ namespace Chill
             }
         }
 
-        public void When(Func<Task> whenActionASync, bool? deferedExecution = null)
+        /// <summary>
+        /// Records the action that will trigger the actual test
+        /// </summary>
+        /// <param name="whenAction"></param>
+        /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
+        public void When(Action whenAction, bool? deferedExecution = null)
         {
             DefferedExecution = deferedExecution ?? DefferedExecution;
             EnsureContainer();
@@ -83,23 +123,33 @@ namespace Chill
             {
                 throw new InvalidOperationException("When already defined");
             }
-            whenAction = whenActionASync;
+            this.whenAction = whenAction;
             if (!this.DefferedExecution)
             {
                 EnsureTestTriggered(false);
             }
 
         }
-        public void When(Action whenAction, bool? deferedExecution = null)
+
+        /// <summary>
+        /// Records the asynchronous action that will trigger the actual test
+        /// </summary>
+        /// <param name="whenActionAsync"></param>
+        /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
+        public void When(Func<Task> whenActionAsync, bool? deferedExecution = null)
         {
-            When(() => Task.Factory.StartNew(whenAction), deferedExecution);
+            When(() => whenActionAsync().Wait(), deferedExecution);
         }
 
         internal override void TriggerTest(bool expectExceptions)
         {
-            TriggerTest(async () => await whenAction(), expectExceptions);
+            TriggerTest(() => whenAction(), expectExceptions);
         }
 
+        /// <summary>
+        /// Records a precondition
+        /// </summary>
+        /// <param name="a"></param>
         public void Given(Action a)
         {
             EnsureContainer();

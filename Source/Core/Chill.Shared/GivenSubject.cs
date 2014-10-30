@@ -6,7 +6,7 @@ namespace Chill
     public abstract class GivenSubject<TSubject, TResult> : TestFor<TSubject>
         where TSubject : class
     {
-        private Func<Task<TResult>> whenAction;
+        private Func<TResult> whenAction;
         private TResult result;
 
         protected TResult Result
@@ -14,7 +14,7 @@ namespace Chill
             get { return result; }
         }
 
-        public Func<Task<TResult>> WhenAction
+        public Func<TResult> WhenAction
         {
             get { return whenAction; }
             set
@@ -24,7 +24,7 @@ namespace Chill
             }
         }
 
-        protected void When(Func<Task<TResult>> whenFunc, bool? deferedExecution = null)
+        protected void When(Func<TResult> whenFunc, bool? deferedExecution = null)
         {
             DefferedExecution = deferedExecution ?? DefferedExecution;
             EnsureSubject();
@@ -39,15 +39,15 @@ namespace Chill
             }
         }
 
-        protected void When(Func<TResult> whenFunc, bool? deferedExecution = null)
+        protected void When(Func<Task<TResult>> whenFunc, bool? deferedExecution = null)
         {
-            When(() => Task.Factory.StartNew(whenFunc), deferedExecution);
+            When(() => whenFunc().Result, deferedExecution);
 
         }
 
         internal override void TriggerTest(bool expectExceptions)
         {
-            TriggerTest(async () => result = await whenAction(), expectExceptions);
+            TriggerTest(() => result = whenAction(), expectExceptions);
         }
 
         public void Given(Action a)
@@ -60,9 +60,9 @@ namespace Chill
 
     public abstract class GivenSubject<TSubject> : TestFor<TSubject> where TSubject : class
     {
-        private Func<Task> whenAction;
+        private Action whenAction;
 
-        public Func<Task> WhenAction
+        public Action WhenAction
         {
             get { return whenAction; }
             set
@@ -72,7 +72,7 @@ namespace Chill
             }
         }
 
-        public void When(Func<Task> whenActionASync, bool? deferedExecution = null)
+        public void When(Action whenAction, bool? deferedExecution = null)
         {
             DefferedExecution = deferedExecution ?? DefferedExecution;
             EnsureContainer();
@@ -80,21 +80,21 @@ namespace Chill
             {
                 throw new InvalidOperationException("When already defined");
             }
-            whenAction = whenActionASync;
+            this.whenAction = whenAction;
             if (!DefferedExecution)
             {
                 EnsureTestTriggered(false);
             }
 
         }
-        public void When(Action whenAction, bool? deferedExecution = null)
+        public void When(Func<Task> whenActionAsync, bool? deferedExecution = null)
         {
-            When(() => Task.Factory.StartNew(whenAction), deferedExecution);
+            When(() => whenActionAsync().Wait(), deferedExecution);
         }
 
         internal override void TriggerTest(bool expectExceptions)
         {
-            TriggerTest(async () => await whenAction(), expectExceptions);
+            TriggerTest(whenAction, expectExceptions);
         }
 
         public void Given(Action a)

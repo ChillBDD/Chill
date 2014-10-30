@@ -1,5 +1,9 @@
 namespace Chill.StateBuilders
 {
+    /// <summary>
+    /// Sets a value in the sate
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class StoreStateBuilder<T> : IStoreStateBuilder<T>
         where T: class
     {

@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{599E07
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{15CA8305-AB53-4C57-99F5-0C4EA698F366}"
 	ProjectSection(SolutionItems) = preProject
-		Package\.nuspec = Package\.nuspec
+		..\Package\Chill\.nuspec = ..\Package\Chill\.nuspec
 		buildnuget.cmd = buildnuget.cmd
 		..\README.md = ..\README.md
 	EndProjectSection

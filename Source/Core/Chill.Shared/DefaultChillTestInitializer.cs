@@ -6,7 +6,7 @@ namespace Chill
 {
     /// <summary>
     /// Default implementation of a Chill Test Initializer. This implementation will create 
-    /// container of <typeparam name="TContainerType"></typeparam> and wrap it in a 
+    /// container of TContainerType and wrap it in a 
     /// <see cref="AutoMockingContainerExtensions"/>. This way, you can create automatic mothers 
     /// for your classes. 
     /// </summary>

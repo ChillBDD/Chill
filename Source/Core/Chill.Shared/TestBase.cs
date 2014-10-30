@@ -15,16 +15,27 @@ namespace Chill
     /// </summary>
     public abstract class TestBase : IDisposable
     {
-        protected bool DefferedExecution;
+        /// <summary>
+        /// Should the test execution start immediately on the When method or should execution be deffered until needed. 
+        /// </summary>
+        protected bool DefferedExecution { get; set; }
+    
         private bool testTriggered;
         private bool containerInitialized;
         internal readonly IChillTestInitializer ChillTestInitializer;
 
+        /// <summary>
+        /// Creates a new instance of the testbase and creates the TestInitializer from the attribute
+        /// </summary>
         public TestBase()
         {
             ChillTestInitializer = BuildInitializer();
         }
 
+        /// <summary>
+        /// Any exception that might be thrown in the course of executing the When Method. Note, this property is often used
+        /// in conjunction with deffered excecution. 
+        /// </summary>
         protected Exception CaughtException
         {
             get
@@ -51,6 +62,10 @@ namespace Chill
             }
         }
 
+        /// <summary>
+        /// Method that ensures that the test has actually been triggered. 
+        /// </summary>
+        /// <param name="expectExceptions"></param>
         protected internal void EnsureTestTriggered(bool expectExceptions)
         {
             if (!testTriggered)
@@ -60,28 +75,29 @@ namespace Chill
             }
         }
 
+        /// <summary>
+        /// Method that can be overriden to trigger the actual test
+        /// </summary>
+        /// <param name="expectExceptions"></param>
         internal virtual void TriggerTest(bool expectExceptions)
         {
         }
 
-        /// <summary>
-        /// Trigger a test. If <see cref="ExpectExceptions"/> is true, it will catch any exception and set the
-        /// <see cref="CaughtException"/> value to that. Otherwise, the action will just be executed. 
-        /// </summary>
-        /// <remarks>If <see cref="ExpectExceptions"/> is set and no exception is thrown, an exception will be thrown</remarks>
-        /// <param name="testAction"></param>
-        /// <param name="expectExceptions"></param>
-        internal void TriggerTest(Func<Task> testAction, bool expectExceptions)
+        internal void TriggerTest(Action testAction, bool expectExceptions)
         {
             if (expectExceptions)
             {
                 try
                 {
-                    testAction().Wait();
+                    testAction();
                 }
                 catch (AggregateException ex)
                 {
                     CaughtException = ex.GetBaseException();
+                }
+                catch (Exception ex)
+                {
+                    CaughtException = ex;
                 }
                 finally
                 {
@@ -91,7 +107,7 @@ namespace Chill
             }
             else
             {
-                testAction().Wait();
+                testAction();
             }
         }
 
@@ -116,6 +132,9 @@ namespace Chill
             }
         }
 
+        /// <summary>
+        /// Initialize the Chill container
+        /// </summary>
         protected virtual void InitializeContainer()
         {
             ChillTestInitializer.InitializeContainer(this);
@@ -158,7 +177,7 @@ namespace Chill
                 throw new InvalidOperationException(
                     "Could not find the Chill Container. You must have a Chill container registered using the ChillTestInitializer. Get the Chill Container from one of the extensions. ");
             }
-            var type = ((ChillTestInitializerAttribute) attribute).ChillTestContextType;
+            var type = ((ChillTestInitializerAttribute) attribute).ChillTestInitializerType;
 
             if (type == null)
             {
@@ -178,6 +197,11 @@ namespace Chill
             Dispose(true);
         }
 
+        /// <summary>
+        /// Fluent Syntax for storing a value in the Chill Container. 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public IStoreStateBuilder<T> SetThe<T>() where T : class
         {
             return new StoreStateBuilder<T>(this);
@@ -218,18 +242,35 @@ namespace Chill
             return (T) item;
         }
 
+        /// <summary>
+        /// Allows you to store multiple items of a given type in the chill container. Often used in conjunction with the <see cref="All{T}"/> method
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items"></param>
+        /// <returns></returns>
         public IEnumerable<T> SetAll<T>(params T[] items)
             where T : class
         {
             return container.AddToList(items);
         }
 
+        /// <summary>
+        /// Allows you to store multiple items of a given type in the chill container. Often used in conjunction with the <see cref="All{T}"/> method
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items"></param>
+        /// <returns></returns>
         public IEnumerable<T> SetAll<T>(IEnumerable<T> items)
             where T : class
         {
             return container.AddToList(items.ToArray());
         }
 
+        /// <summary>
+        /// Returns all items registered in the chill container to a specific interface. 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public IEnumerable<T> All<T>() where T : class
         {
             return Container.GetList<T>();
@@ -251,6 +292,7 @@ namespace Chill
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="valueToSet"></param>
+        /// <param name="named"></param>
         /// <returns></returns>
         public T UseThe<T>(T valueToSet, string named) where T : class
         {
@@ -267,40 +309,6 @@ namespace Chill
             {
                 Container.Dispose();
             }
-        }
-    }
-
-    public static class AutoMockingContainerExtensions
-    {
-        internal static IEnumerable<T> AddToList<T>(this IChillContainer container, params T[] itemsToAdd)
-            where T : class
-        {
-            var list = GetList<T>(container);
-
-            list.AddRange(itemsToAdd);
-
-
-            return list;
-        }
-
-        internal static List<T> GetList<T>(this IChillContainer container) where T : class
-        {
-            var dictionary = container.Get<Dictionary<Type, object>>();
-
-
-            if (dictionary == null || dictionary.Count == 0)
-            {
-                dictionary = new Dictionary<Type, object>();
-            }
-
-            object list;
-            if (!dictionary.TryGetValue(typeof (T), out list))
-            {
-                list = new List<T>();
-                dictionary.Add(typeof (T), list);
-                container.Set(dictionary);
-            }
-            return (List<T>) list;
         }
     }
 }
