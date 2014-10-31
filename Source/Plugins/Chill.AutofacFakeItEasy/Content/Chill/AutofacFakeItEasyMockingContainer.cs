@@ -17,7 +17,7 @@ namespace Chill.Autofac
         {
 
         }
-
+        
         private static ContainerBuilder CreateContainerBuilder()
         {
             var builder = new ContainerBuilder();

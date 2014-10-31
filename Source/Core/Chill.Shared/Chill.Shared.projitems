@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IChillContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IChillTestInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ObjectExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObjectMother.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StateBuilders\DictionaryStoredStateBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StateBuilders\IStoreStateBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StateBuilders\StoreStateBuilder.cs" />

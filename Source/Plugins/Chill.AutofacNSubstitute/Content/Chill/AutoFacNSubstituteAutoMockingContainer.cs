@@ -8,6 +8,9 @@ using NSubstitute;
 
 namespace Chill.Autofac
 {
+    /// <summary>
+    /// Automocking container that uses NSubstitute to create mocks and Autofac as the container. 
+    /// </summary>
     internal class AutofacNSubstituteChillContainer : AutofacChillContainer
     {
 

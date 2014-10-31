@@ -2,31 +2,28 @@ using System;
 
 namespace Chill
 {
+
+    /// <summary>
+    /// Interface for automatic mothers. Classes with this interface will be discovered automatically to construct 
+    /// objects automatically. 
+    /// </summary>
     public interface IAutoMother
     {
+
+        /// <summary>
+        /// Checks if this automother is applicable to the specified type. 
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
         bool Applies(Type type);
 
+
+        /// <summary>
+        /// Creates the specified type using the container.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="container">The container.</param>
+        /// <returns>A created instance of the passed type</returns>
         T Create<T>(IChillContainer container);
     }
-
-    public abstract class ObjectMother<TTarget> : IAutoMother
-    {
-        public bool Applies(Type type)
-        {
-            return type == typeof(TTarget);
-        }
-
-        public T Create<T>(IChillContainer container)
-        {
-            if (!Applies(typeof(T)))
-            {
-                throw new InvalidOperationException("ServerMother only applies to ");
-            }
-            return (T)(object)Create();
-        }
-
-        protected abstract TTarget Create();
-
-    }
-
 }

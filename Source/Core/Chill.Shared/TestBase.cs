@@ -10,7 +10,7 @@ namespace Chill
     /// <summary>
     /// Base class for all Chill tests. This baseclass set's up your automocking container. 
     /// 
-    /// It also has a convenient method <see cref="TriggerTest"/> you can call that will trigger an async test func
+    /// It also has a convenient method TriggerTest you can call that will trigger an async test func
     /// and capture any exceptions that might have occurred. 
     /// </summary>
     public abstract class TestBase : IDisposable

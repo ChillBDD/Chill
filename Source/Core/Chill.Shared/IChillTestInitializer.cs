@@ -5,14 +5,28 @@ using System;
 namespace Chill
 {
     /// <summary>
-    /// Interface that will help 
+    /// Interface for classes that initialize chill tests. 
     /// </summary>
     public interface IChillTestInitializer
     {
+        /// <summary>
+        /// Finds the relevant assemblies. 
+        /// </summary>
+        /// <param name="test">The test.</param>
+        /// <returns></returns>
         IEnumerable<Assembly> FindRelevantAssemblies(TestBase test);
 
+        /// <summary>
+        /// Builds the chill container.
+        /// </summary>
+        /// <param name="test">The test.</param>
+        /// <returns></returns>
         IChillContainer BuildChillContainer(TestBase test);
 
+        /// <summary>
+        /// Initializes the container.
+        /// </summary>
+        /// <param name="test">The test.</param>
         void InitializeContainer(TestBase test);
     }
 }
