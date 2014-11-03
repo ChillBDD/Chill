@@ -11,7 +11,4 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Content\Chill\AutofacChillContainer.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory).nuspec" />
-  </ItemGroup>
 </Project>
