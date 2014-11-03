@@ -114,7 +114,7 @@ namespace Chill
         /// <summary>
         /// Makes sure the container has been created. 
         /// </summary>
-        internal void EnsureContainer()
+        protected virtual void EnsureContainer()
         {
             if (container == null)
             {

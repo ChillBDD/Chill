@@ -8,7 +8,7 @@ namespace Chill.Autofac
 {
     internal class AutofacChillContainer : IChillContainer
     {
-        private IContainer _container;
+        private ILifetimeScope _container;
         private ContainerBuilder _containerBuilder;
 
         public AutofacChillContainer()
@@ -16,7 +16,7 @@ namespace Chill.Autofac
         {
         }
 
-        public AutofacChillContainer(IContainer container)
+        public AutofacChillContainer(ILifetimeScope container)
         {
             _container = container;
         }
@@ -26,7 +26,7 @@ namespace Chill.Autofac
             _containerBuilder = containerBuilder;
         }
 
-        protected IContainer Container
+        protected ILifetimeScope Container
         {
             get
             {

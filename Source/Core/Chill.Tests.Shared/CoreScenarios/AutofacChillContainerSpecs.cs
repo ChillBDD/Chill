@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using Xunit;
 using FluentAssertions;
 using Chill.Tests.TestSubjects;
 using Chill.Autofac;
 using Autofac.Core.Registration;
 using Autofac;
+using Xunit.Extensions;
 
 namespace Chill.Tests.CoreScenarios
 {
@@ -37,6 +39,12 @@ namespace Chill.Tests.CoreScenarios
                 The<Subject_built_By_Chill_AutoMother>().Name.Should().NotBeNull();
             }
 
+            [Theory, InlineData(), InlineData()]
+            public void Then_singleton_is_only_resolved_once()
+            {
+                The<TestSingleton>().GetInstanceCount().Should().Be(1);
+            }
+
             /// <summary>
             /// Any types not explicitly registered in the container should not be resolvable. 
             /// </summary>
@@ -56,8 +64,10 @@ namespace Chill.Tests.CoreScenarios
         /// </summary>
         internal class AutofacContainerWithCustomModule : AutofacChillContainer
         {
+            private static ILifetimeScope staticContainer;
+            private static object syncRoot = new object();
             public AutofacContainerWithCustomModule()
-                : base(CreateContainerBuilder())
+                : base(CreateContainer())
             {
 
             }
@@ -65,21 +75,30 @@ namespace Chill.Tests.CoreScenarios
             /// This method creates the Autofac container and registers the custom type 
             /// </summary>
             /// <returns></returns>
-            private static ContainerBuilder CreateContainerBuilder()
+            private static ILifetimeScope CreateContainer()
             {
-                var builder = new ContainerBuilder();
-                builder.RegisterModule<CustomAutofacModule>();
-                return builder;
+                if (staticContainer == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (staticContainer == null)
+                        {
+                            var builder = new ContainerBuilder();
+                            builder.RegisterModule<CustomAutofacModule>();
+                            staticContainer = builder.Build();
+                        }
+                    }
+                }
+                return staticContainer.BeginLifetimeScope();
             }
         }
-
-
 
         public class CustomAutofacModule : Module
         {
             protected override void Load(ContainerBuilder builder)
             {
                 builder.RegisterType<TestService>().As<ITestService>();
+                builder.RegisterType<TestSingleton>().SingleInstance();
                 base.Load(builder);
             }
         }
@@ -91,6 +110,20 @@ namespace Chill.Tests.CoreScenarios
         public class TestService : ITestService
         {
 
+        }
+
+        public class TestSingleton
+        {
+            public TestSingleton()
+            {
+                Interlocked.Increment(ref _instanceCount);
+            }
+            private static int _instanceCount;
+
+            public int GetInstanceCount()
+            {
+                return _instanceCount;
+            }
         }
 
     }
