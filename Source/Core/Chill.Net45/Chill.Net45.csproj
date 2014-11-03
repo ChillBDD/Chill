@@ -7,8 +7,8 @@
     <ProjectGuid>{B56888BB-74E2-4A75-8FB6-017BA7023874}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chill.Net45</RootNamespace>
-    <AssemblyName>Chill.Net45</AssemblyName>
+    <RootNamespace>Chill</RootNamespace>
+    <AssemblyName>Chill</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -28,7 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\..\Package\Chill\Lib\net45\Chill.Net45.XML</DocumentationFile>
+    <DocumentationFile>..\..\..\Package\Chill\Lib\net45\Chill.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
