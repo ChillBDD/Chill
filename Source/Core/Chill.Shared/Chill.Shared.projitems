@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>29cd0883-250a-4121-a344-1377e99e3886</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Chill.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyTypeResolver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoMockingContainerExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoMotherContainerDecorator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ChillTestInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CollectionExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DefaultChillTestInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GivenSubject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GivenWhenThen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IAutoMother.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IChillContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IChillTestInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObjectExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObjectMother.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StateBuilders\DictionaryStoredStateBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StateBuilders\IStoreStateBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StateBuilders\StoreStateBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StateBuilders\StoreStateBuilderExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestFor.cs" />
+  </ItemGroup>
+</Project>

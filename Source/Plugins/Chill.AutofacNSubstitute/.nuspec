@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Chill.AutofacNSubstitute</id>
+    <version>2.0.0</version>
+    <title>Chill Autofac NSubstitute extension</title>
+    <authors>Erwin van der Valk, Dennis Doomen</authors>
+    <owners>Erwin van der Valk</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>http://github.com/erwinvandervalk/chill</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A chill container that uses autofac as a container and NSubsitute for creating mocks.</description>
+    <releaseNotes>
+        
+    </releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>BDD TDD Autofac NSubsittue</tags>
+    <dependencies>
+      <group>
+        <dependency id="Chill" />
+        <dependency id="Autofac" />
+        <dependency id="NSubstitute" />
+      </group>
+    </dependencies>
+
+  </metadata>
+</package>

@@ -14,7 +14,7 @@
 [Rr]eleases/
 x64/
 x86/
-build/
+Source/**/build/
 bld/
 [Bb]in/
 [Oo]bj/
@@ -132,15 +132,17 @@ publish/
 *.publishproj
 
 # NuGet Packages
-*.nupkg
 # The packages folder can be ignored because of Package Restore
-**/packages/*
 # except build/, which is used as an MSBuild target.
-!**/packages/build/
+*.nupkg
+
+
+!**packages/Microsoft.Bcl.Build*/tools/Microsoft.Bcl.Build.targets
+packages
 # If using the old MSBuild-Integrated Package Restore, uncomment this:
 #!**/packages/repositories.config
 !**/.nuget/*
-
+Package/*
 # Windows Azure Build Output
 csx/
 *.build.csdef
@@ -183,3 +185,6 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+Source/Package/Lib/
+Source/Package/*.nupkg

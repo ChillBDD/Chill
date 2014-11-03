@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Chill</id>
+    <version>1.0</version>
+    <title>Chill BDD Testing</title>
+    <authors>Erwin van der Valk, Dennis Doomen</authors>
+    <owners>Erwin van der Valk</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>http://github.com/erwinvandervalk/chill</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A BDD style testing framework, heavily relying on auto mocking containers. </description>
+    <releaseNotes>
+        
+    </releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>BDD TDD AutoMocking</tags>
+    <dependencies>
+      <group targetFramework="net40">
+        <dependency id="Microsoft.Bcl" version="1.1.8"/>
+        <dependency id="Microsoft.Bcl.Async" version="1.0.168"/>
+        <dependency id="Microsoft.Bcl.Build" version="1.0.14"/>
+      </group>
+    </dependencies>
+  </metadata>
+</package>
