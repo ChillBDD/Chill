@@ -69,6 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chill\DefaultChillContainer.cs" />
     <Compile Include="CustomerController.cs" />
     <Compile Include="For_CustomerController.cs" />
     <Compile Include="IntegrationTest.cs" />

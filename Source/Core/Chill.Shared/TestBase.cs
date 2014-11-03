@@ -22,14 +22,14 @@ namespace Chill
     
         private bool testTriggered;
         private bool containerInitialized;
-        internal readonly IChillTestInitializer ChillTestInitializer;
+        internal readonly IChillContainerInitializer ChillContainerInitializer;
 
         /// <summary>
         /// Creates a new instance of the testbase and creates the TestInitializer from the attribute
         /// </summary>
         public TestBase()
         {
-            ChillTestInitializer = BuildInitializer();
+            ChillContainerInitializer = BuildInitializer();
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Chill
         {
             if (container == null)
             {
-                container = ChillTestInitializer.BuildChillContainer(this);
+                container = ChillContainerInitializer.BuildChillContainer(this);
             }
             EnsureContainerInitialized();
         }
@@ -137,7 +137,7 @@ namespace Chill
         /// </summary>
         protected virtual void InitializeContainer()
         {
-            ChillTestInitializer.InitializeContainer(this);
+            ChillContainerInitializer.InitializeContainer(this);
         }
 
         /// <summary>
@@ -155,37 +155,37 @@ namespace Chill
         /// Searches the loaded assemblies to find an implementation of <see cref="IChillContainer"/>
         /// </summary>
         /// <returns></returns>
-        protected IChillTestInitializer BuildInitializer()
+        protected IChillContainerInitializer BuildInitializer()
         {
 #if WINRT
             var attribute =
                 GetType()
                     .GetTypeInfo()
-                    .GetCustomAttributes(typeof (ChillTestInitializerAttribute), false)
+                    .GetCustomAttributes(typeof (ChillContainerInitializerAttribute), false)
                     .SingleOrDefault() ??
                 GetType()
                     .GetTypeInfo()
-                    .Assembly.GetCustomAttributes(typeof (ChillTestInitializerAttribute))
+                    .Assembly.GetCustomAttributes(typeof (ChillContainerInitializerAttribute))
                     .SingleOrDefault();
 #else
-            var attribute = GetType().GetCustomAttributes(typeof (ChillTestInitializerAttribute), false).SingleOrDefault() ??
-                            GetType().Assembly.GetCustomAttributes(typeof(ChillTestInitializerAttribute), false).SingleOrDefault();
+            var attribute = GetType().GetCustomAttributes(typeof (ChillContainerInitializerAttribute), false).SingleOrDefault() ??
+                            GetType().Assembly.GetCustomAttributes(typeof(ChillContainerInitializerAttribute), false).SingleOrDefault();
 #endif
 
             if (attribute == null)
             {
                 throw new InvalidOperationException(
-                    "Could not find the Chill Container. You must have a Chill container registered using the ChillTestInitializer. Get the Chill Container from one of the extensions. ");
+                    "Could not find the Chill Container. You must have a Chill container registered using the ChillContainerInitializer. Get the Chill Container from one of the extensions. ");
             }
-            var type = ((ChillTestInitializerAttribute) attribute).ChillTestInitializerType;
+            var type = ((ChillContainerInitializerAttribute) attribute).ChillContainerInitializerType;
 
             if (type == null)
             {
                 throw new InvalidOperationException(
-                    "The type property on the ChillTestInitializerAttribute should not be null");
+                    "The type property on the ChillContainerInitializerAttribute should not be null");
             }
 
-            return (IChillTestInitializer) Activator.CreateInstance(type);
+            return (IChillContainerInitializer) Activator.CreateInstance(type);
         }
 
 

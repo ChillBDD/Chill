@@ -16,16 +16,13 @@ namespace Chill.Examples.Tests
 
     public class IntegrationTests
     {
-        [ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacChillContainer>))]
+        [ChillContainer(typeof(AutofacChillContainer))]
         public class MyTest : GivenSubject<Server>
         {
             public MyTest()
             {
                 When(() => Subject.Get<UserList>("/api/users"));
             }
-
-            
-            
         }
     }
 

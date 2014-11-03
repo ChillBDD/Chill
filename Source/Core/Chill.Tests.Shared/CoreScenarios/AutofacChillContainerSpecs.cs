@@ -16,7 +16,7 @@ namespace Chill.Tests.CoreScenarios
         /// This test checks if you can use Chill as an integration test. It sets up a regular autofac
         /// container (without mocking) using an autofac module <see cref="AutofacContainerWithCustomModule"/>. 
         /// </summary>
-        [ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacContainerWithCustomModule>))]
+        [ChillContainer(typeof(AutofacContainerWithCustomModule))]
         public class When_configuring_container_with_module_and_objectmother : GivenWhenThen
         {
             /// <summary>

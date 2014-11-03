@@ -4,9 +4,10 @@ using System.Linq;
 using Autofac;
 using Autofac.Builder;
 using Autofac.Core;
+using Chill.Autofac;
 using NSubstitute;
 
-namespace Chill.Autofac
+namespace Chill.AutofacNSubstitute
 {
     /// <summary>
     /// Automocking container that uses NSubstitute to create mocks and Autofac as the container. 
