@@ -60,7 +60,8 @@ namespace Chill.Tests.CoreScenarios
 
         /// <summary>
         /// You can define 'non mocking' with all the type registrations that you would otherwise in your application. 
-        /// This can either be done in the App
+        /// This can either be done in the App. This class also creates a single 'parent' container and then child containers
+        /// per test. 
         /// </summary>
         internal class AutofacContainerWithCustomModule : AutofacChillContainer
         {
