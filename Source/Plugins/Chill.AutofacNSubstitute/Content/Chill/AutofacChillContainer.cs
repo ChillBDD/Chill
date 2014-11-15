@@ -4,7 +4,7 @@ using Autofac.Core;
 using Chill;
 using System;
 
-namespace Chill.Autofac
+namespace Chill.AutofacNSubstitute
 {
     internal class AutofacChillContainer : IChillContainer
     {
