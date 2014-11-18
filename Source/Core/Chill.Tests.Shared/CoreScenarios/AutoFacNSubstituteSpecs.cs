@@ -10,6 +10,8 @@ using Xunit;
 
 namespace Chill.Tests
 {
+
+
     public class AutoFacNSubstituteSpecs
     {
         [ChillContainer(typeof(AutofacNSubstituteChillContainer))]
