@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using Chill.AutofacNSubstitute;
 using Chill.Unity;
+using Chill.UnityNSubstitute;
 using Microsoft.Practices.Unity;
+using NSubstitute;
+using NSubstitute.Exceptions;
 using Xunit;
 using FluentAssertions;
 using Chill.Tests.TestSubjects;
@@ -11,6 +15,50 @@ using Xunit.Extensions;
 
 namespace Chill.Tests.CoreScenarios
 {
+
+
+    public class UnityNSubstituteSpecs
+    {
+        [ChillContainer(typeof(UnityNSubstituteChillContainer))]
+        public class Given_Subject_WithAutofacNSubstitute : GivenSubjectSpecs
+        {
+            [Fact]
+            public void Subject_is_not_generated_by_nsubstitute()
+            {
+                When(() => Subject.Received().DoSomething(), deferedExecution: true);
+                WhenAction.ShouldThrow<NotASubstituteException>();
+            }
+
+            [Fact]
+            public void Then_mocks_are_generated_by_nsubstitute()
+            {
+                The<ITestService>().TryMe().Returns(true);
+                The<ITestService>().TryMe().Should().BeTrue();
+                The<ITestService>().Received().TryMe();
+            }
+
+            [Fact]
+            public void Subject_gets_mock_injected()
+            {
+                The<ITestService>().TryMe().Returns(true);
+                Subject.DoSomething().Should().BeTrue();
+                The<ITestService>().Received().TryMe();
+            }
+        }
+
+        [ChillContainer(typeof(UnityNSubstituteChillContainer))]
+        public class Given_TestBase_With_WithAutofacNSubstitute : TestBaseSpecs
+        {
+            [Fact]
+            public void Then_mocks_are_generated_by_nsubstitute()
+            {
+                The<ITestService>().TryMe().Returns(true);
+                The<ITestService>().TryMe().Should().BeTrue();
+                The<ITestService>().Received().TryMe();
+            }
+        }
+    }
+
     public class UnityChillContainerSpecs
     {
         /// <summary>
@@ -21,7 +69,7 @@ namespace Chill.Tests.CoreScenarios
         public class When_configuring_container_with_module_and_objectmother : GivenWhenThen
         {
             /// <summary>
-            /// Validate that the <see cref="AutofacContainerWithCustomModule" /> has registered the ITestService properly.
+            /// Validate that the <see cref="UnityContainerWithCustomModule" /> has registered the ITestService properly.
             /// </summary>
             [Fact]
             public void Then_testservice_is_registered_through_module()

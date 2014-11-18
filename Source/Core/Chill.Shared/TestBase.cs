@@ -123,19 +123,6 @@ namespace Chill
             EnsureContainerInitialized();
         }
 
-        /// <summary>
-        /// Explicitly register a type so that it will be created from the chill container from now on. 
-        /// 
-        /// This is handy if you wish to create a concrete type from a container that typically doesn't allow
-        /// you to do so. (such as autofac)
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        protected virtual void RegisterType<T>()
-        {
-            EnsureContainer();
-            container.RegisterType<T>();
-        }
-
         private void EnsureContainerInitialized()
         {
             if (!containerInitialized)

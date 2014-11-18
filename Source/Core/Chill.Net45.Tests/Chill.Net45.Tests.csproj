@@ -102,6 +102,7 @@
   <Import Project="..\..\Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems" Label="Shared" Condition="Exists('..\..\Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems')" />
   <Import Project="..\..\Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems" Label="Shared" Condition="Exists('..\..\Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems')" />
   <Import Project="..\..\Plugins\Chill.Unity\Chill.Unity.projitems" Label="Shared" Condition="Exists('..\..\Plugins\Chill.Unity\Chill.Unity.projitems')" />
+  <Import Project="..\..\Plugins\Chill.UnityNSubstitute\Chill.UnityNSubstitute.projitems" Label="Shared" Condition="Exists('..\..\Plugins\Chill.UnityNSubstitute\Chill.UnityNSubstitute.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

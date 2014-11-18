@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Autofac.Core;
 using Chill;
 using System;
@@ -18,6 +19,7 @@ namespace Chill.Unity
         public UnityChillContainer(IUnityContainer container)
         {
             _container = container;
+            container.RegisterInstance(new Dictionary<Tuple<Type, string>, object>());
         }
 
         public IUnityContainer Container

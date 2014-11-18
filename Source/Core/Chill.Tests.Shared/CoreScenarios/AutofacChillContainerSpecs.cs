@@ -55,6 +55,20 @@ namespace Chill.Tests.CoreScenarios
 
                 a.ShouldThrow<ComponentNotRegisteredException>();
             }
+
+            [Fact]
+            public void Then_cannot_resolve_unregistered_concrete_type()
+            {
+                Action a = () => The<TestService>();
+                a.ShouldThrow<ComponentNotRegisteredException>();
+            }
+
+            [Fact]
+            public void Then_can_resolve_registered_type()
+            {
+                this.RegisterConcreteType<TestService>();
+                The<TestService>();
+            }
         }
 
 
