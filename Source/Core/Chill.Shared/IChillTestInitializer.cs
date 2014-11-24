@@ -5,9 +5,9 @@ using System;
 namespace Chill
 {
     /// <summary>
-    /// Interface for classes that initialize chill tests. 
+    /// Interface for classes that initialize chill containers. 
     /// </summary>
-    public interface IChillTestInitializer
+    public interface IChillContainerInitializer
     {
         /// <summary>
         /// Finds the relevant assemblies. 

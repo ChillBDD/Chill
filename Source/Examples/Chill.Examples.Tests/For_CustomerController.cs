@@ -5,7 +5,7 @@ using FluentAssertions;
 using NSubstitute;
 using Xunit;
 
-[assembly: ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacNSubstituteChillContainer>))]
+
 
 namespace Chill.Examples.Tests
 {

@@ -1,25 +1,24 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Chill.AutofacFakeItEasy</id>
+    <id>Chill.Unity</id>
     <version>2.0.0-beta0002</version>
-    <title>Chill Autofac FakeItEasy extension </title>
+    <title>Chill Unity extension</title>
     <authors>Erwin van der Valk, Dennis Doomen</authors>
     <owners>Erwin van der Valk</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>http://github.com/erwinvandervalk/chill</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A chill container that uses autofac as a container and FakeItEasy for generating mocks.</description>
+    <description>A chill container that uses unity as a dependency injection container</description>
     <releaseNotes>
         
     </releaseNotes>
     <copyright>Copyright 2014</copyright>
-    <tags>BDD TDD Autofac</tags>
+    <tags>BDD TDD Unity</tags>
     <dependencies>
       <group>
         <dependency id="Chill" />
-        <dependency id="Autofac" />
-        <dependency id="FakeItEasy" />
+        <dependency id="Unity" />
       </group>
     </dependencies>
 

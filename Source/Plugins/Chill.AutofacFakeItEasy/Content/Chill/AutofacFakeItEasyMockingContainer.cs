@@ -1,10 +1,7 @@
 ﻿using Autofac;
-using Autofac.Extras.FakeItEasy;
-using Chill;
+using Chill.Autofac;
 
-using NSubstitute;
-
-namespace Chill.Autofac
+namespace Chill.AutofacFakeItEasy
 {
     /// <summary>
     /// An implementation of <see cref="IAutoMockingContainer"/> that uses Autofac and FakeItEasy to build objects

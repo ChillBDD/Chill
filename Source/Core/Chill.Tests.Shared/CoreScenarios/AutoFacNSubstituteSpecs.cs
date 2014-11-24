@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Chill.Autofac;
+﻿using Chill.AutofacNSubstitute;
 using Chill.Tests.CoreScenarios;
 using Chill.Tests.TestSubjects;
 using FluentAssertions;
@@ -16,9 +10,11 @@ using Xunit;
 
 namespace Chill.Tests
 {
+
+
     public class AutoFacNSubstituteSpecs
     {
-        [ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacNSubstituteChillContainer>))]
+        [ChillContainer(typeof(AutofacNSubstituteChillContainer))]
         public class Given_Subject_WithAutofacNSubstitute : GivenSubjectSpecs
         {
             [Fact]
@@ -45,7 +41,7 @@ namespace Chill.Tests
             }
         }
 
-        [ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacNSubstituteChillContainer>))]
+        [ChillContainer(typeof(AutofacNSubstituteChillContainer))]
         public class Given_TestBase_With_WithAutofacNSubstitute : TestBaseSpecs
         {
             [Fact]

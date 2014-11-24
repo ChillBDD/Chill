@@ -29,12 +29,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Security;
+using Autofac;
 using Autofac.Builder;
 using Autofac.Core;
 using FakeItEasy;
 using FakeItEasy.Creation;
 
-namespace Autofac.Extras.FakeItEasy
+namespace Chill.AutofacFakeItEasy
 {
     /// <summary> Resolves unknown interfaces and Fakes. </summary>
     internal class FakeRegistrationHandler : IRegistrationSource

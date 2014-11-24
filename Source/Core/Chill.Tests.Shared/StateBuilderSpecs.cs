@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
 using System.Threading.Tasks;
-
-using Chill.Autofac;
+using Chill.AutofacFakeItEasy;
+using Chill.AutofacNSubstitute;
 using Chill.StateBuilders;
 using Chill.Tests.TestSubjects;
 
@@ -14,7 +13,7 @@ using Xunit;
 
 namespace Chill.Tests
 {
-    [ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacNSubstituteChillContainer>))]
+    [ChillContainer(typeof(AutofacNSubstituteChillContainer))]
 
     public class StateBuilderSpecs : GivenWhenThen
     {
@@ -87,7 +86,7 @@ namespace Chill.Tests
             The<AClass>().Should().Be(_expectedAClass);
         }
 
-        [ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacFakeItEasyMockingContainer>))]
+        [ChillContainer(typeof(AutofacFakeItEasyMockingContainer))]
         public class Given_several_testclasses_in_the_container : GivenWhenThen
         {
             public Given_several_testclasses_in_the_container()
@@ -115,7 +114,7 @@ namespace Chill.Tests
     }
 
 
-    [ChillTestInitializer(typeof(DefaultChillTestInitializer<AutofacNSubstituteChillContainer>))]
+    [ChillContainer(typeof(AutofacNSubstituteChillContainer))]
     public class AutoMotherSpecs : TestBase
     {
         [Fact]

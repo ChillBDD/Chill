@@ -11,7 +11,7 @@ namespace Chill
     /// for your classes. 
     /// </summary>
     /// <typeparam name="TContainerType">The type of the container to create. </typeparam>
-    public class DefaultChillTestInitializer<TContainerType> : IChillTestInitializer
+    public class DefaultChillContainerInitializer<TContainerType> : IChillContainerInitializer
         where TContainerType : IChillContainer, new()
     {
 

@@ -12,9 +12,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyTypeResolver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AutoMockingContainerExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AutoMotherContainerDecorator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ChillContainerInitializerAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ChillTestInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CollectionExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DefaultChillTestInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DefaultChillContainerInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GivenSubject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GivenWhenThen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IAutoMother.cs" />
