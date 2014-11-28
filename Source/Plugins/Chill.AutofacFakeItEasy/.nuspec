@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Chill.AutofacFakeItEasy</id>
-    <version>2.0.0-beta0002</version>
+    <version>2.0.0</version>
     <title>Chill Autofac FakeItEasy extension </title>
     <authors>Erwin van der Valk, Dennis Doomen</authors>
     <owners>Erwin van der Valk</owners>
