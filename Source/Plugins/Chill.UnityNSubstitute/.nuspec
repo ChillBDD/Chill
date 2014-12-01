@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Chill.Unity</id>
+    <id>Chill.UnityNSubstitute</id>
     <version>2.0.0</version>
     <title>Chill Unity NSubstitute extension</title>
     <authors>Erwin van der Valk, Dennis Doomen</authors>
