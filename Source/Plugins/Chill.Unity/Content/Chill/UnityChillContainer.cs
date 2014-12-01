@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Autofac.Core;
 using Chill;
 using System;
 using Microsoft.Practices.Unity;
