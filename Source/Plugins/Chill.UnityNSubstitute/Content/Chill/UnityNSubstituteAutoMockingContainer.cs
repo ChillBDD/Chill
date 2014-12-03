@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Autofac;
-using Autofac.Builder;
-using Autofac.Core;
-using Chill.Autofac;
 using Chill.Unity;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
