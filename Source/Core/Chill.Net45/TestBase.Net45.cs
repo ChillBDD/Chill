@@ -10,7 +10,10 @@ namespace Chill
     {
         partial void GetBuiltInContainer(ref object attribute)
         {
-            attribute = new ChillContainerAttribute(typeof (TinyIocChillContainer));
+            if (attribute == null)
+            {
+                attribute = new ChillContainerAttribute(typeof (TinyIocChillContainer));
+            }
         }
     }
 }

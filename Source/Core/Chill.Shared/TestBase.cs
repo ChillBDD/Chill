@@ -172,15 +172,13 @@ namespace Chill
                             GetType().Assembly.GetCustomAttributes(typeof(ChillContainerInitializerAttribute), false).SingleOrDefault();
 #endif
 
+            GetBuiltInContainer(ref attribute);
+
             if (attribute == null)
             {
-#if NET45
-                GetBuiltInContainer(ref attribute) ;
-#else
 
                 throw new InvalidOperationException(
                     "Could not find the Chill Container. You must have a Chill container registered using the ChillContainerInitializer. Get the Chill Container from one of the extensions. ");
-#endif
             }
             var type = ((ChillContainerInitializerAttribute) attribute).ChillContainerInitializerType;
 
