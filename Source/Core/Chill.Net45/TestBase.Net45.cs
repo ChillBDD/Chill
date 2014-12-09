@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Chill
 {
-#if NET45
     public partial class TestBase
     {
         partial void GetBuiltInContainer(ref object attribute)
@@ -14,5 +13,4 @@ namespace Chill
             attribute = new ChillContainerAttribute(typeof (TinyIocChillContainer));
         }
     }
-#endif
 }

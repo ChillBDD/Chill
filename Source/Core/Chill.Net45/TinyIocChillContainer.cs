@@ -7,8 +7,6 @@ using TinyIoC;
 
 namespace Chill
 {
-#if NET45
-
     public class TinyIocChillContainer : IChillContainer
     {
         private TinyIoCContainer _container;
@@ -53,6 +51,4 @@ namespace Chill
             return _container.CanResolve(type);
         }
     }
-#endif
-
 }
