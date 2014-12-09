@@ -13,7 +13,7 @@ namespace Chill
     /// It also has a convenient method TriggerTest you can call that will trigger an async test func
     /// and capture any exceptions that might have occurred. 
     /// </summary>
-    public abstract class TestBase : IDisposable
+    public abstract partial class TestBase : IDisposable
     {
         /// <summary>
         /// Should the test execution start immediately on the When method or should execution be deffered until needed. 
@@ -158,7 +158,7 @@ namespace Chill
         protected IChillContainerInitializer BuildInitializer()
         {
 #if WINRT
-            var attribute =
+            object attribute =
                 GetType()
                     .GetTypeInfo()
                     .GetCustomAttributes(typeof (ChillContainerInitializerAttribute), false)
@@ -168,14 +168,19 @@ namespace Chill
                     .Assembly.GetCustomAttributes(typeof (ChillContainerInitializerAttribute))
                     .SingleOrDefault();
 #else
-            var attribute = GetType().GetCustomAttributes(typeof (ChillContainerInitializerAttribute), false).SingleOrDefault() ??
+            object attribute = GetType().GetCustomAttributes(typeof (ChillContainerInitializerAttribute), false).SingleOrDefault() ??
                             GetType().Assembly.GetCustomAttributes(typeof(ChillContainerInitializerAttribute), false).SingleOrDefault();
 #endif
 
             if (attribute == null)
             {
+#if NET45
+                GetBuiltInContainer(ref attribute) ;
+#else
+
                 throw new InvalidOperationException(
                     "Could not find the Chill Container. You must have a Chill container registered using the ChillContainerInitializer. Get the Chill Container from one of the extensions. ");
+#endif
             }
             var type = ((ChillContainerInitializerAttribute) attribute).ChillContainerInitializerType;
 
@@ -188,6 +193,7 @@ namespace Chill
             return (IChillContainerInitializer) Activator.CreateInstance(type);
         }
 
+        partial void GetBuiltInContainer(ref object attribute) ;
 
         /// <summary>
         /// Cleans up all usages. 

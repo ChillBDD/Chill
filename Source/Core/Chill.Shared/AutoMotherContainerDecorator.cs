@@ -37,7 +37,7 @@ namespace Chill
         /// Registers the type.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void RegisterType<T>()
+        public void RegisterType<T>() where T : class
         {
             internalChillContainer.RegisterType<T>();
         }
@@ -126,7 +126,7 @@ namespace Chill
         /// Determines whether an instance of this type is registered.
         /// </summary>
         /// <returns></returns>
-        public bool IsRegistered<T>()
+        public bool IsRegistered<T>()  where T : class
         {
             return internalChillContainer.IsRegistered<T>();
         }
