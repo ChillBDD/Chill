@@ -42,7 +42,7 @@ namespace Chill.Autofac
         }
 
 
-        public void RegisterType<T>()
+        public void RegisterType<T>() where T : class
         {
             Container.ComponentRegistry.Register(RegistrationBuilder.ForType<T>().InstancePerLifetimeScope().CreateRegistration());
         }
@@ -79,7 +79,7 @@ namespace Chill.Autofac
         }
 
 
-        public bool IsRegistered<T>()
+        public bool IsRegistered<T>()where T : class
         {
             return IsRegistered(typeof(T));
         }
@@ -99,7 +99,7 @@ namespace Chill.Autofac
         /// you to do so. (such as autofac)
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public static void RegisterConcreteType<T>(this TestBase testBase)
+        public static void RegisterConcreteType<T>(this TestBase testBase) where T : class
         {
             testBase.Container.RegisterType<T>();
         }

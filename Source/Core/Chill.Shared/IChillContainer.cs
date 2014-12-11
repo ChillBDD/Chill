@@ -14,7 +14,7 @@ namespace Chill
         /// This allows containers like autofac to create the object. 
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        void RegisterType<T>();
+        void RegisterType<T>() where T : class;
 
         /// <summary>
         /// Gets a value of the specified type from the container, optionally registered under a key.
@@ -38,7 +38,7 @@ namespace Chill
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        bool IsRegistered<T>();
+        bool IsRegistered<T>() where T : class;
 
         /// <summary>
         /// Determines whether an instance of this type is registered.

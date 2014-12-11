@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using Chill.Autofac;
 using Chill.AutofacNSubstitute;
 using Chill.Unity;
 using Chill.UnityNSubstitute;
@@ -15,8 +16,6 @@ using Xunit.Extensions;
 
 namespace Chill.Tests.CoreScenarios
 {
-
-
     public class UnityNSubstituteSpecs
     {
         [ChillContainer(typeof(UnityNSubstituteChillContainer))]
