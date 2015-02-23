@@ -7,6 +7,7 @@ namespace Chill.Http
     using System.Linq;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using System.Threading.Tasks;
     using Newtonsoft.Json;
 
     public class AuthenticateAction : IUserAction
@@ -32,7 +33,7 @@ namespace Chill.Http
             get { return Enumerable.Empty<ResponseAction>(); }
         }
 
-        public void Execute()
+        public async Task Execute()
         {
             //_client.Authenticate(_userName, _password).Wait();
         }

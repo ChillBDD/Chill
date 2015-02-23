@@ -4,6 +4,7 @@ namespace Chill.Http
     using System.Collections.Generic;
     using System.Linq.Expressions;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using KellermanSoftware.CompareNetObjects;
     using PowerAssert;
     
@@ -94,9 +95,9 @@ namespace Chill.Http
             return this;
         }
 
-        public override void Execute()
+        public override async Task Execute()
         {
-            base.Execute();
+            await base.Execute();
 
             _result = _deSerialize(Response);
         }
@@ -128,11 +129,11 @@ namespace Chill.Http
             get { return _resultActions; }
         }
 
-        public virtual void Execute()
+        public virtual async Task Execute()
         {
             // Todo: solve logging story
             //Console.WriteLine((Message + " using {Method} on {Url}", _request.Method, _request.RequestUri);
-            Response = User.Client.SendAsync(_request).Result;
+            Response = await User.Client.SendAsync(_request);
         }
 
         public HttpBasedUserAction ResponseShouldMatch(Expression<Func<HttpResponseMessage, bool>> actionExpression)

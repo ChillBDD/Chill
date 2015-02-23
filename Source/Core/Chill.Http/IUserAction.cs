@@ -1,13 +1,14 @@
 namespace Chill.Http
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IUserAction
     {
         string Message { get; }
         IEnumerable<ResponseAction> ResultActions { get; }
 
-        void Execute();
+        Task Execute();
     }
 
     public interface IUserAction<TResult> : IUserAction

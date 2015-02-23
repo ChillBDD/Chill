@@ -73,28 +73,28 @@ namespace Chill.Http
             return httpClient;
         }
 
-        public void Execute(string scenarioName, string commandPath, string queryPath)
+        public async Task Execute(string scenarioName, string commandPath, string queryPath)
         {
             var scenarioResult = new ScenarioResult(scenarioName);
 
             foreach(var user in _users)
             {
                 //TODO Erwin this should async, OR authentication is a seperate step to BuildClient()
-                user.Initialize(BuildClient().Result, commandPath, queryPath);
+                user.Initialize(await BuildClient(), commandPath, queryPath);
             }
             int index = 1;
             _errorOccurred = false;
             foreach(var given in _givens)
             {
-                scenarioResult.Givens.Add(ExecuteTestStep(given, "Given", index++));
+                scenarioResult.Givens.Add(await ExecuteTestStep(given, "Given", index++));
             }
             if(When != null)
             {
-                scenarioResult.When = ExecuteTestStep(When, "When", index++);
+                scenarioResult.When = await ExecuteTestStep(When, "When", index++);
             }
             foreach(var then in _thens)
             {
-                scenarioResult.Thens.Add(ExecuteTestStep(then, "Then", index++));
+                scenarioResult.Thens.Add(await ExecuteTestStep(then, "Then", index++));
             }
 
             Console.WriteLine(scenarioResult.ToString());
@@ -107,7 +107,7 @@ namespace Chill.Http
             }
         }
 
-        private StepResult ExecuteTestStep(Func<IUserAction> step, string stepType, int index)
+        private async Task<StepResult> ExecuteTestStep(Func<IUserAction> step, string stepType, int index)
         {
             IUserAction userAction;
             var stepResult = new StepResult(index, stepType);
@@ -127,7 +127,7 @@ namespace Chill.Http
             {
                 try
                 {
-                    userAction.Execute();
+                    await userAction.Execute();
                 }
                 catch(Exception ex)
                 {

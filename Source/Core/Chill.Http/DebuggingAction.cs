@@ -3,12 +3,13 @@ namespace Chill.Http
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class DebuggingAction : IUserAction
     {
-        private readonly Action _action;
+        private readonly Func<Task> _action;
 
-        public DebuggingAction(Action action)
+        public DebuggingAction(Func<Task> action)
         {
             _action = action;
         }
@@ -20,9 +21,9 @@ namespace Chill.Http
             get { return Enumerable.Empty<ResponseAction>(); }
         }
 
-        public void Execute()
+        public Task Execute()
         {
-            _action();
+            return _action();
         }
     }
 }

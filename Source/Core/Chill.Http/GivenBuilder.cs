@@ -1,6 +1,7 @@
 namespace Chill.Http
 {
     using System;
+    using System.Threading.Tasks;
 
     public class GivenBuilder : ScenarioBuilder
     {
@@ -19,7 +20,7 @@ namespace Chill.Http
             return new GivenBuilder<TResult>(Scenario);
         }
 
-        public GivenBuilder Debug(Action action)
+        public GivenBuilder Debug(Func<Task> action)
         {
             Scenario.AddGiven(() => new DebuggingAction(action));
             return new GivenBuilder(Scenario);
