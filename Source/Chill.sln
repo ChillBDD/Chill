@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.Http", "Core\Chill.Ht
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerAssertForked", "Core\PowerAssert\PowerAssert\PowerAssertForked.csproj", "{32F865C2-AA9E-45C4-8457-62EB8BA0F28A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.ExampleApp", "Chill.ExampleApp\Chill.ExampleApp.csproj", "{E8B1FB7C-E3ED-41F5-A78B-34EC74BFF49B}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Core\Chill.Tests.Shared\Chill.Tests.Shared.projitems*{48cc618c-de45-4a20-aceb-1ae5b2eb5c1c}*SharedItemsImports = 13
@@ -134,6 +136,12 @@ Global
 		{32F865C2-AA9E-45C4-8457-62EB8BA0F28A}.NuPackRelease|Any CPU.Build.0 = NuPackRelease|Any CPU
 		{32F865C2-AA9E-45C4-8457-62EB8BA0F28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32F865C2-AA9E-45C4-8457-62EB8BA0F28A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8B1FB7C-E3ED-41F5-A78B-34EC74BFF49B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8B1FB7C-E3ED-41F5-A78B-34EC74BFF49B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8B1FB7C-E3ED-41F5-A78B-34EC74BFF49B}.NuPackRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{E8B1FB7C-E3ED-41F5-A78B-34EC74BFF49B}.NuPackRelease|Any CPU.Build.0 = Release|Any CPU
+		{E8B1FB7C-E3ED-41F5-A78B-34EC74BFF49B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8B1FB7C-E3ED-41F5-A78B-34EC74BFF49B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -154,5 +162,6 @@ Global
 		{8CF14A5A-CCA0-46C5-948F-E46F7C4F1666} = {02E12BC2-5722-479D-A403-B8C0468865DC}
 		{2303AC51-0483-4137-BC3D-DAA61A324DA4} = {DD0DDAC9-872E-4C5B-AB54-97F6103B396E}
 		{32F865C2-AA9E-45C4-8457-62EB8BA0F28A} = {DD0DDAC9-872E-4C5B-AB54-97F6103B396E}
+		{E8B1FB7C-E3ED-41F5-A78B-34EC74BFF49B} = {29D4C8C6-FA0B-4138-A777-A647125072A5}
 	EndGlobalSection
 EndGlobal

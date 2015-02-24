@@ -7,8 +7,6 @@ namespace Chill.Http
 
         public ScenarioBuilder(Scenario scenario, string defaultCommandsPath, string defaultQueryPath)
         {
-            scenario.DefaultCommandsPath = defaultCommandsPath;
-            scenario.DefaultQueryPath = defaultQueryPath;
             Scenario = scenario;
         }
 
@@ -19,9 +17,9 @@ namespace Chill.Http
 
         protected Scenario Scenario { get; private set; }
 
-        public void Execute(string commandPath = null, string queryPath = null, [CallerMemberName] string scenarioName = "")
+        public void Execute([CallerMemberName] string scenarioName = "")
         {
-            Scenario.Execute(scenarioName, commandPath ?? Scenario.DefaultCommandsPath, queryPath ?? Scenario.DefaultQueryPath);
+            Scenario.Execute(scenarioName);
         }
     }
 }

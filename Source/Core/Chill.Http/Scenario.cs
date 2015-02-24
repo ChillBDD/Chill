@@ -18,10 +18,8 @@ namespace Chill.Http
         private readonly List<User> _users = new List<User>();
         private bool _errorOccurred;
 
-        public Scenario(Func<IDictionary<string, object>, Task> appFunc, string defaultCommandsPath, string defaultQueryPath)
+        public Scenario(Func<IDictionary<string, object>, Task> appFunc)
         {
-            DefaultCommandsPath = defaultCommandsPath;
-            DefaultQueryPath = defaultQueryPath;
             _appFunc = appFunc ?? (env =>
             {
                 OwinContext owinContext = new OwinContext(env)
@@ -37,13 +35,15 @@ namespace Chill.Http
         }
 
         internal Func<IUserAction> When { get; set; }
-        public string DefaultCommandsPath { get; set; }
-        public string DefaultQueryPath { get; set; }
 
-        public GivenBuilder WithUsers(params User[] users)
+        public GivenBuilder WithUsers(IEnumerable<User> users)
         {
             _users.AddRange(users);
             return new GivenBuilder(this);
+        }
+        public GivenBuilder WithUsers(params User[] users)
+        {
+            return WithUsers((IEnumerable<User>)users);
         }
 
         internal void AddGiven(Func<IUserAction> action)
@@ -73,14 +73,14 @@ namespace Chill.Http
             return httpClient;
         }
 
-        public async Task Execute(string scenarioName, string commandPath, string queryPath)
+        public async Task Execute(string scenarioName)
         {
             var scenarioResult = new ScenarioResult(scenarioName);
 
             foreach(var user in _users)
             {
                 //TODO Erwin this should async, OR authentication is a seperate step to BuildClient()
-                user.Initialize(await BuildClient(), commandPath, queryPath);
+                user.Initialize(await BuildClient());
             }
             int index = 1;
             _errorOccurred = false;

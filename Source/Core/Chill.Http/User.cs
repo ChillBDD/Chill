@@ -43,8 +43,6 @@ namespace Chill.Http
     {
         private readonly string _name;
         private readonly string _password;
-        private string _commandPath;
-        private string _queryPath;
 
         public User(string name, string password)
         {
@@ -64,11 +62,9 @@ namespace Chill.Http
             return string.Format("{0}", _name);
         }
 
-        public void Initialize(HttpClient client, string commandPath, string queryPath)
+        public void Initialize(HttpClient client)
         {
             Client = client;
-            _commandPath = commandPath;
-            _queryPath = queryPath;
         }
 
         //public HttpBasedUserAction Does(object command, Guid? commandId = null, bool checkStatusCodeIsSuccess = true)
@@ -84,26 +80,26 @@ namespace Chill.Http
         //    return new HttpBasedUserAction(message, this, requestMessage, checkStatusCodeIsSuccess);
         //}
 
-        public HttpBasedUserAction<TResult> Queries<TResult>(object query, bool checkStatusCodeIsSuccess = true)
-        {
-            if(query == null)
-            {
-                throw new ArgumentNullException("query");
-            }
+        //public HttpBasedUserAction<TResult> Queries<TResult>(object query, bool checkStatusCodeIsSuccess = true)
+        //{
+        //    if(query == null)
+        //    {
+        //        throw new ArgumentNullException("query");
+        //    }
 
-            var message = string.Format("User {0} queries '{2}':'{1}'", _name, query.GetType().Name, query);
+        //    var message = string.Format("User {0} queries '{2}':'{1}'", _name, query.GetType().Name, query);
 
-            var queryString = GetQueryString(query);
-            var url = _queryPath + "/" + query.GetType().Name + "?" + queryString;
+        //    var queryString = GetQueryString(query);
+        //    var url = _queryPath + "/" + query.GetType().Name + "?" + queryString;
 
-            var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
-            requestMessage.Headers.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
-            return new HttpBasedUserAction<TResult>(message,
-                this,
-                requestMessage,
-                Deserialize<TResult>,
-                checkStatusCodeIsSuccess);
-        }
+        //    var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
+        //    requestMessage.Headers.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+        //    return new HttpBasedUserAction<TResult>(message,
+        //        this,
+        //        requestMessage,
+        //        Deserialize<TResult>,
+        //        checkStatusCodeIsSuccess);
+        //}
 
         private TResult Deserialize<TResult>(HttpResponseMessage response)
         {

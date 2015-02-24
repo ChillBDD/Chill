@@ -69,10 +69,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChillHttpScenarios.cs" />
     <Compile Include="Chill\DefaultChillContainer.cs" />
     <Compile Include="CustomerController.cs" />
     <Compile Include="For_CustomerController.cs" />
-    <Compile Include="IntegrationTest.cs" />
     <Compile Include="NonChilledTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestSubjects\Customer.cs" />
@@ -88,6 +88,14 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Chill.ExampleApp\Chill.ExampleApp.csproj">
+      <Project>{E8B1FB7C-E3ED-41F5-A78B-34EC74BFF49B}</Project>
+      <Name>Chill.ExampleApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Chill.Http\Chill.Http.csproj">
+      <Project>{2303AC51-0483-4137-BC3D-DAA61A324DA4}</Project>
+      <Name>Chill.Http</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Chill.Net45\Chill.Net45.csproj">
       <Project>{b56888bb-74e2-4a75-8fb6-017ba7023874}</Project>
       <Name>Chill.Net45</Name>
