@@ -60,7 +60,7 @@ namespace Chill.Unity
             {
                 Container.RegisterInstance(key, valueToSet);
             }
-            return Get<T>();
+            return Get<T>(key);
         }
 
 

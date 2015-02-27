@@ -44,7 +44,7 @@ namespace Chill.StateBuilders
 
         private void AppendToDictionary(T valueToSet)
         {
-            var dictionary = TestBase.Container.Get<Dictionary<Tuple<Type, string>, object>>();
+            var dictionary = TestBase.Container.Get<Dictionary<Tuple<Type, string>, object>>("chill");
 
             var key = Tuple.Create(typeof(T), Named);
 
@@ -54,7 +54,7 @@ namespace Chill.StateBuilders
             }
 
             dictionary[key] = valueToSet;
-            TestBase.Container.Set(dictionary);
+            TestBase.Container.Set(dictionary, "chill");
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Chill
         /// <returns></returns>
         internal static List<T> GetList<T>(this IChillContainer container) where T : class
         {
-            var dictionary = container.Get<Dictionary<Type, object>>();
+            var dictionary = container.Get<Dictionary<Type, object>>("chill");
 
 
             if (dictionary == null || dictionary.Count == 0)
@@ -47,7 +47,7 @@ namespace Chill
             {
                 list = new List<T>();
                 dictionary.Add(typeof (T), list);
-                container.Set(dictionary);
+                container.Set(dictionary, "chill");
             }
             return (List<T>) list;
         }

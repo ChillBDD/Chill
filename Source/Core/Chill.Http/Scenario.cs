@@ -2,6 +2,7 @@ namespace Chill.Http
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -75,6 +76,9 @@ namespace Chill.Http
 
         public async Task Execute(string scenarioName)
         {
+
+            SetupTraceListener();
+
             var scenarioResult = new ScenarioResult(scenarioName);
 
             foreach(var user in _users)
@@ -97,14 +101,31 @@ namespace Chill.Http
                 scenarioResult.Thens.Add(await ExecuteTestStep(then, "Then", index++));
             }
 
+            string failureMessage = null;
+            var firstFailedStep = scenarioResult.FirstException();
+            if (firstFailedStep != null)
+            {
+                failureMessage = "** This test failed at step: " + firstFailedStep.StepType + " " + firstFailedStep.StepIndex +
+                              " - " +
+                              firstFailedStep.Message + Environment.NewLine + Environment.NewLine + "\t Cause: " + firstFailedStep.GetExceptionMessage() + Environment.NewLine;
+
+                Console.WriteLine("**FAILURE *************************************");
+                Console.WriteLine(failureMessage);
+            }
             Console.WriteLine(scenarioResult.ToString());
 
-            var firstFailedStep = scenarioResult.FirstException();
             if(firstFailedStep != null)
             {
-                throw new InvalidOperationException("This test failed at step: " + firstFailedStep.StepType + " " + firstFailedStep.StepIndex + " - " +
-                                                    firstFailedStep.Message + "\r\n" + firstFailedStep.GetExceptionMessage());
+                throw new InvalidOperationException(failureMessage);
             }
+        }
+
+        protected virtual void SetupTraceListener()
+        {
+            Trace.Listeners.Clear();
+            var inMemoryTraceListener = new InMemoryTraceListener();
+            Trace.Listeners.Add(inMemoryTraceListener);
+
         }
 
         private async Task<StepResult> ExecuteTestStep(Func<IUserAction> step, string stepType, int index)
@@ -193,8 +214,9 @@ namespace Chill.Http
         {
             StringBuilder builder = new StringBuilder();
 
+            builder.AppendLine("***********************************************");
             builder.AppendLine("Scenario: " + _scenarioName);
-            builder.AppendLine("********************************************************");
+            builder.AppendLine("***********************************************");
             if(Givens.Any())
             {
                 builder.AppendLine("Given:");
@@ -322,6 +344,47 @@ namespace Chill.Http
                 return null;
             }
             return exception.ToString();
+        }
+    }
+
+    public class InMemoryTraceListener : TraceListener
+    {
+        private readonly List<string> _messages = new List<string>();
+        private StringBuilder _buffer = new StringBuilder();
+
+        public override void Write(string message)
+        {
+            var currentExecutableFileName = System.IO.Path.GetFileName(Environment.GetCommandLineArgs()[0]);
+            if (message.StartsWith(currentExecutableFileName))
+            {
+                message = message.Substring(currentExecutableFileName.Length).TrimStart();
+            }
+
+            _buffer.Append(message);
+        }
+
+        public override void WriteLine(string message)
+        {
+            _buffer.Append(message);
+            FlushBuffer();
+        }
+
+        private void FlushBuffer()
+        {
+            if (_buffer.Capacity > 0)
+            {
+                _messages.Add(_buffer.ToString());
+                _buffer.Clear();
+            }
+        }
+
+        public IEnumerable<string> LogMessages
+        {
+            get
+            {
+                FlushBuffer();
+                return _messages;
+            }
         }
     }
 

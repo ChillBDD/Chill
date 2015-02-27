@@ -1,6 +1,7 @@
 namespace Chill.Http
 {
     using System.Runtime.CompilerServices;
+    using System.Threading.Tasks;
 
     public class ScenarioBuilder
     {
@@ -17,9 +18,9 @@ namespace Chill.Http
 
         protected Scenario Scenario { get; private set; }
 
-        public void Execute([CallerMemberName] string scenarioName = "")
+        public Task Execute([CallerMemberName] string scenarioName = "")
         {
-            Scenario.Execute(scenarioName);
+            return Scenario.Execute(scenarioName);
         }
     }
 }
