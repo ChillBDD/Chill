@@ -2,6 +2,7 @@ namespace Chill.Http
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq.Expressions;
     using System.Net.Http;
     using System.Threading.Tasks;
@@ -131,8 +132,7 @@ namespace Chill.Http
 
         public virtual async Task Execute()
         {
-            // Todo: solve logging story
-            //Console.WriteLine((Message + " using {Method} on {Url}", _request.Method, _request.RequestUri);
+            Trace.WriteLine(string.Format(Message + " using {0} on {1}", _request.Method, _request.RequestUri));
             Response = await User.Client.SendAsync(_request);
         }
 
@@ -146,6 +146,7 @@ namespace Chill.Http
             }));
             return this;
         }
+
     }
 
     //brought in to avoid the need for .NET 4

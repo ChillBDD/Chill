@@ -6,33 +6,154 @@ namespace Chill.Http
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
     using Microsoft.Owin;
+    using Microsoft.Owin.Builder;
+    using Owin;
+
+    using AppFunc = System.Func<
+        System.Collections.Generic.IDictionary<string, object>,
+        System.Threading.Tasks.Task
+    >;
+
+    using MidFunc = System.Func<System.Func<System.Collections.Generic.IDictionary<string, object>,
+        System.Threading.Tasks.Task
+        >, System.Func<System.Collections.Generic.IDictionary<string, object>,
+            System.Threading.Tasks.Task>
+        >;
+
+
+
+    public class HttpClientBuilder
+    {
+        private readonly Func<User, Task> _onAuthenticate;
+        private readonly AppFunc _appFunc;
+        private readonly string _baseAddress;
+        private readonly string _url;
+
+
+
+        public HttpClientBuilder(Func<User, Task> onAuthenticate, AppFunc appFunc, string baseAddress)
+        {
+            _onAuthenticate = onAuthenticate;
+            _appFunc = appFunc;
+            _baseAddress = baseAddress;
+        }
+
+        public virtual HttpClient Build(User user)
+        {
+            HttpMessageHandler handler;
+
+            if (_appFunc == null)
+            {
+                handler = new HttpClientHandler()
+                {
+                    AllowAutoRedirect = true,
+                    UseCookies = true,
+                    CookieContainer = new CookieContainer()
+                };
+            }
+            else
+            {
+                handler = new OwinHttpMessageHandler(_appFunc)
+                {
+                    AllowAutoRedirect = true,
+                    UseCookies = true,
+                    CookieContainer = new CookieContainer()
+                };
+            }
+
+            return new HttpClient(handler)
+            {
+                BaseAddress = new Uri(_baseAddress, UriKind.Absolute)
+            };
+
+        }
+
+        public Task Authenticate(User user)
+        {
+            return _onAuthenticate(user);
+        }
+    }
+
+    public class SimulatedAuthHttpClientBuilder : HttpClientBuilder
+    {
+        private readonly List<User> _authenticatedUsers = new List<User>(); 
+
+        public SimulatedAuthHttpClientBuilder(string baseAddress, AppFunc appFunc, Func<User, Task> onAuthenticate = null)
+            : base(onAuthenticate ?? SimulateAuthentication, BuildSimulateAppFunc(appFunc), baseAddress)
+        {
+            
+        }
+
+        private static AppFunc BuildSimulateAppFunc(AppFunc appFunc)
+        {
+            var app = new AppBuilder();
+            app.Use(SimulateMidFunc());
+            app.Run(ctx => appFunc(ctx.Environment));
+            return app.Build();
+        }
+
+        public static MidFunc SimulateMidFunc()
+        {
+            return next => ctx =>
+            {
+                var owinContext = new OwinContext(ctx);
+
+                if (owinContext.Request.Headers.Any(x => x.Key == "simulatedAuthenticationUserName"))
+                {
+                    var identity = new ClaimsIdentity(new[] { new Claim("name", owinContext.Request.Headers.Get("simulatedAuthenticationUserName")) }, "SimulatedAuthentication");
+                    var principal = new ClaimsPrincipal(identity);
+
+                    owinContext.Request.User = principal;
+                    
+                }
+                
+                return next(ctx);
+            };
+        }
+
+        private static Task SimulateAuthentication(User user)
+        {
+            user.Client.DefaultRequestHeaders.Add("simulatedAuthenticationUserName", user.Name);
+            return Task.FromResult(0);
+        }
+
+        public override HttpClient Build(User user)
+        {
+            var httpClient = base.Build(user);
+            return httpClient;
+        }
+    }
+
+        /* 
+     * Scenario(new url);
+     * 
+     * Scenario(appFunc, simulateAuth=true)
+     * 
+     * new User(name);
+     * 
+     * new User(name);
+     * 
+     * User.LogIn()
+     * */
+
 
     public class Scenario
     {
-
-        private readonly Func<IDictionary<string, object>, Task> _appFunc;
+        private readonly HttpClientBuilder _clientBuilder;
+        private readonly string _baseUrl;
+        private readonly AppFunc _appFunc;
         private readonly List<Func<IUserAction>> _givens = new List<Func<IUserAction>>();
         private readonly List<Func<IUserAction>> _thens = new List<Func<IUserAction>>();
         private readonly List<User> _users = new List<User>();
         private bool _errorOccurred;
 
-        public Scenario(Func<IDictionary<string, object>, Task> appFunc)
+        public Scenario(HttpClientBuilder clientBuilder)
         {
-            _appFunc = appFunc ?? (env =>
-            {
-                OwinContext owinContext = new OwinContext(env)
-                {
-                    Response =
-                    {
-                        StatusCode = 404,
-                        ReasonPhrase = "Not Found"
-                    }
-                };
-                return Task.FromResult(true);
-            });
+            _clientBuilder = clientBuilder;
         }
 
         internal Func<IUserAction> When { get; set; }
@@ -57,23 +178,6 @@ namespace Chill.Http
             _thens.Add(action);
         }
 
-        private async Task<HttpClient> BuildClient(CookieContainer cookieContainer = null)
-        {
-            var handler = new OwinHttpMessageHandler(_appFunc)
-            {
-                AllowAutoRedirect = true,
-                CookieContainer = cookieContainer ?? new CookieContainer(),
-                UseCookies = true, 
-            };
-            var httpClient = new HttpClient(handler)
-            {
-                BaseAddress = new Uri("http://localhost/")
-            };
-
-
-            return httpClient;
-        }
-
         public async Task Execute(string scenarioName)
         {
 
@@ -84,7 +188,7 @@ namespace Chill.Http
             foreach(var user in _users)
             {
                 //TODO Erwin this should async, OR authentication is a seperate step to BuildClient()
-                user.Initialize(await BuildClient());
+                user.Initialize(_clientBuilder);
             }
             int index = 1;
             _errorOccurred = false;

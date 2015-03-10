@@ -10,22 +10,27 @@ namespace Chill.Http
     using System.Threading.Tasks;
     using Newtonsoft.Json;
 
+    using AppFunc = System.Func<
+        System.Collections.Generic.IDictionary<string, object>,
+        System.Threading.Tasks.Task
+    >;
+
     public class AuthenticateAction : IUserAction
     {
         private readonly HttpClient _client;
-        private readonly string _userName;
-        private readonly string _password;
+        private readonly User _user;
+        private readonly HttpClientBuilder _httpClientBuilder;
+        private readonly Scenario _scenario;
 
-        public AuthenticateAction(HttpClient client, string userName, string password)
+        public AuthenticateAction(User user, HttpClientBuilder httpClientBuilder)
         {
-            _client = client;
-            _userName = userName;
-            _password = password;
+            _user = user;
+            _httpClientBuilder = httpClientBuilder;
         }
 
         public string Message
         {
-            get { return string.Format("User {0} logs in", _userName); }
+            get { return string.Format("User {0} logs in", _user); }
         }
 
         public IEnumerable<ResponseAction> ResultActions
@@ -33,38 +38,47 @@ namespace Chill.Http
             get { return Enumerable.Empty<ResponseAction>(); }
         }
 
-        public async Task Execute()
+        public Task Execute()
         {
-            //_client.Authenticate(_userName, _password).Wait();
+            return _httpClientBuilder.Authenticate(_user);
         }
+
     }
+
+    
 
     public class User
     {
         private readonly string _name;
-        private readonly string _password;
+        private HttpClientBuilder _builder;
 
-        public User(string name, string password)
+        public User(string name)
         {
             _name = name;
-            _password = password;
         }
 
         public HttpClient Client { get; private set; }
+        public Scenario Scenario { get; set; }
+
+        public string Name
+        {
+            get { return _name; }
+        }
 
         public AuthenticateAction LogsIn()
         {
-            return new AuthenticateAction(Client, _name, _password);
+            return new AuthenticateAction(this, _builder);
         }
 
         public override string ToString()
         {
-            return string.Format("{0}", _name);
+            return string.Format("{0}", Name);
         }
 
-        public void Initialize(HttpClient client)
+        public void Initialize(HttpClientBuilder builder)
         {
-            Client = client;
+            _builder = builder;
+            Client = builder.Build(this);
         }
 
         //public HttpBasedUserAction Does(object command, Guid? commandId = null, bool checkStatusCodeIsSuccess = true)
@@ -143,13 +157,13 @@ namespace Chill.Http
         // Usage:
         public HttpBasedUserAction Posts(string url, IRequestMessage data, bool checkStatusCodeIsSuccess = true)
         {
-            var message = string.Format("User {0} posts {1}:{2}", _name, data.GetType().Name, data);
+            var message = string.Format("User {0} posts {1}:{2}", Name, data.GetType().Name, data);
             return new HttpBasedUserAction(message, this, data.Build(url, HttpMethod.Post), checkStatusCodeIsSuccess);
         }
 
         public HttpBasedUserAction Gets(string url, bool checkStatusCodeIsSuccess = true)
         {
-            var message = string.Format("User {0} gets {1}", _name, url);
+            var message = string.Format("User {0} gets {1}", Name, url);
             return new HttpBasedUserAction(message, this, new HttpRequestMessage(HttpMethod.Get, url), checkStatusCodeIsSuccess);
         }
     }
