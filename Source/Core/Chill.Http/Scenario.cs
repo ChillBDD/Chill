@@ -35,7 +35,7 @@ namespace Chill.Http
 
 
 
-        public HttpClientBuilder(Func<User, Task> onAuthenticate, AppFunc appFunc, string baseAddress)
+        public HttpClientBuilder(string baseAddress, Func<User, Task> onAuthenticate, AppFunc appFunc = null)
         {
             _onAuthenticate = onAuthenticate;
             _appFunc = appFunc;
@@ -83,7 +83,7 @@ namespace Chill.Http
         private readonly List<User> _authenticatedUsers = new List<User>(); 
 
         public SimulatedAuthHttpClientBuilder(string baseAddress, AppFunc appFunc, Func<User, Task> onAuthenticate = null)
-            : base(onAuthenticate ?? SimulateAuthentication, BuildSimulateAppFunc(appFunc), baseAddress)
+            : base(baseAddress, onAuthenticate ?? SimulateAuthentication, BuildSimulateAppFunc(appFunc))
         {
             
         }

@@ -9,7 +9,10 @@
     using System.Text;
     using System.Threading.Tasks;
     using ExampleApp;
+    using FluentAssertions;
     using Http;
+    using Microsoft.Owin.Hosting;
+    using Owin;
     using Xunit;
 
         using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>,
@@ -19,6 +22,44 @@
 
     // Inject HttpClient
     // 
+
+    public class KatanaBasedTests : ExampleTestScenarios
+    {
+        private IDisposable _webApp;
+        private string _baseAddress;
+
+        public KatanaBasedTests()
+        {
+            _baseAddress = "http://localhost:12345";
+            _webApp = WebApp.Start<Startup>(new StartOptions(_baseAddress) {ServerFactory = "Microsoft.Owin.Host.HttpListener"});
+
+            UseThe<Scenario>(new Scenario(new HttpClientBuilder(_baseAddress, OnAuthenticate)));
+        }
+
+        private async Task OnAuthenticate(User user)
+        {
+
+            var byteArray = Encoding.ASCII.GetBytes("userandpass:userandpass");
+            user.Client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _webApp.Dispose();
+            base.Dispose(disposing);
+        }
+    }
+
+    public class Startup
+    {
+
+        public void Configuration(IAppBuilder app)
+        {
+            var appFunc = new ExampleAppMiddleware().AppFunc;
+            app.Run(context => appFunc(context.Environment));
+        }
+    }
 
     public class OwinBasedTests : ExampleTestScenarios
     {
@@ -61,7 +102,8 @@
             await The<Scenario>()
                 .WithUsers(All<User>())
                 .Given(() => 
-                    The<User>().Gets("/test"))
+                    The<User>().Gets("/test")
+                    .ResponseShouldMatch(r => r.Content.ReadAsStringAsync().Result == "\"Tested Get\""))
                 .Execute();
         }
 
