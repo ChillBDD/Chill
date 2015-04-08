@@ -9,6 +9,9 @@ using Xunit;
 
 namespace Chill.Tests.CoreScenarios
 {
+    using System;
+    using Microsoft.SqlServer.Server;
+
     public abstract class GivenSubjectSpecs : GivenSubject<TestSubject>
     {
         [Fact]
@@ -83,6 +86,15 @@ namespace Chill.Tests.CoreScenarios
             SetThe<IAsyncService>().To(new AsyncService());
             bool result = false;
             When(async () => result = await The<IAsyncService>().DoSomething());
+            result.Should().Be(true);
+        }
+
+        [Fact]
+        public void Can_use_async_given()
+        {
+            SetThe<IAsyncService>().To(new AsyncService());
+            bool result = false;
+            Given(async () => result = await The<IAsyncService>().DoSomething());
             result.Should().Be(true);
         }
 
