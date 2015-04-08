@@ -81,6 +81,15 @@ namespace Chill
             a();
         }
 
+        /// <summary>
+        /// Records an asynchronous precondittion
+        /// </summary>
+        /// <param name="givenFuncASync">The async precondition.</param>
+        public void Given(Func<Task> givenFuncASync)
+        {
+            this.Given(() => givenFuncASync().WaitAndFlattenExceptions());
+        }
+
     }
 
     /// <summary>
@@ -133,12 +142,21 @@ namespace Chill
         /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
         public void When(Func<Task> whenActionAsync, bool? deferedExecution = null)
         {
-            When(() => whenActionAsync().Wait(), deferedExecution);
+            When(() => whenActionAsync().WaitAndFlattenExceptions(), deferedExecution);
         }
 
         internal override void TriggerTest(bool expectExceptions)
         {
             TriggerTest(whenAction, expectExceptions);
+        }
+
+        /// <summary>
+        /// Records an asynchronous precondittion
+        /// </summary>
+        /// <param name="givenFuncASync">The async precondition</param>
+        public void Given(Func<Task> givenFuncASync)
+        {
+            this.Given(() => givenFuncASync().WaitAndFlattenExceptions());
         }
 
         /// <summary>
@@ -150,6 +168,20 @@ namespace Chill
             EnsureContainer();
             a();
         }
+    }
 
+    public static class TaskExtensions
+    {
+        public static void WaitAndFlattenExceptions(this Task t)
+        {
+            try
+            {
+                t.Wait();
+            }
+            catch (AggregateException aggregateException)
+            {
+                throw aggregateException.Flatten();
+            }
+        }
     }
 }
