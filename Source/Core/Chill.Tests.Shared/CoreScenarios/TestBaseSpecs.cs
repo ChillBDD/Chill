@@ -9,6 +9,8 @@ namespace Chill.Tests.CoreScenarios
 {
     public abstract class TestBaseSpecs : TestBase
     {
+
+
         [Fact]
         public void Can_get_mock_for_subject()
         {
