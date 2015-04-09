@@ -8,7 +8,7 @@ Chill, a BDD style testing framework
 * Unit Tests should hide unneeded complexity!
 * Unit Testing should be Cool! I dare say.. it should be Chill!
 
-Chill helps you to write better unit tests. It works wity any test framework, any container, any mocking framework and any assertion library. 
+Chill helps you to write better unit tests. It works with any test framework, any container, any mocking framework and any assertion library. 
 
 Look at this:
 
@@ -139,11 +139,11 @@ If you want to explicitly register a value, you can use the **SetThe<>().To()** 
 Note the use of the **.With()** extension method. This simple little extension method makes it easy to modify objects afther they have been built, in a very clean way. 
 
 ##Asynchronous testing
-Let’s face it. Async programming is difficult. 
+Letâ€™s face it. Async programming is difficult. 
 
 The Async Await certainly helps to make the asynchronous code more readable. Along that lines, Chill attempts to help to make your tests more readable as well. 
 
-Assume the following simple example. You have an asynchronous webapi controller. Why is this controller async? Let’s assume it needs to do IO. In this case, this is encapsulated in an async call to ICustomerStore.GetCustomerAsync(). 
+Assume the following simple example. You have an asynchronous webapi controller. Why is this controller async? Letâ€™s assume it needs to do IO. In this case, this is encapsulated in an async call to ICustomerStore.GetCustomerAsync(). 
 
         public class When_retrieving_existing_customer_async : GivenSubject<CustomerController, View>
         {
@@ -176,7 +176,7 @@ Assume the following simple example. You have an asynchronous webapi controller.
                 Result.Model.Should().Be(The<Customer>());
             }
 
-In Chill, you can just define an asynchronous method in your call to **When()**. Chill will take care of handling the asynchronous complexity for you. Now all you need to do is to make sure your dependency return a Task instead of the ‘normal’ result. You can do this by calling the **.Asynchronously()** extension method. 
+In Chill, you can just define an asynchronous method in your call to **When()**. Chill will take care of handling the asynchronous complexity for you. Now all you need to do is to make sure your dependency return a Task instead of the â€˜normalâ€™ result. You can do this by calling the **.Asynchronously()** extension method. 
 
 
 
