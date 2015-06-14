@@ -1,17 +1,11 @@
-using System.Threading;
+using System;
 using System.Threading.Tasks;
-
 using Chill.Tests.TestSubjects;
-
 using FluentAssertions;
-
 using Xunit;
 
 namespace Chill.Tests.CoreScenarios
 {
-    using System;
-    using Microsoft.SqlServer.Server;
-
     public abstract class GivenSubjectSpecs : GivenSubject<TestSubject>
     {
         [Fact]
@@ -53,7 +47,7 @@ namespace Chill.Tests.CoreScenarios
             string message = "";
             Given(() => message += "given");
             Given(() => message += "given");
-            When(() => message+= "when");
+            When(() => message += "when");
             message.Should().Be("givengivenwhen");
         }
 
@@ -62,7 +56,7 @@ namespace Chill.Tests.CoreScenarios
         {
             string message = "";
             Given(() => message += "given");
-            When(() => message += "when", deferedExecution:true);
+            When(() => message += "when", true);
             message.Should().Be("given");
             WhenAction();
             message.Should().Be("givenwhen");
@@ -71,7 +65,7 @@ namespace Chill.Tests.CoreScenarios
         [Fact]
         public void Can_Defer_when_with_property()
         {
-            this.DefferedExecution = true;
+            DefferedExecution = true;
             string message = "";
             Given(() => message += "given");
             When(() => message += "when");
@@ -98,10 +92,9 @@ namespace Chill.Tests.CoreScenarios
             result.Should().Be(true);
         }
 
-        interface IAsyncService
+        private interface IAsyncService
         {
             Task<bool> DoSomething();
-
         }
 
         private class AsyncService : IAsyncService
@@ -113,10 +106,55 @@ namespace Chill.Tests.CoreScenarios
 #else
                 await TaskEx.Delay(100);
 #endif
-                
+
                 return true;
             }
-
         }
+    }
+
+    public class When_a_subject_is_build_using_a_custom_factory : GivenSubject<Disposable>
+    {
+        private readonly Disposable subject = new Disposable();
+
+        public When_a_subject_is_build_using_a_custom_factory()
+        {
+            Given(() =>
+            {
+                WithSubject(_ => subject);
+            });
+
+            When(() =>
+            {
+                // NOTE: Force the subject to get created
+                Subject.Foo();
+            });
+        }
+
+        [Fact]
+        public void Then_dispose_should_still_dispose_our_subject()
+        {
+            // NOTE: Because Dispose is called later, we just need this method to mark it as a test-case.
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            subject.IsDisposed.Should().BeTrue("because even custom-built subjects should be disposed");
+        }
+    }
+
+    public class Disposable : IDisposable
+    {
+        public void Dispose()
+        {
+            IsDisposed = true;
+        }
+
+        public void Foo()
+        {
+        }
+
+        public bool IsDisposed { get; set; }
     }
 }

@@ -37,6 +37,8 @@ namespace Chill.Tests
             DefferedExecution = true;
             When(() => { throw new Exception(); });
         }
+        
+        [Fact]
         public void When_setting_multiple_items_then_they_should_be_set()
         {
             When(() => SetAll(new AClass("1"), new AClass("2")));
@@ -112,31 +114,4 @@ namespace Chill.Tests
             }
         }
     }
-
-
-    [ChillContainer(typeof(AutofacNSubstituteChillContainer))]
-    public class AutoMotherSpecs : TestBase
-    {
-        [Fact]
-        public void Can_build_a_type_using_automother()
-        {
-            The<Subject_built_By_Chill_AutoMother>().Name.Should().Be("I have been built by Chill");
-        }
-
-        [Fact]
-        public void Can_customize_types_built_by_chill()
-        {
-            The<Subject_built_By_Chill_AutoMother>().Name = "altered";
-            The<Subject_built_By_Chill_AutoMother>().Name.Should().Be("altered");
-        }
-
-        [Fact]
-        public void Can_customize_named_types_built_by_chill()
-        {
-            TheNamed<Subject_built_By_Chill_AutoMother>("blah").Name = "altered";
-            TheNamed<Subject_built_By_Chill_AutoMother>("blah").Name.Should().Be("altered");
-        }
-    }
-
-
 }
