@@ -12,7 +12,7 @@ namespace Chill.Examples.Tests
 
     namespace For_CustomerController
     {
-
+        using AutofacNSubstitute;
 
 
         public class When_deleting_customer : GivenSubject<CustomerController>
@@ -70,6 +70,7 @@ namespace Chill.Examples.Tests
             }
         }
 
+        [ChillContainer(typeof(AutofacNSubstituteChillContainer))]
         public class When_retrieving_existing_customer_async : GivenSubject<CustomerController, View>
         {
             const int customerId = 12;
