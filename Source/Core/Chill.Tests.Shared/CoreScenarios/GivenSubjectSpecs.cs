@@ -9,7 +9,7 @@ namespace Chill.Tests.CoreScenarios
     public abstract class GivenSubjectSpecs : GivenSubject<TestSubject>
     {
         [Fact]
-        public void Then_subject_gets_dependencies_injected()
+        public void When_creating_a_subject_then_gets_dependencies_injected()
         {
             Subject.TestService.Should().NotBeNull();
         }
@@ -30,19 +30,19 @@ namespace Chill.Tests.CoreScenarios
         }
 
         [Fact]
-        public void Can_get_mock_for_subject()
+        public void When_getting_mock_it_should_be_created()
         {
             The<ITestService>().Should().NotBeNull();
         }
 
         [Fact]
-        public void Can_get_named_service()
+        public void When_getting_named_service_it_should_be_created()
         {
             TheNamed<ITestService>("abc").Should().NotBeNull();
         }
 
         [Fact]
-        public void Given_is_executed_before_when()
+        public void When_using_both_givens_and_whens_the_givens_are_executed_before_the_when()
         {
             string message = "";
             Given(() => message += "given");
@@ -52,18 +52,18 @@ namespace Chill.Tests.CoreScenarios
         }
 
         [Fact]
-        public void Can_Defer_when()
+        public void When_calling_when_deffered_then_whenaction_is_not_called_automatically()
         {
             string message = "";
             Given(() => message += "given");
-            When(() => message += "when", true);
+            When(() => message += "when", deferedExecution: true);
             message.Should().Be("given");
             WhenAction();
             message.Should().Be("givenwhen");
         }
 
         [Fact]
-        public void Can_Defer_when_with_property()
+        public void When_deffered_and_calling_when_then_whenaction_is_not_called_automatically()
         {
             DefferedExecution = true;
             string message = "";
@@ -75,7 +75,7 @@ namespace Chill.Tests.CoreScenarios
         }
 
         [Fact]
-        public void Can_execute_async_method()
+        public void When_calling_async_when_method_the_func_is_awaited()
         {
             SetThe<IAsyncService>().To(new AsyncService());
             bool result = false;
@@ -84,7 +84,7 @@ namespace Chill.Tests.CoreScenarios
         }
 
         [Fact]
-        public void Can_use_async_given()
+        public void When_calling_async_given_the_func_is_awaited()
         {
             SetThe<IAsyncService>().To(new AsyncService());
             bool result = false;
