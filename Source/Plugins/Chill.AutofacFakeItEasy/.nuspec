@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Chill.AutofacFakeItEasy</id>
-    <version>2.1.0-beta0001</version>
+    <version>2.2.0-beta0001</version>
     <title>Chill Autofac FakeItEasy extension </title>
     <authors>Erwin van der Valk, Dennis Doomen</authors>
     <owners>Erwin van der Valk</owners>
@@ -17,9 +17,9 @@
     <tags>BDD TDD Autofac</tags>
     <dependencies>
       <group>
-        <dependency id="Chill" />
-        <dependency id="Autofac" />
-        <dependency id="FakeItEasy" />
+        <dependency id="Chill" version="(,2.0]" />
+        <dependency id="Autofac" version="[,4.0)" />
+        <dependency id="FakeItEasy" version="(,2.0)" />
       </group>
     </dependencies>
 

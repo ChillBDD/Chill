@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Chill.UnityNSubstitute</id>
-    <version>2.1.0-beta0001</version>
+    <version>2.2.0-beta0001</version>
     <title>Chill Unity NSubstitute extension</title>
     <authors>Erwin van der Valk, Dennis Doomen</authors>
     <owners>Erwin van der Valk</owners>
@@ -17,9 +17,9 @@
     <tags>BDD TDD Unity</tags>
     <dependencies>
       <group>
-        <dependency id="Chill" />
-        <dependency id="Unity" />
-        <dependency id="NSubstitute" />
+        <dependency id="Chill" version="(,2.0]" />
+        <dependency id="Unity" version="[,4.0)" />
+        <dependency id="NSubstitute" version="(,2.0)" />
       </group>
     </dependencies>
 
