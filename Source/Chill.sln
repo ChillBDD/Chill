@@ -18,6 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\Package\Chill\.nuspec = ..\Package\Chill\.nuspec
 		buildnuget.cmd = buildnuget.cmd
 		..\Build\default.ps1 = ..\Build\default.ps1
+		.nuget\packages.config = .nuget\packages.config
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
@@ -61,22 +62,22 @@ Global
 		Core\Chill.Shared\Chill.Shared.projitems*{b56888bb-74e2-4a75-8fb6-017ba7023874}*SharedItemsImports = 4
 		Plugins\Chill.Unity\Chill.Unity.projitems*{cea26d8f-7186-4eaf-b285-7d85a8fce5ea}*SharedItemsImports = 13
 		Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems*{b287d2b7-6050-47bf-8a6c-118aef6f93c6}*SharedItemsImports = 13
-		Plugins\Chill.Autofac\Chill.Autofac.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
+		Core\Chill.Tests.Shared\Chill.Tests.Shared.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
 		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
 		Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
-		Core\Chill.Tests.Shared\Chill.Tests.Shared.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
-		Plugins\Chill.Autofac\Chill.Autofac.projitems*{1a70f8c2-9c74-4bc3-ab96-89190e2210e9}*SharedItemsImports = 4
+		Plugins\Chill.Autofac\Chill.Autofac.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
 		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{1a70f8c2-9c74-4bc3-ab96-89190e2210e9}*SharedItemsImports = 4
+		Plugins\Chill.Autofac\Chill.Autofac.projitems*{1a70f8c2-9c74-4bc3-ab96-89190e2210e9}*SharedItemsImports = 4
 		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{bd0e5fd7-97ee-4fb0-a2f3-38a3c5b18c41}*SharedItemsImports = 13
 		Core\Chill.Shared\Chill.Shared.projitems*{de6907cc-326a-4621-af39-f3c1bfcbd375}*SharedItemsImports = 4
 		Core\Chill.Shared\Chill.Shared.projitems*{29cd0883-250a-4121-a344-1377e99e3886}*SharedItemsImports = 13
 		Plugins\Chill.Autofac\Chill.Autofac.projitems*{0153e5be-fde8-4b00-84e5-d6c7f0eab03d}*SharedItemsImports = 13
-		Plugins\Chill.Autofac\Chill.Autofac.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
 		Plugins\Chill.UnityNSubstitute\Chill.UnityNSubstitute.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
-		Plugins\Chill.Unity\Chill.Unity.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
-		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
-		Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
 		Core\Chill.Tests.Shared\Chill.Tests.Shared.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
+		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
+		Plugins\Chill.Unity\Chill.Unity.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
+		Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
+		Plugins\Chill.Autofac\Chill.Autofac.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
