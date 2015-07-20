@@ -52,21 +52,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Annotations.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="Infrastructure\NaturalExpressionProcessor.cs" />
-    <Compile Include="Infrastructure\NodeFormatter.cs" />
-    <Compile Include="Infrastructure\Nodes\ArrayIndexNode.cs" />
-    <Compile Include="Infrastructure\Nodes\BinaryNode.cs" />
-    <Compile Include="Infrastructure\Nodes\ConditionalNode.cs" />
-    <Compile Include="Infrastructure\Nodes\ConstantNode.cs" />
-    <Compile Include="Infrastructure\Nodes\MemberAccessNode.cs" />
-    <Compile Include="Infrastructure\Nodes\MethodCallNode.cs" />
-    <Compile Include="Infrastructure\Nodes\NewArrayNode.cs" />
-    <Compile Include="Infrastructure\Nodes\Node.cs" />
-    <Compile Include="Infrastructure\Nodes\UnaryNode.cs" />
-    <Compile Include="Infrastructure\Util.cs" />
-    <Compile Include="PAssertFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
