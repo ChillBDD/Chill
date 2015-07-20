@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Chill.AutofacNSubstitute</id>
-    <version>2.1.0-beta0001</version>
+    <version>2.3.0-chillhttp</version>
     <title>Chill Autofac NSubstitute extension</title>
     <authors>Erwin van der Valk, Dennis Doomen</authors>
     <owners>Erwin van der Valk</owners>
@@ -17,9 +17,9 @@
     <tags>BDD TDD Autofac NSubsittue</tags>
     <dependencies>
       <group>
-        <dependency id="Chill" />
-        <dependency id="Autofac" />
-        <dependency id="NSubstitute" />
+        <dependency id="Chill" version="[2.2,3.0)" />
+        <dependency id="Autofac" version="[,4.0)" />
+        <dependency id="NSubstitute" version="(,2.0)" />
       </group>
     </dependencies>
 

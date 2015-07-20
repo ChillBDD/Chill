@@ -32,7 +32,7 @@ namespace Chill.Unity
         }
 
 
-        public void RegisterType<T>()
+        public void RegisterType<T>() where T : class
         {
             // No need to do anything for unity. It can resolve objects not registered. 
         }
@@ -64,7 +64,7 @@ namespace Chill.Unity
         }
 
 
-        public bool IsRegistered<T>()
+        public bool IsRegistered<T>() where T : class
         {
             return IsRegistered(typeof(T));
         }

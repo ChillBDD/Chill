@@ -10,12 +10,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{599E07
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{15CA8305-AB53-4C57-99F5-0C4EA698F366}"
 	ProjectSection(SolutionItems) = preProject
 		..\Package\Chill\.nuspec = ..\Package\Chill\.nuspec
 		buildnuget.cmd = buildnuget.cmd
+		..\Build\default.ps1 = ..\Build\default.ps1
+		.nuget\packages.config = .nuget\packages.config
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
@@ -69,6 +72,7 @@ Global
 		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
 		Plugins\Chill.Autofac\Chill.Autofac.projitems*{1a70f8c2-9c74-4bc3-ab96-89190e2210e9}*SharedItemsImports = 4
 		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{1a70f8c2-9c74-4bc3-ab96-89190e2210e9}*SharedItemsImports = 4
+		Plugins\Chill.Autofac\Chill.Autofac.projitems*{1a70f8c2-9c74-4bc3-ab96-89190e2210e9}*SharedItemsImports = 4
 		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{bd0e5fd7-97ee-4fb0-a2f3-38a3c5b18c41}*SharedItemsImports = 13
 		Core\Chill.Shared\Chill.Shared.projitems*{de6907cc-326a-4621-af39-f3c1bfcbd375}*SharedItemsImports = 4
 		Core\Chill.Shared\Chill.Shared.projitems*{29cd0883-250a-4121-a344-1377e99e3886}*SharedItemsImports = 13

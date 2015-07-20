@@ -9,6 +9,8 @@ namespace Chill.Tests.CoreScenarios
 {
     public abstract class TestBaseSpecs : TestBase
     {
+
+
         [Fact]
         public void Can_get_mock_for_subject()
         {
@@ -55,6 +57,7 @@ namespace Chill.Tests.CoreScenarios
         /// The Theory and the InlineData attribute causes the test to be called several times. 
         /// </summary>
         #region Tests_if_disposable_is_called
+        
         [Theory, InlineData(), InlineData(), InlineData()]
     
         public void Will_dispose_object()

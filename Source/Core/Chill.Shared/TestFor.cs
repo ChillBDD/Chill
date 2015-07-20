@@ -2,7 +2,6 @@ using System;
 
 namespace Chill
 {
-
     /// <summary>
     /// Base class for tests that set up a Subject Under Test, called <see cref="Subject"/>. Normally, this <see cref="Subject"/> property
     /// is created by the container and any dependencies automatically injected. However,  can influence the creation of the subject by 
@@ -10,7 +9,7 @@ namespace Chill
     /// the <see cref="BuildSubject"/> method. 
     /// </summary>
     /// <typeparam name="TSubject">The type of the subject you're testing. </typeparam>
-    public abstract class TestFor<TSubject>  : TestBase
+    public abstract class TestFor<TSubject> : TestBase
         where TSubject : class
     {
         private Func<IChillContainer, TSubject> subjectFactory;
@@ -35,14 +34,13 @@ namespace Chill
         /// <summary>
         /// Ensures the subject is created
         /// </summary>
-
         internal void EnsureSubject()
         {
             EnsureContainer();
-            if (this.subject == null)
+            if (subject == null)
             {
                 Container.RegisterType<TSubject>();
-                this.subject = subjectFactory != null ? subjectFactory(Container) : BuildSubject();
+                subject = (subjectFactory != null) ? subjectFactory(Container) : BuildSubject();
             }
         }
 
@@ -63,6 +61,17 @@ namespace Chill
         protected virtual TSubject BuildSubject()
         {
             return Container.Get<TSubject>();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            var disposable = subject as IDisposable;
+            if (disposable != null)
+            {
+                disposable.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
     }
 }

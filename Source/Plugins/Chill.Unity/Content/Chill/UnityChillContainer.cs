@@ -1,13 +1,13 @@
-using System.Collections.Generic;
 using Chill;
 using System;
+using System.Collections.Generic;
 using Microsoft.Practices.Unity;
 namespace Chill.Unity
 {
     internal class UnityChillContainer : IChillContainer
     {
         private readonly IUnityContainer _container;
-        
+
 
         public UnityChillContainer()
             : this(new UnityContainer())
