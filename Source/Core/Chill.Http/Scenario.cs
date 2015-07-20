@@ -4,142 +4,12 @@ namespace Chill.Http
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using System.Net;
-    using System.Net.Http;
-    using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
-    using Microsoft.Owin;
-    using Microsoft.Owin.Builder;
-    using Owin;
-
     using AppFunc = System.Func<
         System.Collections.Generic.IDictionary<string, object>,
         System.Threading.Tasks.Task
     >;
-
-    using MidFunc = System.Func<System.Func<System.Collections.Generic.IDictionary<string, object>,
-        System.Threading.Tasks.Task
-        >, System.Func<System.Collections.Generic.IDictionary<string, object>,
-            System.Threading.Tasks.Task>
-        >;
-
-
-
-    public class HttpClientBuilder
-    {
-        private readonly Func<User, Task> _onAuthenticate;
-        private readonly AppFunc _appFunc;
-        private readonly string _baseAddress;
-        private readonly string _url;
-
-
-
-        public HttpClientBuilder(string baseAddress, Func<User, Task> onAuthenticate, AppFunc appFunc = null)
-        {
-            _onAuthenticate = onAuthenticate;
-            _appFunc = appFunc;
-            _baseAddress = baseAddress;
-        }
-
-        public virtual HttpClient Build(User user)
-        {
-            HttpMessageHandler handler;
-
-            if (_appFunc == null)
-            {
-                handler = new HttpClientHandler()
-                {
-                    AllowAutoRedirect = true,
-                    UseCookies = true,
-                    CookieContainer = new CookieContainer()
-                };
-            }
-            else
-            {
-                handler = new OwinHttpMessageHandler(_appFunc)
-                {
-                    AllowAutoRedirect = true,
-                    UseCookies = true,
-                    CookieContainer = new CookieContainer()
-                };
-            }
-
-            return new HttpClient(handler)
-            {
-                BaseAddress = new Uri(_baseAddress, UriKind.Absolute)
-            };
-
-        }
-
-        public Task Authenticate(User user)
-        {
-            return _onAuthenticate(user);
-        }
-    }
-
-    public class SimulatedAuthHttpClientBuilder : HttpClientBuilder
-    {
-        private readonly List<User> _authenticatedUsers = new List<User>(); 
-
-        public SimulatedAuthHttpClientBuilder(string baseAddress, AppFunc appFunc, Func<User, Task> onAuthenticate = null)
-            : base(baseAddress, onAuthenticate ?? SimulateAuthentication, BuildSimulateAppFunc(appFunc))
-        {
-            
-        }
-
-        private static AppFunc BuildSimulateAppFunc(AppFunc appFunc)
-        {
-            var app = new AppBuilder();
-            app.Use(SimulateMidFunc());
-            app.Run(ctx => appFunc(ctx.Environment));
-            return app.Build();
-        }
-
-        public static MidFunc SimulateMidFunc()
-        {
-            return next => ctx =>
-            {
-                var owinContext = new OwinContext(ctx);
-
-                if (owinContext.Request.Headers.Any(x => x.Key == "simulatedAuthenticationUserName"))
-                {
-                    var identity = new ClaimsIdentity(new[] { new Claim("name", owinContext.Request.Headers.Get("simulatedAuthenticationUserName")) }, "SimulatedAuthentication");
-                    var principal = new ClaimsPrincipal(identity);
-
-                    owinContext.Request.User = principal;
-                    
-                }
-                
-                return next(ctx);
-            };
-        }
-
-        private static Task SimulateAuthentication(User user)
-        {
-            user.Client.DefaultRequestHeaders.Add("simulatedAuthenticationUserName", user.Name);
-            return Task.FromResult(0);
-        }
-
-        public override HttpClient Build(User user)
-        {
-            var httpClient = base.Build(user);
-            return httpClient;
-        }
-    }
-
-        /* 
-     * Scenario(new url);
-     * 
-     * Scenario(appFunc, simulateAuth=true)
-     * 
-     * new User(name);
-     * 
-     * new User(name);
-     * 
-     * User.LogIn()
-     * */
-
 
     public class Scenario
     {
@@ -168,14 +38,14 @@ namespace Chill.Http
             return WithUsers((IEnumerable<User>)users);
         }
 
-        internal void AddGiven(Func<IUserAction> action)
+        internal void AddGivens(params Func<IUserAction>[] givens)
         {
-            _givens.Add(action);
+            _givens.AddRange(givens);
         }
 
-        internal void AddThens(Func<IUserAction> action)
+        internal void AddThens(params Func<IUserAction>[] assertions)
         {
-            _thens.Add(action);
+            _thens.AddRange(assertions);
         }
 
         public async Task Execute(string scenarioName)

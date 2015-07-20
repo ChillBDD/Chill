@@ -14,9 +14,9 @@ namespace Chill.Http
             return new WhenBuilder(Scenario);
         }
 
-        public WhenBuilder Then(Func<IUserAction> userAction)
+        public WhenBuilder Then(params Func<IUserAction>[] assertions)
         {
-            Scenario.AddThens(userAction);
+            Scenario.AddThens(assertions);
             return new WhenBuilder(Scenario);
         }
     }

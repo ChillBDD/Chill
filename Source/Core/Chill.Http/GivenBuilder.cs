@@ -8,21 +8,24 @@ namespace Chill.Http
         public GivenBuilder(Scenario scenario) : base(scenario)
         {}
 
-        public GivenBuilder Given(Func<IUserAction> doFunc)
+        public GivenBuilder Given(params Func<IUserAction>[] givens)
         {
-            Scenario.AddGiven(doFunc);
+            Scenario.AddGivens(givens);
             return new GivenBuilder(Scenario);
         }
 
-        public GivenBuilder<TResult> Given<TResult>(Func<IUserAction<TResult>> doFunc)
+        public GivenBuilder<TResult> Given<TResult>(params Func<IUserAction<TResult>>[] givens)
         {
-            Scenario.AddGiven(doFunc);
+            foreach (var given in givens)
+            {
+                Scenario.AddGivens(given);
+            }
             return new GivenBuilder<TResult>(Scenario);
         }
 
         public GivenBuilder Debug(Func<Task> action)
         {
-            Scenario.AddGiven(() => new DebuggingAction(action));
+            Scenario.AddGivens(() => new DebuggingAction(action));
             return new GivenBuilder(Scenario);
         }
 
@@ -32,9 +35,9 @@ namespace Chill.Http
             return new WhenBuilder(Scenario);
         }
 
-        public WhenBuilder Then(Func<IUserAction> userAction)
+        public WhenBuilder Then(params Func<IUserAction>[] assertions)
         {
-            Scenario.AddThens(userAction);
+            Scenario.AddThens(assertions);
             return new WhenBuilder(Scenario);
         }
     }

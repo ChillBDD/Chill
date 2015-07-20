@@ -66,6 +66,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="GivenBuilder.cs" />
     <Compile Include="HttpBasedUserAction.cs" />
+    <Compile Include="HttpClientBuilder.cs" />
     <Compile Include="IUserAction.cs" />
     <Compile Include="PartialApplicationVisitor.cs" />
     <Compile Include="PowerAssertForked\Annotations.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="ResponseAction.cs" />
     <Compile Include="Scenario.cs" />
     <Compile Include="ScenarioBuilder.cs" />
+    <Compile Include="SimulatedAuthHttpClientBuilder.cs" />
     <Compile Include="User.cs" />
     <Compile Include="WhenBuilder.cs" />
   </ItemGroup>

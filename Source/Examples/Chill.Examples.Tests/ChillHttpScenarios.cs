@@ -20,8 +20,6 @@
     >;
 
 
-    // Inject HttpClient
-    // 
 
     public class KatanaBasedTests : ExampleTestScenarios
     {
@@ -33,15 +31,15 @@
             _baseAddress = "http://localhost:12345";
             _webApp = WebApp.Start<Startup>(new StartOptions(_baseAddress) {ServerFactory = "Microsoft.Owin.Host.HttpListener"});
 
-            UseThe<Scenario>(new Scenario(new HttpClientBuilder(_baseAddress, OnAuthenticate)));
+            UseThe<Scenario>(new Scenario(new HttpClientBuilder(_baseAddress, onAuthenticate: OnAuthenticate)));
         }
 
-        private async Task OnAuthenticate(User user)
+        private Task OnAuthenticate(User user)
         {
-
             var byteArray = Encoding.ASCII.GetBytes("userandpass:userandpass");
             user.Client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
 
+            return Task.FromResult(0);
         }
 
         protected override void Dispose(bool disposing)
