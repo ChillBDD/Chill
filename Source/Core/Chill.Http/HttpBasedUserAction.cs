@@ -1,34 +1,53 @@
+using Chill.Http.Logging;
+
 namespace Chill.Http
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq.Expressions;
+    using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Threading.Tasks;
     using KellermanSoftware.CompareNetObjects;
+    using Newtonsoft.Json;
     using PowerAssert;
-    
 
     public class HttpBasedUserAction<TResult> : HttpBasedUserAction, IUserAction<TResult>
     {
+        private static ILog s_log = LogProvider.GetCurrentClassLogger();
         private readonly Func<HttpResponseMessage, TResult> _deSerialize;
-        private TResult _result;
 
-        public HttpBasedUserAction(string message, User user, HttpRequestMessage request, Func<HttpResponseMessage, TResult> deSerialize,
-            bool checkStatusCodeIsSuccess)
-            : base(message, user, request, checkStatusCodeIsSuccess)
+        private readonly Lazy<TResult> _result;
+
+        public HttpBasedUserAction(string message, TestUser testUser, HttpRequestMessage request
+                                   , bool checkStatusCodeIsSuccess = false,
+                                   Func<HttpResponseMessage, TResult> deSerialize = null, string eTag = null)
+            : base(message, testUser, request, checkStatusCodeIsSuccess, eTag)
         {
-            _deSerialize = deSerialize;
+            _deSerialize = deSerialize ?? Deserialize;
+            _result = new Lazy<TResult>(() => _deSerialize(Response));
+        }
+
+        public override async Task Execute()
+        {
+            await base.Execute();
+        }
+
+        private TResult Deserialize(HttpResponseMessage arg)
+        {
+            return JsonConvert.DeserializeObject<TResult>(arg.Content.ReadAsStringAsync().Result);
         }
 
         public HttpBasedUserAction<TResult> Do(Action<Response<TResult>> action)
         {
-            _resultActions.Add(new ResponseAction(null, () => action(new Response<TResult>(Response, _result))));
+            _resultActions.Add(new ResponseAction(null, () => action(new Response<TResult>(Response, _result.Value))));
             return this;
         }
 
-        public new HttpBasedUserAction<TResult> ResponseShouldMatch(Expression<Func<HttpResponseMessage, bool>> assertion)
+        public HttpBasedUserAction<TResult> HttpResponseShouldMatch(
+            Expression<Func<HttpResponseMessage, bool>> assertion)
         {
             base.ResponseShouldMatch(assertion);
             return this;
@@ -37,16 +56,35 @@ namespace Chill.Http
         public HttpBasedUserAction<TResult> ForResult(Expression<Action<TResult>> actionExpression)
         {
             var action = actionExpression.Compile();
-            _resultActions.Add(new ResponseAction(actionExpression.Humanize(), () => action(_result)));
+            _resultActions.Add(new ResponseAction(actionExpression.Humanize(), () => action(_result.Value)));
             return this;
         }
 
-        public HttpBasedUserAction<TResult> ResultShouldMatch(Expression<Func<TResult, bool>> actionExpression)
+        public HttpBasedUserAction<TResult> ShouldReturnEtag(Action<string> captureEtag = null)
         {
-            string assertionText = actionExpression.Humanize();
+            var assertionText = "Response should return Etag httpheader";
             _resultActions.Add(new ResponseAction(assertionText, () =>
             {
-                var method = PartialApplicationVisitor.Apply(actionExpression, _result);
+                if(Response.Headers.ETag == null)
+                {
+                    throw new TestFailedException("Response did not return eTag");
+                }
+
+                if(captureEtag != null)
+                {
+                    captureEtag(Response.Headers.ETag.Tag.Trim('"'));
+                }
+            }));
+            return this;
+        }
+
+
+        public HttpBasedUserAction<TResult> ResultShouldMatch(Expression<Func<TResult, bool>> actionExpression)
+        {
+            var assertionText = actionExpression.Humanize();
+            _resultActions.Add(new ResponseAction(assertionText, () =>
+            {
+                var method = PartialApplicationVisitor.Apply(actionExpression, _result.Value);
                 PAssert.IsTrue(method);
             }));
             return this;
@@ -54,53 +92,49 @@ namespace Chill.Http
 
         public HttpBasedUserAction<TResult> ResultPartEquals<T>(Expression<Func<TResult, T>> getter, T expectedValue)
         {
-            string assertionText = getter.Humanize() + " should equal " + expectedValue;
+            var assertionText = getter.Humanize() + " should equal " + expectedValue;
 
             _resultActions.Add(new ResponseAction(assertionText, () =>
             {
                 T valueToCheck;
                 try
                 {
-                    valueToCheck = getter.Compile()(_result);
+                    valueToCheck = getter.Compile()(_result.Value);
                 }
                 catch(Exception ex)
                 {
-                    throw new InvalidOperationException(string.Format("Attempting to execute expression {0} failed", getter), ex);
+                    throw new InvalidOperationException(
+                        string.Format("Attempting to execute expression {0} failed", getter), ex);
                 }
 
-                CompareLogic compareLogic = new CompareLogic();
+                var compareLogic = new CompareLogic();
 
-                var result = compareLogic.Compare(valueToCheck, expectedValue);
+                var result = compareLogic.Compare(expectedValue, valueToCheck);
                 if(!result.AreEqual)
                 {
-                    throw new InvalidOperationException(result.DifferencesString);
+                    throw new InvalidOperationException(result.DifferencesString + "\r\n" +
+                                                        JsonConvert.SerializeObject(valueToCheck, Formatting.Indented));
                 }
             }));
             return this;
         }
 
-        public HttpBasedUserAction<TResult> ResultEquals(TResult result)
+        public HttpBasedUserAction<TResult> ResultEquals(TResult expected)
         {
-            string assertionText = "The " + typeof(TResult).Name + " result should equal " + result;
+            var assertionText = "The " + typeof(TResult).Name + " result should equal " + expected;
 
             _resultActions.Add(new ResponseAction(assertionText, () =>
             {
-                CompareLogic compareLogic = new CompareLogic();
+                var compareLogic = new CompareLogic();
 
-                var compareResult = compareLogic.Compare(_result, result);
+                var compareResult = compareLogic.Compare(expected, _result.Value);
                 if(!compareResult.AreEqual)
                 {
-                    throw new InvalidOperationException(compareResult.DifferencesString);
+                    throw new InvalidOperationException(compareResult.DifferencesString + "\r\n" +
+                                                        JsonConvert.SerializeObject(_result.Value, Formatting.Indented));
                 }
             }));
             return this;
-        }
-
-        public override async Task Execute()
-        {
-            await base.Execute();
-
-            _result = _deSerialize(Response);
         }
     }
 
@@ -108,22 +142,53 @@ namespace Chill.Http
     {
         private readonly HttpRequestMessage _request;
         protected readonly List<ResponseAction> _resultActions = new List<ResponseAction>();
+        private string _eTag;
 
-        public HttpBasedUserAction(string message, User user, HttpRequestMessage r, bool checkStatusCode = true)
+
+        public HttpBasedUserAction(string message, TestUser testUser, HttpRequestMessage r, bool checkStatusCode = true,
+                                   string eTag = null)
         {
             _request = r;
+
+            if(r.RequestUri.ToString().Contains("#"))
+            {
+                throw new TestFailedException($"The request URI '{r.RequestUri}' contains unencoded data");
+            }
+
+            _eTag = eTag;
+
+            if(eTag != null)
+            {
+                message += " with etag " + eTag;
+                r.Headers.IfNoneMatch.Add(new EntityTagHeaderValue("\"" + eTag + "\""));
+            }
+
             Message = message;
-            User = user;
+            TestUser = testUser;
 
             if(checkStatusCode)
             {
-                ResponseShouldMatch(httpresponse => httpresponse.IsSuccessStatusCode);
+                _resultActions.Add(new ResponseAction("Request was handled succesfully by server", () =>
+                {
+                    if(!Response.IsSuccessStatusCode && Response.StatusCode != HttpStatusCode.NotModified)
+                    {
+                        throw new TestFailedException(
+                            string.Format("The server did not respond with a success Status code, but with {0}, {1}",
+                                Response.StatusCode, Response.Content.ReadAsStringAsync().Result));
+                    }
+                }));
             }
         }
 
-        public User User { get; private set; }
+        public HttpBasedUserAction Do(Action<HttpResponseMessage> action)
+        {
+            _resultActions.Add(new ResponseAction(null, () => action(this.Response)));
+            return this;
+        }
+
+        public TestUser TestUser { get; }
         public HttpResponseMessage Response { get; private set; }
-        public string Message { get; private set; }
+        public string Message { get; }
 
         public IEnumerable<ResponseAction> ResultActions
         {
@@ -132,13 +197,13 @@ namespace Chill.Http
 
         public virtual async Task Execute()
         {
-            Trace.WriteLine(string.Format(Message + " using {0} on {1}", _request.Method, _request.RequestUri));
-            Response = await User.Client.SendAsync(_request);
+            Trace.WriteLine(Message + $" using {_request.Method} on {_request.RequestUri}");
+            Response = await TestUser.Client.SendAsync(_request);
         }
 
         public HttpBasedUserAction ResponseShouldMatch(Expression<Func<HttpResponseMessage, bool>> actionExpression)
         {
-            string assertionText = actionExpression.Humanize();
+            var assertionText = actionExpression.Humanize();
             _resultActions.Add(new ResponseAction(assertionText, () =>
             {
                 var method = PartialApplicationVisitor.Apply(actionExpression, Response);
@@ -146,7 +211,6 @@ namespace Chill.Http
             }));
             return this;
         }
-
     }
 
     //brought in to avoid the need for .NET 4

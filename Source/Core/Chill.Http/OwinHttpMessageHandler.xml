@@ -1,0 +1,1654 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OwinHttpMessageHandler</name>
+    </assembly>
+    <members>
+        <member name="T:System.Net.Http.Owin.CookieOptions">
+            <summary>
+            Options used to create a new cookie.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.CookieOptions.#ctor">
+            <summary>
+            Creates a default cookie with a path of '/'.
+            </summary>
+        </member>
+        <member name="P:System.Net.Http.Owin.CookieOptions.Domain">
+            <summary>
+            Gets or sets the domain to associate the cookie with.
+            </summary>
+            <returns>The domain to associate the cookie with.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.CookieOptions.Path">
+            <summary>
+            Gets or sets the cookie path.
+            </summary>
+            <returns>The cookie path.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.CookieOptions.Expires">
+            <summary>
+            Gets or sets the expiration date and time for the cookie.
+            </summary>
+            <returns>The expiration date and time for the cookie.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.CookieOptions.Secure">
+            <summary>
+            Gets or sets a value that indicates whether to transmit the cookie using Secure Sockets Layer (SSL)�that is, over HTTPS only.
+            </summary>
+            <returns>true to transmit the cookie only over an SSL connection (HTTPS); otherwise, false.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.CookieOptions.HttpOnly">
+            <summary>
+            Gets or sets a value that indicates whether a cookie is accessible by client-side script.
+            </summary>
+            <returns>true if a cookie is accessible by client-side script; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Net.Http.Owin.FormCollection">
+            <summary>
+            Contains the parsed form values.
+            </summary>
+        </member>
+        <member name="T:System.Net.Http.Owin.ReadableStringCollection">
+            <summary>
+            Accessors for query, forms, etc.
+            </summary>
+        </member>
+        <member name="T:System.Net.Http.Owin.IReadableStringCollection">
+            <summary>
+            Accessors for headers, query, forms, etc.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.IReadableStringCollection.Get(System.String)">
+            <summary>
+            Get the associated value from the collection.  Multiple values will be merged.
+            Returns null if the key is not present.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.IReadableStringCollection.GetValues(System.String)">
+            <summary>
+            Get the associated values from the collection in their original format.
+            Returns null if the key is not present.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IReadableStringCollection.Item(System.String)">
+            <summary>
+            Get the associated value from the collection.  Multiple values will be merged.
+            Returns null if the key is not present.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.ReadableStringCollection.#ctor(System.Collections.Generic.IDictionary{System.String,System.String[]})">
+            <summary>
+            Create a new wrapper
+            </summary>
+            <param name="store"></param>
+        </member>
+        <member name="M:System.Net.Http.Owin.ReadableStringCollection.Get(System.String)">
+            <summary>
+            Get the associated value from the collection.  Multiple values will be merged.
+            Returns null if the key is not present.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.ReadableStringCollection.GetValues(System.String)">
+            <summary>
+            Get the associated values from the collection in their original format.
+            Returns null if the key is not present.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.ReadableStringCollection.GetEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.ReadableStringCollection.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.ReadableStringCollection.Item(System.String)">
+            <summary>
+            Get the associated value from the collection.  Multiple values will be merged.
+            Returns null if the key is not present.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Net.Http.Owin.IFormCollection">
+            <summary>
+            Contains the parsed form values.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.FormCollection.#ctor(System.Collections.Generic.IDictionary{System.String,System.String[]})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.FormCollection" /> class.
+            </summary>
+            <param name="store">The store for the form.</param>
+        </member>
+        <member name="T:System.Net.Http.Owin.HeaderDictionary">
+            <summary>
+            Represents a wrapper for owin.RequestHeaders and owin.ResponseHeaders.
+            </summary>
+        </member>
+        <member name="T:System.Net.Http.Owin.IHeaderDictionary">
+            <summary>
+            Represents a wrapper for owin.RequestHeaders and owin.ResponseHeaders.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.IHeaderDictionary.GetCommaSeparatedValues(System.String)">
+            <summary>
+            Get the associated values from the collection separated into individual values.
+            Quoted values will not be split, and the quotes will be removed.
+            </summary>
+            <param name="key">The header name.</param>
+            <returns>the associated values from the collection separated into individual values, or null if the key is not present.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.IHeaderDictionary.Append(System.String,System.String)">
+            <summary>
+            Add a new value. Appends to the header if already present
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="value">The header value.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.IHeaderDictionary.AppendValues(System.String,System.String[])">
+            <summary>
+            Add new values. Each item remains a separate array entry.
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="values">The header values.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.IHeaderDictionary.AppendCommaSeparatedValues(System.String,System.String[])">
+            <summary>
+            Quotes any values containing comas, and then coma joins all of the values with any existing values.
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="values">The header values.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.IHeaderDictionary.Set(System.String,System.String)">
+            <summary>
+            Sets a specific header value.
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="value">The header value.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.IHeaderDictionary.SetValues(System.String,System.String[])">
+            <summary>
+            Sets the specified header values without modification.
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="values">The header values.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.IHeaderDictionary.SetCommaSeparatedValues(System.String,System.String[])">
+            <summary>
+            Quotes any values containing comas, and then coma joins all of the values.
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="values">The header values.</param>
+        </member>
+        <member name="P:System.Net.Http.Owin.IHeaderDictionary.Item(System.String)">
+            <summary>
+            Get or sets the associated value from the collection as a single string.
+            </summary>
+            <param name="key">The header name.</param>
+            <returns>the associated value from the collection as a single string or null if the key is not present.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.#ctor(System.Collections.Generic.IDictionary{System.String,System.String[]})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.HeaderDictionary" /> class.
+            </summary>
+            <param name="store">The underlying data store.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.Get(System.String)">
+            <summary>
+            Get the associated value from the collection as a single string.
+            </summary>
+            <param name="key">The header name.</param>
+            <returns>the associated value from the collection as a single string or null if the key is not present.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.GetValues(System.String)">
+            <summary>
+            Get the associated values from the collection without modification.
+            </summary>
+            <param name="key">The header name.</param>
+            <returns>the associated value from the collection without modification, or null if the key is not present.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.GetCommaSeparatedValues(System.String)">
+            <summary>
+            Get the associated values from the collection separated into individual values.
+            Quoted values will not be split, and the quotes will be removed.
+            </summary>
+            <param name="key">The header name.</param>
+            <returns>the associated values from the collection separated into individual values, or null if the key is not present.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.Append(System.String,System.String)">
+            <summary>
+            Add a new value. Appends to the header if already present
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="value">The header value.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.AppendValues(System.String,System.String[])">
+            <summary>
+            Add new values. Each item remains a separate array entry.
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="values">The header values.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.AppendCommaSeparatedValues(System.String,System.String[])">
+            <summary>
+            Quotes any values containing comas, and then coma joins all of the values with any existing values.
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="values">The header values.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.Set(System.String,System.String)">
+            <summary>
+            Sets a specific header value.
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="value">The header value.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.SetValues(System.String,System.String[])">
+            <summary>
+            Sets the specified header values without modification.
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="values">The header values.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.SetCommaSeparatedValues(System.String,System.String[])">
+            <summary>
+            Quotes any values containing comas, and then coma joins all of the values.
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="values">The header values.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.Add(System.String,System.String[])">
+            <summary>
+            Adds the given header and values to the collection.
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="value">The header values.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.ContainsKey(System.String)">
+            <summary>
+            Determines whether the <see cref="T:Microsoft.Owin.HeaderDictionary" /> contains a specific key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns>true if the <see cref="T:Microsoft.Owin.HeaderDictionary" /> contains a specific key; otherwise, false.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.Remove(System.String)">
+            <summary>
+            Removes the given header from the collection.
+            </summary>
+            <param name="key">The header name.</param>
+            <returns>true if the specified object was removed from the collection; otherwise, false.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.TryGetValue(System.String,System.String[]@)">
+            <summary>
+            Retrieves a value from the dictionary.
+            </summary>
+            <param name="key">The header name.</param>
+            <param name="value">The value.</param>
+            <returns>true if the <see cref="T:Microsoft.Owin.HeaderDictionary" /> contains the key; otherwise, false.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.Add(System.Collections.Generic.KeyValuePair{System.String,System.String[]})">
+            <summary>
+            Adds a new list of items to the collection.
+            </summary>
+            <param name="item">The item to add.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.Clear">
+            <summary>
+            Clears the entire list of objects.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.Contains(System.Collections.Generic.KeyValuePair{System.String,System.String[]})">
+            <summary>
+            Returns a value indicating whether the specified object occurs within this collection.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>true if the specified object occurs within this collection; otherwise, false.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.CopyTo(System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],System.Int32)">
+            <summary>
+            Copies the <see cref="T:Microsoft.Owin.HeaderDictionary" /> elements to a one-dimensional Array instance at the specified index.
+            </summary>
+            <param name="array">The one-dimensional Array that is the destination of the specified objects copied from the <see cref="T:Microsoft.Owin.HeaderDictionary" />.</param>
+            <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying begins.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.HeaderDictionary.Remove(System.Collections.Generic.KeyValuePair{System.String,System.String[]})">
+            <summary>
+            Removes the given item from the the collection.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>true if the specified object was removed from the collection; otherwise, false.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.HeaderDictionary.Keys">
+            <summary>
+            Gets an <see cref="T:System.Collections.ICollection" /> that contains the keys in the <see cref="T:Microsoft.Owin.HeaderDictionary" />;.
+            </summary>
+            <returns>An <see cref="T:System.Collections.ICollection" /> that contains the keys in the <see cref="T:Microsoft.Owin.HeaderDictionary" />.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.HeaderDictionary.Values">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:System.Net.Http.Owin.HeaderDictionary.Count">
+            <summary>
+            Gets the number of elements contained in the <see cref="T:Microsoft.Owin.HeaderDictionary" />;.
+            </summary>
+            <returns>The number of elements contained in the <see cref="T:Microsoft.Owin.HeaderDictionary" />.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.HeaderDictionary.IsReadOnly">
+            <summary>
+            Gets a value that indicates whether the <see cref="T:Microsoft.Owin.HeaderDictionary" /> is in read-only mode.
+            </summary>
+            <returns>true if the <see cref="T:Microsoft.Owin.HeaderDictionary" /> is in read-only mode; otherwise, false.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.HeaderDictionary.Item(System.String)">
+            <summary>
+            Get or sets the associated value from the collection as a single string.
+            </summary>
+            <param name="key">The header name.</param>
+            <returns>the associated value from the collection as a single string or null if the key is not present.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.HeaderDictionary.System#Collections#Generic#IDictionary{System#String@System#String[]}#Item(System.String)">
+            <summary>
+            Throws KeyNotFoundException if the key is not present.
+            </summary>
+            <param name="key">The header name.</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Net.Http.Owin.HostString">
+            <summary>
+            Represents the host portion of a Uri can be used to construct Uri's properly formatted and encoded for use in
+            HTTP headers.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.HostString.#ctor(System.String)">
+            <summary>
+            Creates a new HostString without modification. The value should be Unicode rather than punycode, and may have a port.
+            IPv4 and IPv6 addresses are also allowed, and also may have ports.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:System.Net.Http.Owin.HostString.ToString">
+            <summary>
+            Returns the value as normalized by ToUriComponent().
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HostString.ToUriComponent">
+            <summary>
+            Returns the value properly formatted and encoded for use in a URI in a HTTP header.
+            Any Unicode is converted to punycode. IPv6 addresses will have brackets added if they are missing.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HostString.FromUriComponent(System.String)">
+            <summary>
+            Creates a new HostString from the given uri component.
+            Any punycode will be converted to Unicode.
+            </summary>
+            <param name="uriComponent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HostString.FromUriComponent(System.Uri)">
+            <summary>
+            Creates a new HostString from the host and port of the give Uri instance.
+            Punycode will be converted to Unicode.
+            </summary>
+            <param name="uri"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HostString.Equals(System.Net.Http.Owin.HostString)">
+            <summary>
+            Compares the equality of the Value property, ignoring case.
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HostString.Equals(System.Object)">
+            <summary>
+            Compares against the given object only if it is a HostString.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HostString.GetHashCode">
+            <summary>
+            Gets a hash code for the value.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HostString.op_Equality(System.Net.Http.Owin.HostString,System.Net.Http.Owin.HostString)">
+            <summary>
+            Compares the two instances for equality.
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.HostString.op_Inequality(System.Net.Http.Owin.HostString,System.Net.Http.Owin.HostString)">
+            <summary>
+            Compares the two instances for inequality.
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.HostString.Value">
+            <summary>
+            Returns the original value from the constructor.
+            </summary>
+        </member>
+        <member name="T:System.Net.Http.Owin.IOwinContext">
+            <summary>
+            This wraps OWIN environment dictionary and provides strongly typed accessors.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinContext.Get``1(System.String)">
+            <summary>
+            Gets a value from the OWIN environment, or returns default(T) if not present.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="key">The key of the value to get.</param>
+            <returns>The value with the specified key or the default(T) if not present.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinContext.Set``1(System.String,``0)">
+            <summary>
+            Sets the given key and value in the OWIN environment.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="key">The key of the value to set.</param>
+            <param name="value">The value to set.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinContext.Request">
+            <summary>
+            Gets a wrapper exposing request specific properties.
+            </summary>
+            <returns>A wrapper exposing request specific properties.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinContext.Response">
+            <summary>
+            Gets a wrapper exposing response specific properties.
+            </summary>
+            <returns>A wrapper exposing response specific properties.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinContext.Environment">
+            <summary>
+            Gets the OWIN environment.
+            </summary>
+            <returns>The OWIN environment.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinContext.TraceOutput">
+            <summary>
+            Gets or sets the host.TraceOutput environment value.
+            </summary>
+            <returns>The host.TraceOutput TextWriter.</returns>
+        </member>
+        <member name="T:System.Net.Http.Owin.IOwinRequest">
+            <summary>
+            This wraps OWIN environment dictionary and provides strongly typed accessors.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinRequest.ReadFormAsync">
+            <summary>
+            Asynchronously reads and parses the request body as a form.
+            </summary>
+            <returns>The parsed form data.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinRequest.Get``1(System.String)">
+            <summary>
+            Gets a value from the OWIN environment, or returns default(T) if not present.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="key">The key of the value to get.</param>
+            <returns>The value with the specified key or the default(T) if not present.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinRequest.Set``1(System.String,``0)">
+            <summary>
+            Sets the given key and value in the OWIN environment.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="key">The key of the value to set.</param>
+            <param name="value">The value to set.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.Environment">
+            <summary>
+            Gets the OWIN environment.
+            </summary>
+            <returns>The OWIN environment.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.Context">
+            <summary>
+            Gets the request context.
+            </summary>
+            <returns>The request context.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.Method">
+            <summary>
+            Gets or set the HTTP method.
+            </summary>
+            <returns>The HTTP method.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.Scheme">
+            <summary>
+            Gets or set the HTTP request scheme from owin.RequestScheme.
+            </summary>
+            <returns>The HTTP request scheme from owin.RequestScheme.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.IsSecure">
+            <summary>
+            Returns true if the owin.RequestScheme is https.
+            </summary>
+            <returns>true if this request is using https; otherwise, false.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.Host">
+            <summary>
+            Gets or set the Host header. May include the port.
+            </summary>
+            <return>The Host header.</return>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.PathBase">
+            <summary>
+            Gets or set the owin.RequestPathBase.
+            </summary>
+            <returns>The owin.RequestPathBase.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.Path">
+            <summary>
+            Gets or set the request path from owin.RequestPath.
+            </summary>
+            <returns>The request path from owin.RequestPath.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.QueryString">
+            <summary>
+            Gets or set the query string from owin.RequestQueryString.
+            </summary>
+            <returns>The query string from owin.RequestQueryString.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.Query">
+            <summary>
+            Gets the query value collection parsed from owin.RequestQueryString.
+            </summary>
+            <returns>The query value collection parsed from owin.RequestQueryString.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.Uri">
+            <summary>
+            Gets the uniform resource identifier (URI) associated with the request.
+            </summary>
+            <returns>The uniform resource identifier (URI) associated with the request.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.Protocol">
+            <summary>
+            Gets or set the owin.RequestProtocol.
+            </summary>
+            <returns>The owin.RequestProtocol.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.Headers">
+            <summary>
+            Gets the request headers.
+            </summary>
+            <returns>The request headers.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.Cookies">
+            <summary>
+            Gets the collection of Cookies for this request.
+            </summary>
+            <returns>The collection of Cookies for this request.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.ContentType">
+            <summary>
+            Gets or sets the Content-Type header.
+            </summary>
+            <returns>The Content-Type header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.CacheControl">
+            <summary>
+            Gets or sets the Cache-Control header.
+            </summary>
+            <returns>The Cache-Control header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.MediaType">
+            <summary>
+            Gets or sets the Media-Type header.
+            </summary>
+            <returns>The Media-Type header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.Accept">
+            <summary>
+            Gets or set the Accept header.
+            </summary>
+            <returns>The Accept header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.Body">
+            <summary>
+            Gets or set the owin.RequestBody Stream.
+            </summary>
+            <returns>The owin.RequestBody Stream.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.CallCancelled">
+            <summary>
+            Gets or sets the cancellation token for the request.
+            </summary>
+            <returns>The cancellation token for the request.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.LocalIpAddress">
+            <summary>
+            Gets or set the server.LocalIpAddress.
+            </summary>
+            <returns>The server.LocalIpAddress.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.LocalPort">
+            <summary>
+            Gets or set the server.LocalPort.
+            </summary>
+            <returns>The server.LocalPort.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.RemoteIpAddress">
+            <summary>
+            Gets or set the server.RemoteIpAddress.
+            </summary>
+            <returns>The server.RemoteIpAddress.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.RemotePort">
+            <summary>
+            Gets or set the server.RemotePort.
+            </summary>
+            <returns>The server.RemotePort.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinRequest.User">
+            <summary>
+            Gets or set the server.User.
+            </summary>
+            <returns>The server.User.</returns>
+        </member>
+        <member name="T:System.Net.Http.Owin.IOwinResponse">
+            <summary>
+            This wraps OWIN environment dictionary and provides strongly typed accessors.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinResponse.OnSendingHeaders(System.Action{System.Object},System.Object)">
+            <summary>
+            Registers for an event that fires when the response headers are sent.
+            </summary>
+            <param name="callback">The callback method.</param>
+            <param name="state">The callback state.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinResponse.Redirect(System.String)">
+            <summary>
+            Sets a 302 response status code and the Location header.
+            </summary>
+            <param name="location">The location where to redirect the client.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinResponse.Write(System.String)">
+            <summary>
+            Writes the given text to the response body stream using UTF-8.
+            </summary>
+            <param name="text">The response data.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinResponse.Write(System.Byte[])">
+            <summary>
+            Writes the given bytes to the response body stream.
+            </summary>
+            <param name="data">The response data.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinResponse.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes the given bytes to the response body stream.
+            </summary>
+            <param name="data">The response data.</param>
+            <param name="offset">The zero-based byte offset in the <paramref name="data" /> parameter at which to begin copying bytes.</param>
+            <param name="count">The number of bytes to write.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinResponse.WriteAsync(System.String)">
+            <summary>
+            Asynchronously writes the given text to the response body stream using UTF-8.
+            </summary>
+            <param name="text">The response data.</param>
+            <returns>A Task tracking the state of the write operation.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinResponse.WriteAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously writes the given text to the response body stream using UTF-8.
+            </summary>
+            <param name="text">The response data.</param>
+            <param name="token">A token used to indicate cancellation.</param>
+            <returns>A Task tracking the state of the write operation.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinResponse.WriteAsync(System.Byte[])">
+            <summary>
+            Asynchronously writes the given bytes to the response body stream.
+            </summary>
+            <param name="data">The response data.</param>
+            <returns>A Task tracking the state of the write operation.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinResponse.WriteAsync(System.Byte[],System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously writes the given bytes to the response body stream.
+            </summary>
+            <param name="data">The response data.</param>
+            <param name="token">A token used to indicate cancellation.</param>
+            <returns>A Task tracking the state of the write operation.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinResponse.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously writes the given bytes to the response body stream.
+            </summary>
+            <param name="data">The response data.</param>
+            <param name="offset">The zero-based byte offset in the <paramref name="data" /> parameter at which to begin copying bytes.</param>
+            <param name="count">The number of bytes to write.</param>
+            <param name="token">A token used to indicate cancellation.</param>
+            <returns>A Task tracking the state of the write operation.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinResponse.Get``1(System.String)">
+            <summary>
+            Gets a value from the OWIN environment, or returns default(T) if not present.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="key">The key of the value to get.</param>
+            <returns>The value with the specified key or the default(T) if not present.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.IOwinResponse.Set``1(System.String,``0)">
+            <summary>
+            Sets the given key and value in the OWIN environment.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="key">The key of the value to set.</param>
+            <param name="value">The value to set.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinResponse.Environment">
+            <summary>
+            Gets the OWIN environment.
+            </summary>
+            <returns>The OWIN environment.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinResponse.Context">
+            <summary>
+            Gets the request context.
+            </summary>
+            <returns>The request context.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinResponse.StatusCode">
+            <summary>
+            Gets or sets the optional owin.ResponseStatusCode.
+            </summary>
+            <returns>The optional owin.ResponseStatusCode, or 200 if not set.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinResponse.ReasonPhrase">
+            <summary>
+            Gets or sets the the optional owin.ResponseReasonPhrase.
+            </summary>
+            <returns>The the optional owin.ResponseReasonPhrase.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinResponse.Protocol">
+            <summary>
+            Gets or sets the owin.ResponseProtocol.
+            </summary>
+            <returns>The owin.ResponseProtocol.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinResponse.Headers">
+            <summary>
+            Gets the response header collection.
+            </summary>
+            <returns>The response header collection.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinResponse.Cookies">
+            <summary>
+            Gets a collection used to manipulate the Set-Cookie header.
+            </summary>
+            <returns>A collection used to manipulate the Set-Cookie header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinResponse.ContentLength">
+            <summary>
+            Gets or sets the Content-Length header.
+            </summary>
+            <returns>The Content-Length header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinResponse.ContentType">
+            <summary>
+            Gets or sets the Content-Type header.
+            </summary>
+            <returns>The Content-Type header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinResponse.Expires">
+            <summary>
+            Gets or sets the Expires header.
+            </summary>
+            <returns>The Expires header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinResponse.ETag">
+            <summary>
+            Gets or sets the E-Tag header.
+            </summary>
+            <returns>The E-Tag header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.IOwinResponse.Body">
+            <summary>
+            Gets or sets the owin.ResponseBody Stream.
+            </summary>
+            <returns>The owin.ResponseBody Stream.</returns>
+        </member>
+        <member name="T:System.Net.Http.Owin.OwinContext">
+            <summary>
+            This wraps OWIN environment dictionary and provides strongly typed accessors.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinContext.#ctor">
+            <summary>
+            Create a new context with only request and response header collections.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinContext.#ctor(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Create a new wrapper.
+            </summary>
+            <param name="environment">OWIN environment dictionary which stores state information about the request, response and relevant server state.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinContext.Get``1(System.String)">
+            <summary>
+            Gets a value from the OWIN environment, or returns default(T) if not present.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="key">The key of the value to get.</param>
+            <returns>The value with the specified key or the default(T) if not present.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinContext.Set``1(System.String,``0)">
+            <summary>
+            Sets the given key and value in the OWIN environment.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="key">The key of the value to set.</param>
+            <param name="value">The value to set.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinContext.Request">
+            <summary>
+            Gets a wrapper exposing request specific properties.
+            </summary>
+            <returns>A wrapper exposing request specific properties.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinContext.Response">
+            <summary>
+            Gets a wrapper exposing response specific properties.
+            </summary>
+            <returns>A wrapper exposing response specific properties.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinContext.Environment">
+            <summary>
+            Gets the OWIN environment.
+            </summary>
+            <returns>The OWIN environment.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinContext.TraceOutput">
+            <summary>
+            Gets or sets the host.TraceOutput environment value.
+            </summary>
+            <returns>The host.TraceOutput TextWriter.</returns>
+        </member>
+        <member name="T:System.Net.Http.Owin.OwinRequest">
+            <summary>
+            This wraps OWIN environment dictionary and provides strongly typed accessors.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinRequest.#ctor">
+            <summary>
+            Create a new context with only request and response header collections.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinRequest.#ctor(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Create a new environment wrapper exposing request properties.
+            </summary>
+            <param name="environment">OWIN environment dictionary which stores state information about the request, response and relevant server state.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinRequest.ReadFormAsync">
+            <summary>
+            Asynchronously reads and parses the request body as a form.
+            </summary>
+            <returns>The parsed form data.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinRequest.Get``1(System.String)">
+            <summary>
+            Gets a value from the OWIN environment, or returns default(T) if not present.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="key">The key of the value to get.</param>
+            <returns>The value with the specified key or the default(T) if not present.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinRequest.Set``1(System.String,``0)">
+            <summary>
+            Sets the given key and value in the OWIN environment.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="key">The key of the value to set.</param>
+            <param name="value">The value to set.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.Environment">
+            <summary>
+            Gets the OWIN environment.
+            </summary>
+            <returns>The OWIN environment.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.Context">
+            <summary>
+            Gets the request context.
+            </summary>
+            <returns>The request context.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.Method">
+            <summary>
+            Gets or set the HTTP method.
+            </summary>
+            <returns>The HTTP method.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.Scheme">
+            <summary>
+            Gets or set the HTTP request scheme from owin.RequestScheme.
+            </summary>
+            <returns>The HTTP request scheme from owin.RequestScheme.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.IsSecure">
+            <summary>
+            Returns true if the owin.RequestScheme is https.
+            </summary>
+            <returns>true if this request is using https; otherwise, false.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.Host">
+            <summary>
+            Gets or set the Host header. May include the port.
+            </summary>
+            <return>The Host header.</return>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.PathBase">
+            <summary>
+            Gets or set the owin.RequestPathBase.
+            </summary>
+            <returns>The owin.RequestPathBase.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.Path">
+            <summary>
+            Gets or set the request path from owin.RequestPath.
+            </summary>
+            <returns>The request path from owin.RequestPath.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.QueryString">
+            <summary>
+            Gets or set the query string from owin.RequestQueryString.
+            </summary>
+            <returns>The query string from owin.RequestQueryString.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.Query">
+            <summary>
+            Gets the query value collection parsed from owin.RequestQueryString.
+            </summary>
+            <returns>The query value collection parsed from owin.RequestQueryString.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.Uri">
+            <summary>
+            Gets the uniform resource identifier (URI) associated with the request.
+            </summary>
+            <returns>The uniform resource identifier (URI) associated with the request.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.Protocol">
+            <summary>
+            Gets or set the owin.RequestProtocol.
+            </summary>
+            <returns>The owin.RequestProtocol.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.Headers">
+            <summary>
+            Gets the request headers.
+            </summary>
+            <returns>The request headers.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.Cookies">
+            <summary>
+            Gets the collection of Cookies for this request.
+            </summary>
+            <returns>The collection of Cookies for this request.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.ContentType">
+            <summary>
+            Gets or sets the Content-Type header.
+            </summary>
+            <returns>The Content-Type header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.CacheControl">
+            <summary>
+            Gets or sets the Cache-Control header.
+            </summary>
+            <returns>The Cache-Control header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.MediaType">
+            <summary>
+            Gets or sets the Media-Type header.
+            </summary>
+            <returns>The Media-Type header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.Accept">
+            <summary>
+            Gets or set the Accept header.
+            </summary>
+            <returns>The Accept header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.Body">
+            <summary>
+            Gets or set the owin.RequestBody Stream.
+            </summary>
+            <returns>The owin.RequestBody Stream.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.CallCancelled">
+            <summary>
+            Gets or sets the cancellation token for the request.
+            </summary>
+            <returns>The cancellation token for the request.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.LocalIpAddress">
+            <summary>
+            Gets or set the server.LocalIpAddress.
+            </summary>
+            <returns>The server.LocalIpAddress.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.LocalPort">
+            <summary>
+            Gets or set the server.LocalPort.
+            </summary>
+            <returns>The server.LocalPort.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.RemoteIpAddress">
+            <summary>
+            Gets or set the server.RemoteIpAddress.
+            </summary>
+            <returns>The server.RemoteIpAddress.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.RemotePort">
+            <summary>
+            Gets or set the server.RemotePort.
+            </summary>
+            <returns>The server.RemotePort.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinRequest.User">
+            <summary>
+            Gets or set the server.User.
+            </summary>
+            <returns>The server.User.</returns>
+        </member>
+        <member name="T:System.Net.Http.Owin.OwinResponse">
+            <summary>
+            This wraps OWIN environment dictionary and provides strongly typed accessors.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinResponse.#ctor">
+            <summary>
+            Create a new context with only request and response header collections.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinResponse.#ctor(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Creates a new environment wrapper exposing response properties.
+            </summary>
+            <param name="environment">OWIN environment dictionary which stores state information about the request, response and relevant server state.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinResponse.OnSendingHeaders(System.Action{System.Object},System.Object)">
+            <summary>
+            Registers for an event that fires when the response headers are sent.
+            </summary>
+            <param name="callback">The callback method.</param>
+            <param name="state">The callback state.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinResponse.Redirect(System.String)">
+            <summary>
+            Sets a 302 response status code and the Location header.
+            </summary>
+            <param name="location">The location where to redirect the client.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinResponse.Write(System.String)">
+            <summary>
+            Writes the given text to the response body stream using UTF-8.
+            </summary>
+            <param name="text">The response data.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinResponse.Write(System.Byte[])">
+            <summary>
+            Writes the given bytes to the response body stream.
+            </summary>
+            <param name="data">The response data.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinResponse.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes the given bytes to the response body stream.
+            </summary>
+            <param name="data">The response data.</param>
+            <param name="offset">The zero-based byte offset in the <paramref name="data" /> parameter at which to begin copying bytes.</param>
+            <param name="count">The number of bytes to write.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinResponse.WriteAsync(System.String)">
+            <summary>
+            Asynchronously writes the given text to the response body stream using UTF-8.
+            </summary>
+            <param name="text">The response data.</param>
+            <returns>A Task tracking the state of the write operation.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinResponse.WriteAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously writes the given text to the response body stream using UTF-8.
+            </summary>
+            <param name="text">The response data.</param>
+            <param name="token">A token used to indicate cancellation.</param>
+            <returns>A Task tracking the state of the write operation.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinResponse.WriteAsync(System.Byte[])">
+            <summary>
+            Asynchronously writes the given bytes to the response body stream.
+            </summary>
+            <param name="data">The response data.</param>
+            <returns>A Task tracking the state of the write operation.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinResponse.WriteAsync(System.Byte[],System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously writes the given bytes to the response body stream.
+            </summary>
+            <param name="data">The response data.</param>
+            <param name="token">A token used to indicate cancellation.</param>
+            <returns>A Task tracking the state of the write operation.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinResponse.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously writes the given bytes to the response body stream.
+            </summary>
+            <param name="data">The response data.</param>
+            <param name="offset">The zero-based byte offset in the <paramref name="data" /> parameter at which to begin copying bytes.</param>
+            <param name="count">The number of bytes to write.</param>
+            <param name="token">A token used to indicate cancellation.</param>
+            <returns>A Task tracking the state of the write operation.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinResponse.Get``1(System.String)">
+            <summary>
+            Gets a value from the OWIN environment, or returns default(T) if not present.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="key">The key of the value to get.</param>
+            <returns>The value with the specified key or the default(T) if not present.</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.OwinResponse.Set``1(System.String,``0)">
+            <summary>
+            Sets the given key and value in the OWIN environment.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="key">The key of the value to set.</param>
+            <param name="value">The value to set.</param>
+            <returns>This instance.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinResponse.Environment">
+            <summary>
+            Gets the OWIN environment.
+            </summary>
+            <returns>The OWIN environment.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinResponse.Context">
+            <summary>
+            Gets the request context.
+            </summary>
+            <returns>The request context.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinResponse.StatusCode">
+            <summary>
+            Gets or sets the optional owin.ResponseStatusCode.
+            </summary>
+            <returns>The optional owin.ResponseStatusCode, or 200 if not set.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinResponse.ReasonPhrase">
+            <summary>
+            Gets or sets the the optional owin.ResponseReasonPhrase.
+            </summary>
+            <returns>The the optional owin.ResponseReasonPhrase.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinResponse.Protocol">
+            <summary>
+            Gets or sets the owin.ResponseProtocol.
+            </summary>
+            <returns>The owin.ResponseProtocol.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinResponse.Headers">
+            <summary>
+            Gets the response header collection.
+            </summary>
+            <returns>The response header collection.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinResponse.Cookies">
+            <summary>
+            Gets a collection used to manipulate the Set-Cookie header.
+            </summary>
+            <returns>A collection used to manipulate the Set-Cookie header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinResponse.ContentLength">
+            <summary>
+            Gets or sets the Content-Length header.
+            </summary>
+            <returns>The Content-Length header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinResponse.ContentType">
+            <summary>
+            Gets or sets the Content-Type header.
+            </summary>
+            <returns>The Content-Type header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinResponse.Expires">
+            <summary>
+            Gets or sets the Expires header.
+            </summary>
+            <returns>The Expires header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinResponse.ETag">
+            <summary>
+            Gets or sets the E-Tag header.
+            </summary>
+            <returns>The E-Tag header.</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.OwinResponse.Body">
+            <summary>
+            Gets or sets the owin.ResponseBody Stream.
+            </summary>
+            <returns>The owin.ResponseBody Stream.</returns>
+        </member>
+        <member name="T:System.Net.Http.Owin.PathString">
+            <summary>
+            Provides correct escaping for Path and PathBase values when needed to reconstruct a request or redirect URI string
+            </summary>
+        </member>
+        <member name="F:System.Net.Http.Owin.PathString.Empty">
+            <summary>
+            Represents the empty path. This field is read-only.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.#ctor(System.String)">
+            <summary>
+            Initialize the path string with a given value. This value must be in un-escaped format. Use
+            PathString.FromUriComponent(value) if you have a path value which is in an escaped format.
+            </summary>
+            <param name="value">The unescaped path to be assigned to the Value property.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.ToString">
+            <summary>
+            Provides the path string escaped in a way which is correct for combining into the URI representation. 
+            </summary>
+            <returns>The escaped path value</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.ToUriComponent">
+            <summary>
+            Provides the path string escaped in a way which is correct for combining into the URI representation.
+            </summary>
+            <returns>The escaped path value</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.FromUriComponent(System.String)">
+            <summary>
+            Returns an PathString given the path as it is escaped in the URI format. The string MUST NOT contain any
+            value that is not a path.
+            </summary>
+            <param name="uriComponent">The escaped path as it appears in the URI format.</param>
+            <returns>The resulting PathString</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.FromUriComponent(System.Uri)">
+            <summary>
+            Returns an PathString given the path as from a Uri object. Relative Uri objects are not supported.
+            </summary>
+            <param name="uri">The Uri object</param>
+            <returns>The resulting PathString</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.StartsWithSegments(System.Net.Http.Owin.PathString)">
+            <summary>
+            Checks if this instance starts with or exactly matches the other instance. Only full segments are matched.
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.StartsWithSegments(System.Net.Http.Owin.PathString,System.Net.Http.Owin.PathString@)">
+            <summary>
+            Checks if this instance starts with or exactly matches the other instance. Only full segments are matched.
+            </summary>
+            <param name="other"></param>
+            <param name="remaining">Any remaining segments from this instance not included in the other instance.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.Add(System.Net.Http.Owin.PathString)">
+            <summary>
+            Adds two PathString instances into a combined PathString value. 
+            </summary>
+            <returns>The combined PathString value</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.Add(System.Net.Http.Owin.QueryString)">
+            <summary>
+            Combines a PathString and QueryString into the joined URI formatted string value. 
+            </summary>
+            <returns>The joined URI formatted string value</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.Equals(System.Net.Http.Owin.PathString)">
+            <summary>
+            Compares this PathString value to another value. The default comparison is StringComparison.OrdinalIgnoreCase.
+            </summary>
+            <param name="other">The second PathString for comparison.</param>
+            <returns>True if both PathString values are equal</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.Equals(System.Net.Http.Owin.PathString,System.StringComparison)">
+            <summary>
+            Compares this PathString value to another value using a specific StringComparison type
+            </summary>
+            <param name="other">The second PathString for comparison</param>
+            <param name="comparisonType">The StringComparison type to use</param>
+            <returns>True if both PathString values are equal</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.Equals(System.Object)">
+            <summary>
+            Compares this PathString value to another value. The default comparison is StringComparison.OrdinalIgnoreCase.
+            </summary>
+            <param name="obj">The second PathString for comparison.</param>
+            <returns>True if both PathString values are equal</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.GetHashCode">
+            <summary>
+            Returns the hash code for the PathString value. The hash code is provided by the OrdinalIgnoreCase implementation.
+            </summary>
+            <returns>The hash code</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.op_Equality(System.Net.Http.Owin.PathString,System.Net.Http.Owin.PathString)">
+            <summary>
+            Operator call through to Equals
+            </summary>
+            <param name="left">The left parameter</param>
+            <param name="right">The right parameter</param>
+            <returns>True if both PathString values are equal</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.op_Inequality(System.Net.Http.Owin.PathString,System.Net.Http.Owin.PathString)">
+            <summary>
+            Operator call through to Equals
+            </summary>
+            <param name="left">The left parameter</param>
+            <param name="right">The right parameter</param>
+            <returns>True if both PathString values are not equal</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.op_Addition(System.Net.Http.Owin.PathString,System.Net.Http.Owin.PathString)">
+            <summary>
+            Operator call through to Add
+            </summary>
+            <param name="left">The left parameter</param>
+            <param name="right">The right parameter</param>
+            <returns>The PathString combination of both values</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.PathString.op_Addition(System.Net.Http.Owin.PathString,System.Net.Http.Owin.QueryString)">
+            <summary>
+            Operator call through to Add
+            </summary>
+            <param name="left">The left parameter</param>
+            <param name="right">The right parameter</param>
+            <returns>The PathString combination of both values</returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.PathString.Value">
+            <summary>
+            The unescaped path value
+            </summary>
+        </member>
+        <member name="P:System.Net.Http.Owin.PathString.HasValue">
+            <summary>
+            True if the path is not empty
+            </summary>
+        </member>
+        <member name="T:System.Net.Http.Owin.QueryString">
+            <summary>
+            Provides correct handling for QueryString value when needed to reconstruct a request or redirect URI string
+            </summary>
+        </member>
+        <member name="F:System.Net.Http.Owin.QueryString.Empty">
+            <summary>
+            Represents the empty query string. This field is read-only.
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.QueryString.#ctor(System.String)">
+            <summary>
+            Initalize the query string with a given value. This value must be in escaped and delimited format without 
+            a leading '?' character. 
+            </summary>
+            <param name="value">The query string to be assigned to the Value property.</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.QueryString.#ctor(System.String,System.String)">
+            <summary>
+            Initialize a query string with a single given parameter name and value. The value is 
+            </summary>
+            <param name="name">The unencoded parameter name</param>
+            <param name="value">The unencoded parameter value</param>
+        </member>
+        <member name="M:System.Net.Http.Owin.QueryString.ToString">
+            <summary>
+            Provides the query string escaped in a way which is correct for combining into the URI representation. 
+            A leading '?' character will be prepended unless the Value is null or empty. Characters which are potentally
+            dangerous are escaped.
+            </summary>
+            <returns>The query string value</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.QueryString.ToUriComponent">
+            <summary>
+            Provides the query string escaped in a way which is correct for combining into the URI representation. 
+            A leading '?' character will be prepended unless the Value is null or empty. Characters which are potentially
+            dangerous are escaped.
+            </summary>
+            <returns>The query string value</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.QueryString.FromUriComponent(System.String)">
+            <summary>
+            Returns an QueryString given the query as it is escaped in the URI format. The string MUST NOT contain any
+            value that is not a query.
+            </summary>
+            <param name="uriComponent">The escaped query as it appears in the URI format.</param>
+            <returns>The resulting QueryString</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.QueryString.FromUriComponent(System.Uri)">
+            <summary>
+            Returns an QueryString given the query as from a Uri object. Relative Uri objects are not supported.
+            </summary>
+            <param name="uri">The Uri object</param>
+            <returns>The resulting QueryString</returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.QueryString.Equals(System.Net.Http.Owin.QueryString)">
+            <summary>
+            Indicates whether the current instance is equal to the other instance.
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.QueryString.Equals(System.Object)">
+            <summary>
+            Indicates whether the current instance is equal to the other instance.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.QueryString.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.QueryString.op_Equality(System.Net.Http.Owin.QueryString,System.Net.Http.Owin.QueryString)">
+            <summary>
+            Compares the two instances for equality.
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.QueryString.op_Inequality(System.Net.Http.Owin.QueryString,System.Net.Http.Owin.QueryString)">
+            <summary>
+            Compares the two instances for inequality.
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.QueryString.Value">
+            <summary>
+            The unescaped query string without the leading '?' character
+            </summary>
+        </member>
+        <member name="P:System.Net.Http.Owin.QueryString.HasValue">
+            <summary>
+            True if the query string is not empty
+            </summary>
+        </member>
+        <member name="T:System.Net.Http.Owin.RequestCookieCollection">
+            <summary>
+            A wrapper for the request Cookie header
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.RequestCookieCollection.#ctor(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Create a new wrapper
+            </summary>
+            <param name="store"></param>
+        </member>
+        <member name="M:System.Net.Http.Owin.RequestCookieCollection.GetEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.Http.Owin.RequestCookieCollection.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:System.Net.Http.Owin.RequestCookieCollection.Item(System.String)">
+            <summary>
+            Returns null rather than throwing KeyNotFoundException
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Net.Http.Owin.ResponseCookieCollection">
+            <summary>
+            A wrapper for the response Set-Cookie header
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.Owin.ResponseCookieCollection.#ctor(System.Net.Http.Owin.IHeaderDictionary)">
+            <summary>
+            Create a new wrapper
+            </summary>
+            <param name="headers"></param>
+        </member>
+        <member name="M:System.Net.Http.Owin.ResponseCookieCollection.Append(System.String,System.String)">
+            <summary>
+            Add a new cookie and value
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:System.Net.Http.Owin.ResponseCookieCollection.Append(System.String,System.String,System.Net.Http.Owin.CookieOptions)">
+            <summary>
+            Add a new cookie
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
+        <member name="M:System.Net.Http.Owin.ResponseCookieCollection.Delete(System.String)">
+            <summary>
+            Sets an expired cookie
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:System.Net.Http.Owin.ResponseCookieCollection.Delete(System.String,System.Net.Http.Owin.CookieOptions)">
+            <summary>
+            Sets an expired cookie
+            </summary>
+            <param name="key"></param>
+            <param name="options"></param>
+        </member>
+        <member name="T:System.Net.Http.OwinHttpMessageHandler">
+            <summary>
+            Represents an HttpMessageHanlder that can invoke a request directly against an OWIN pipeline (an 'AppFunc').
+            </summary>
+        </member>
+        <member name="M:System.Net.Http.OwinHttpMessageHandler.#ctor(System.Func{System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Net.Http.OwinHttpMessageHandler"/> class.
+            </summary>
+            <param name="midFunc">An OWIN middleware function that will be terminated with a 404 Not Found.</param>
+            <exception cref="T:System.ArgumentNullException">midFunc</exception>
+        </member>
+        <member name="M:System.Net.Http.OwinHttpMessageHandler.#ctor(System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task})">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Net.Http.OwinHttpMessageHandler"/> class.
+            </summary>
+            <param name="appFunc">An OWIN application function.</param>
+            <exception cref="T:System.ArgumentNullException">appFunc</exception>
+        </member>
+        <member name="P:System.Net.Http.OwinHttpMessageHandler.UseCookies">
+            <summary>
+                Gets or sets a value that indicates whether the handler uses the 
+                <see cref="P:System.Net.Http.HttpClientHandler.CookieContainer"/> property
+                to store server cookies and uses these cookies when sending requests.
+            </summary>
+            <returns>
+                Returns <see cref="T:System.Boolean"/>.true if the if the handler supports
+                uses the <see cref="P:System.Net.Http.HttpClientHandler.CookieContainer"/> property
+                to store server cookies and uses these cookies when sending requests; otherwise false.
+                The default value is true.
+            </returns>
+        </member>
+        <member name="P:System.Net.Http.OwinHttpMessageHandler.AllowAutoRedirect">
+            <summary>
+                Gets or sets a value that indicates whether the handler should follow redirection responses.
+            </summary>
+            <returns>
+                Returns <see cref="T:System.Boolean"/>.true if the if the handler should follow redirection
+                responses; otherwise false. The default value is true.
+            </returns>
+        </member>
+        <member name="P:System.Net.Http.OwinHttpMessageHandler.AutoRedirectLimit">
+            <summary>
+                Gets or sets the automatic redirect limit. Default is <see cref="F:System.Net.Http.OwinHttpMessageHandler.DefaultAutoRedirectLimit"/>.
+            </summary>
+            <value>
+                The automatic redirect limit.
+            </value>
+        </member>
+        <member name="P:System.Net.Http.OwinHttpMessageHandler.CookieContainer">
+            <summary>
+                Gets or sets the cookie container used to store server cookies by the handler.
+            </summary>
+            <returns>
+                Returns <see cref="T:System.Net.CookieContainer"/>.The cookie container used to store
+                server cookies by the handler.
+            </returns>
+        </member>
+    </members>
+</doc>
