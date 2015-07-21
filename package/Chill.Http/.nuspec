@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Chill.Http</id>
+    <version>2.3.0-chillhttp</version>
+    <title>Chill Http based testing</title>
+    <authors>Erwin van der Valk</authors>
+    <owners>Erwin van der Valk</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>http://github.com/erwinvandervalk/chill</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A testing framework that tests at the HTTP boundary, heavily relying on owin. </description>
+    <releaseNotes>
+        
+    </releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>Chill, Http, Owin, Katana</tags>
+    <dependencies>
+      <group>
+        <dependency id="CompareNETObjects"/>
+        <dependency id="Microsoft.Owin"/>
+        <dependency id="Newtonsoft.Json" />
+        <dependency id="Owin"/>
+        <dependency id="OwinHttpMessageHandler"/>
+        <dependency id="PowerAssert"/>
+      </group>
+    </dependencies>
+
+  </metadata>
+</package>

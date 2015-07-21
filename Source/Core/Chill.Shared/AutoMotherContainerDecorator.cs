@@ -54,7 +54,7 @@ namespace Chill
 
             if (internalChillContainer.IsRegistered<T>())
             {
-                return internalChillContainer.Get<T>();
+                return internalChillContainer.Get<T>(key);
             }
 
             // Combine the type and key into a string

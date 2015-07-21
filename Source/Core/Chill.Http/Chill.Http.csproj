@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2303AC51-0483-4137-BC3D-DAA61A324DA4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Chill.Http</RootNamespace>
+    <AssemblyName>Chill.Http</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="KellermanSoftware.Compare-NET-Objects">
+      <HintPath>..\..\packages\CompareNETObjects.3.01.0.0\lib\net45\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="OwinHttpMessageHandler">
+      <HintPath>..\..\packages\OwinHttpMessageHandler.1.3.0\lib\net45\OwinHttpMessageHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="PowerAssert">
+      <HintPath>..\..\packages\PowerAssert.1.0.16.0\lib\net40\PowerAssert.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Packages\LibLog.3.1\LibLog.cs" />
+    <Compile Include="DebuggingAction.cs" />
+    <Compile Include="ExpressionVisitor.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="GivenBuilder.cs" />
+    <Compile Include="HttpBasedUserAction.cs" />
+    <Compile Include="HttpClientBuilder.cs" />
+    <Compile Include="IUserAction.cs" />
+    <Compile Include="PartialApplicationVisitor.cs" />
+    <Compile Include="PowerAssertForked\Annotations.cs" />
+    <Compile Include="PowerAssertForked\Extensions.cs" />
+    <Compile Include="PowerAssertForked\Infrastructure\NaturalExpressionProcessor.cs" />
+    <Compile Include="PowerAssertForked\Infrastructure\NodeFormatter.cs" />
+    <Compile Include="PowerAssertForked\Infrastructure\Nodes\ArrayIndexNode.cs" />
+    <Compile Include="PowerAssertForked\Infrastructure\Nodes\BinaryNode.cs" />
+    <Compile Include="PowerAssertForked\Infrastructure\Nodes\ConditionalNode.cs" />
+    <Compile Include="PowerAssertForked\Infrastructure\Nodes\ConstantNode.cs" />
+    <Compile Include="PowerAssertForked\Infrastructure\Nodes\MemberAccessNode.cs" />
+    <Compile Include="PowerAssertForked\Infrastructure\Nodes\MethodCallNode.cs" />
+    <Compile Include="PowerAssertForked\Infrastructure\Nodes\NewArrayNode.cs" />
+    <Compile Include="PowerAssertForked\Infrastructure\Nodes\Node.cs" />
+    <Compile Include="PowerAssertForked\Infrastructure\Nodes\UnaryNode.cs" />
+    <Compile Include="PowerAssertForked\Infrastructure\Util.cs" />
+    <Compile Include="PowerAssertForked\PAssertFormatter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Response.cs" />
+    <Compile Include="ResponseAction.cs" />
+    <Compile Include="Scenario.cs" />
+    <Compile Include="ScenarioBuilder.cs" />
+    <Compile Include="SimulatedAuthHttpClientBuilder.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="WhenBuilder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

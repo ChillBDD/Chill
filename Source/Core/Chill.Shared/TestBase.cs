@@ -233,7 +233,7 @@ namespace Chill
         public T TheNamed<T>(string named)
             where T : class
         {
-            var items = Container.Get<Dictionary<Tuple<Type, string>, object>>();
+            var items = Container.Get<Dictionary<Tuple<Type, string>, object>>("chill");
             var key = Tuple.Create(typeof (T), named);
 
             object item;
@@ -288,6 +288,7 @@ namespace Chill
         /// <returns></returns>
         public T UseThe<T>(T valueToSet) where T : class
         {
+            Container.AddToList(valueToSet);
             return Container.Set<T>(valueToSet);
         }
 
@@ -300,7 +301,7 @@ namespace Chill
         /// <returns></returns>
         public T UseThe<T>(T valueToSet, string named) where T : class
         {
-            return Container.Set<T>(valueToSet);
+            return Container.Set<T>(valueToSet, named);
         }
 
         /// <summary>

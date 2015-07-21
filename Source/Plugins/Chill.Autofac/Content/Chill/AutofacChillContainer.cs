@@ -75,7 +75,7 @@ namespace Chill.Autofac
                         .As(new KeyedService(key, typeof(T)))
                         .InstancePerLifetimeScope().CreateRegistration());
             }
-            return Get<T>();
+            return Get<T>(key);
         }
 
 

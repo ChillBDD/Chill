@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Chill.Autofac</id>
-    <version>2.2.0-beta0001</version>
+    <version>2.3.0-chillhttp</version>
     <title>Chill Autofac extension</title>
     <authors>Erwin van der Valk, Dennis Doomen</authors>
     <owners>Erwin van der Valk</owners>
