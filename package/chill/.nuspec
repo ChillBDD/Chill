@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Chill</id>
-    <version>2.3.0-chillhttp</version>
+    <version>2.3.0-beta0001</version>
     <title>Chill BDD Testing</title>
     <authors>Erwin van der Valk, Dennis Doomen</authors>
     <owners>Erwin van der Valk</owners>
