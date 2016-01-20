@@ -5,8 +5,9 @@ namespace Chill.Http
 
     public class WhenBuilder : ScenarioBuilder
     {
-        public WhenBuilder(Scenario scenario) : base(scenario)
-        {}
+        public WhenBuilder(HttpTestScenario scenario) : base(scenario)
+        {
+        }
 
         public WhenBuilder Do(Func<Task> action)
         {

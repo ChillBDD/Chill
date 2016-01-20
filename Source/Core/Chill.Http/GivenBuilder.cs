@@ -5,8 +5,9 @@ namespace Chill.Http
 
     public class GivenBuilder : ScenarioBuilder
     {
-        public GivenBuilder(Scenario scenario) : base(scenario)
-        {}
+        public GivenBuilder(HttpTestScenario scenario) : base(scenario)
+        {
+        }
 
         public GivenBuilder Given(params Func<IUserAction>[] givens)
         {
@@ -16,14 +17,14 @@ namespace Chill.Http
 
         public GivenBuilder<TResult> Given<TResult>(params Func<IUserAction<TResult>>[] givens)
         {
-            foreach (var given in givens)
+            foreach(var given in givens)
             {
                 Scenario.AddGivens(given);
             }
             return new GivenBuilder<TResult>(Scenario);
         }
 
-        public GivenBuilder Debug(Func<Task> action)
+        public GivenBuilder Do(Func<Task> action)
         {
             Scenario.AddGivens(() => new DebuggingAction(action));
             return new GivenBuilder(Scenario);
@@ -44,7 +45,8 @@ namespace Chill.Http
 
     public class GivenBuilder<TResult> : GivenBuilder
     {
-        public GivenBuilder(Scenario scenario) : base(scenario)
-        {}
+        public GivenBuilder(HttpTestScenario scenario) : base(scenario)
+        {
+        }
     }
 }

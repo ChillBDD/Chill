@@ -6,25 +6,37 @@ using System.Threading.Tasks;
 
 namespace Chill.Http
 {
+
+    using MidFunc = System.Func<
+       System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>,
+       System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>>;
+
+
     public class HttpClientBuilder
     {
-        private readonly Func<User, Task> _onAuthenticate;
-        private readonly Func<IDictionary<string, object>, Task> _appFunc;
+        private readonly Func<TestUser, Task> _onAuthenticate;
+        private readonly MidFunc _midFunc;
         private readonly string _baseAddress;
-        private readonly string _url;
 
-        public HttpClientBuilder(string baseAddress, Func<IDictionary<string, object>, Task> appFunc = null, Func<User, Task> onAuthenticate = null)
+        public HttpClientBuilder(string baseAddress, Func<TestUser, Task> onAuthenticate = null)
         {
             _onAuthenticate = onAuthenticate;
-            _appFunc = appFunc;
             _baseAddress = baseAddress;
         }
 
-        public virtual HttpClient Build(User user)
+
+        public HttpClientBuilder(MidFunc midFunc, Func<TestUser, Task> onAuthenticate = null)
+        {
+            _onAuthenticate = onAuthenticate;
+            _midFunc = midFunc;
+            _baseAddress = "http://localhost";
+        }
+
+        public virtual HttpClient Build(TestUser testUser)
         {
             HttpMessageHandler handler;
 
-            if (_appFunc == null)
+            if (_midFunc == null)
             {
                 handler = new HttpClientHandler()
                 {
@@ -35,7 +47,7 @@ namespace Chill.Http
             }
             else
             {
-                handler = new OwinHttpMessageHandler(_appFunc)
+                handler = new OwinHttpMessageHandler(_midFunc)
                 {
                     AllowAutoRedirect = true,
                     UseCookies = true,
@@ -50,11 +62,11 @@ namespace Chill.Http
 
         }
 
-        public Task Authenticate(User user)
+        public Task Authenticate(TestUser testUser)
         {
             if (_onAuthenticate == null)
                 return Task.FromResult(0);
-            return _onAuthenticate(user);
+            return _onAuthenticate(testUser);
         }
     }
 }

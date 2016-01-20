@@ -62,13 +62,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Packages\LibLog.3.1\LibLog.cs" />
+    <Compile Include="App_Packages\LibLog.4.2\LibLog.cs" />
+    <Compile Include="AuthenticateAction.cs" />
     <Compile Include="DebuggingAction.cs" />
     <Compile Include="ExpressionVisitor.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GivenBuilder.cs" />
     <Compile Include="HttpBasedUserAction.cs" />
     <Compile Include="HttpClientBuilder.cs" />
+    <Compile Include="HttpTestScenario.cs" />
     <Compile Include="IUserAction.cs" />
     <Compile Include="PartialApplicationVisitor.cs" />
     <Compile Include="PowerAssertForked\Annotations.cs" />
@@ -89,10 +91,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="ResponseAction.cs" />
-    <Compile Include="Scenario.cs" />
     <Compile Include="ScenarioBuilder.cs" />
     <Compile Include="SimulatedAuthHttpClientBuilder.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="TestUser.cs" />
     <Compile Include="WhenBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
