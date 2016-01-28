@@ -123,7 +123,7 @@ Compare this with a Chill example:
             }
 
             [Fact]
-            public void Then_model_is_the_existing_custmoer()
+            public void Then_model_is_the_existing_customer()
             {
                 Result.Model.Should().Be(The<Customer>());
             }
@@ -171,7 +171,7 @@ Assume the following simple example. You have an asynchronous webapi controller.
             }
 
             [Fact]
-            public void Then_model_is_the_existing_custmoer()
+            public void Then_model_is_the_existing_customer()
             {
                 Result.Model.Should().Be(The<Customer>());
             }
