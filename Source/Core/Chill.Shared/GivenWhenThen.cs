@@ -138,7 +138,11 @@ namespace Chill
         /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
         public void When(Func<Task> whenActionAsync, bool? deferedExecution = null)
         {
+#if NET45
+            When(() => Task.Run(whenActionAsync).Wait(), deferedExecution);
+#else
             When(() => whenActionAsync().Wait(), deferedExecution);
+#endif
         }
 
         internal override void TriggerTest(bool expectExceptions)

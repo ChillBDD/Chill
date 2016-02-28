@@ -31,7 +31,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\..\Package\Chill\Lib\portable-net45+windows8+windowsphone8+wpa+MonoAndroid1+MonoTouch1\</OutputPath>
-    <DefineConstants>TRACE;WINRT</DefineConstants>
+    <DefineConstants>TRACE;WINRT NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\..\Package\Chill\Lib\portable-net45+windows8+windowsphone8+wpa+MonoAndroid1+MonoTouch1\Chill.XML</DocumentationFile>
