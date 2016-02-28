@@ -1,4 +1,4 @@
-if ($env:TEAMCITY_VERSION) {
+﻿if ($env:TEAMCITY_VERSION) {
 	# When PowerShell is started through TeamCity's Command Runner, the standard
 	# output will be wrapped at column 80 (a default). This has a negative impact
 	# on service messages, as TeamCity quite naturally fails parsing a wrapped
@@ -8,7 +8,7 @@ if ($env:TEAMCITY_VERSION) {
 }
 
 function TeamCity-TestSuiteStarted([string]$name) {
-	TeamCity-WriteServiceMessage 'testSuiteStarted' @{ name=$name }
+		TeamCity-WriteServiceMessage 'testSuiteStarted' @{ name=$name }
 }
 
 function TeamCity-TestSuiteFinished([string]$name) {
@@ -21,7 +21,7 @@ function TeamCity-TestStarted([string]$name) {
 
 function TeamCity-TestFinished([string]$name, [int]$duration) {
 	$messageAttributes = @{name=$name; duration=$duration}
-	
+
 	if ($duration -gt 0) {
 		$messageAttributes.duration=$duration
 	}
@@ -41,18 +41,25 @@ function TeamCity-TestError([string]$name, [string]$output) {
 	TeamCity-WriteServiceMessage 'testStdErr' @{ name=$name; out=$output }
 }
 
-function TeamCity-TestFailed([string]$name, [string]$message, [string]$details='', [string]$type='', [string]$expected='', [string]$actual='') {
+function TeamCity-TestFailed([string]$name, [string]$message, [string]$details='', [string] $screenshotfile='', [string]$type='', [string]$expected='', [string]$actual='') {
 	$messageAttributes = @{ name=$name; message=$message; details=$details }
 
 	if (![string]::IsNullOrEmpty($type)) {
 		$messageAttributes.type = $type
 	}
-	
+
 	if (![string]::IsNullOrEmpty($expected)) {
 		$messageAttributes.expected=$expected
 	}
+
 	if (![string]::IsNullOrEmpty($actual)) {
 		$messageAttributes.actual=$actual
+	}
+
+	if (![string]::IsNullOrEmpty($screenshotfile)) {
+		$messageAttributes.screenshotfile=$screenshotfile
+
+		TeamCity-PublishArtifact $screenshotfile
 	}
 
 	TeamCity-WriteServiceMessage 'testFailed' $messageAttributes
@@ -110,27 +117,35 @@ function TeamCity-SetBuildStatistic([string]$key, [string]$value) {
 
 function TeamCity-Block([string]$name, [scriptblock]$cmd) {
     TeamCity-WriteServiceMessage 'blockOpened' @{ name=$name }
-    & $cmd    
+    & $cmd
+    TeamCity-WriteServiceMessage 'blockClosed' @{ name=$name }
+}
+
+function TeamCity-OpenBlock([string]$name) {
+    TeamCity-WriteServiceMessage 'blockOpened' @{ name=$name }
+}
+
+function TeamCity-CloseBlock([string]$name) {
     TeamCity-WriteServiceMessage 'blockClosed' @{ name=$name }
 }
 
 function TeamCity-CreateInfoDocument([string]$buildNumber='', [boolean]$status=$true, [string[]]$statusText=$null, [System.Collections.IDictionary]$statistics=$null) {
 	$doc=New-Object xml;
 	$buildEl=$doc.CreateElement('build');
-	
+
 	if (![string]::IsNullOrEmpty($buildNumber)) {
 		$buildEl.SetAttribute('number', $buildNumber);
 	}
-	
+
 	$buildEl=$doc.AppendChild($buildEl);
-	
+
 	$statusEl=$doc.CreateElement('statusInfo');
 	if ($status) {
 		$statusEl.SetAttribute('status', 'SUCCESS');
 	} else {
 		$statusEl.SetAttribute('status', 'FAILURE');
 	}
-	
+
 	if ($statusText -ne $null) {
 		foreach ($text in $statusText) {
 			$textEl=$doc.CreateElement('text');
@@ -138,38 +153,38 @@ function TeamCity-CreateInfoDocument([string]$buildNumber='', [boolean]$status=$
 			$textEl.set_InnerText($text);
 			$textEl=$statusEl.AppendChild($textEl);
 		}
-	}	
-	
+	}
+
 	$statusEl=$buildEl.AppendChild($statusEl);
-	
+
 	if ($statistics -ne $null) {
 		foreach ($key in $statistics.Keys) {
 			$val=$statistics.$key
 			if ($val -eq $null) {
 				$val=''
 			}
-			
+
 			$statEl=$doc.CreateElement('statisticsValue');
 			$statEl.SetAttribute('key', $key);
 			$statEl.SetAttribute('value', $val.ToString());
 			$statEl=$buildEl.AppendChild($statEl);
 		}
 	}
-	
+
 	return $doc;
 }
 
 function TeamCity-WriteInfoDocument([xml]$doc) {
 	$dir=(Split-Path $buildFile)
 	$path=(Join-Path $dir 'teamcity-info.xml')
-	
+
 	$doc.Save($path);
 }
 
 function TeamCity-WriteServiceMessage([string]$messageName, $messageAttributesHashOrSingleValue) {
 	function escape([string]$value) {
-		([char[]] $value | 
-				%{ switch ($_) 
+		([char[]] $value |
+				%{ switch ($_)
 						{
 								"|" { "||" }
 								"'" { "|'" }
@@ -186,11 +201,10 @@ function TeamCity-WriteServiceMessage([string]$messageName, $messageAttributesHa
 		}
 
 	if ($messageAttributesHashOrSingleValue -is [hashtable]) {
-		$messageAttributesString = ($messageAttributesHashOrSingleValue.GetEnumerator() | 
+		$messageAttributesString = ($messageAttributesHashOrSingleValue.GetEnumerator() |
 			%{ "{0}='{1}'" -f $_.Key, (escape $_.Value) }) -join ' '
 	} else {
 		$messageAttributesString = ("'{0}'" -f (escape $messageAttributesHashOrSingleValue))
 	}
-
 	Write-Output "##teamcity[$messageName $messageAttributesString]"
 }

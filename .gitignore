@@ -188,3 +188,4 @@ FakesAssemblies/
 
 Source/Package/Lib/
 Source/Package/*.nupkg
+Source/packages/
