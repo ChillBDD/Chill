@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncSpecs.cs" />
     <Compile Include="TinyIocSpecs.cs" />
     <Compile Include="UnityChillContainerSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
