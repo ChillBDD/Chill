@@ -176,7 +176,11 @@ namespace Chill
         {
             try
             {
+#if NET45
+                Task.Run(() => t.Wait()).Wait();
+#else
                 t.Wait();
+#endif
             }
             catch (AggregateException aggregateException)
             {
