@@ -75,7 +75,7 @@ namespace Chill
 #if NET45
             When(() => Task.Run(whenFunc).Result, deferedExecution);
 #else
-            When(() => Task.Run(whenFunc).Result, deferedExecution);
+            When(() => Task.Factory.StartNew(whenFunc).Result, deferedExecution);
 #endif
         }
 
