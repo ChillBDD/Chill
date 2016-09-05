@@ -101,7 +101,7 @@ namespace Chill.Tests.CoreScenarios
         {
             public async Task<bool> DoSomething()
             {
-#if WINRT
+#if NET45
                 await Task.Delay(100);
 #else
                 await TaskEx.Delay(100);

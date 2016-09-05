@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
 
-namespace Chill.Tests.CoreScenarios
+namespace Chill.Net45.Tests
 {
     namespace AsyncSpecs
     {
@@ -18,7 +18,11 @@ namespace Chill.Tests.CoreScenarios
                 {
                     foreach (int key in Enumerable.Range(0, 1000))
                     {
+#if NET45
                         await Task.Delay(10);
+#else
+                        await TaskEx.Delay(10);                            
+#endif
                         results.Add(key);
                     }
                 });
