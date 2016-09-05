@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)StateBuilders\IStoreStateBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StateBuilders\StoreStateBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StateBuilders\StoreStateBuilderExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TaskExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestFor.cs" />
   </ItemGroup>
