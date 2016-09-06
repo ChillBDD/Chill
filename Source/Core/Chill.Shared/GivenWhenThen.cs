@@ -75,7 +75,19 @@ namespace Chill
 #if NET45
             When(() => Task.Run(whenFunc).Result, deferedExecution);
 #else
-            When(() => Task.Run(whenFunc).Result, deferedExecution);
+            When(() => Task.Factory.StartNew(() => whenFunc().Result).Result, deferedExecution);
+#endif
+        }
+
+        /// <summary>
+        /// Records an asynchronous precondition.
+        /// </summary>
+        public void Given(Func<Task> givenActionAsync)
+        {
+#if NET45
+            Given(() => Task.Run(givenActionAsync).Wait());
+#else
+            Given(() => Task.Factory.StartNew(() => givenActionAsync().Wait()).Wait());
 #endif
         }
 
@@ -88,7 +100,6 @@ namespace Chill
             EnsureContainer();
             a();
         }
-
     }
 
     /// <summary>
@@ -144,13 +155,25 @@ namespace Chill
 #if NET45
             When(() => Task.Run(whenActionAsync).Wait(), deferedExecution);
 #else
-            When(() => whenActionAsync().Wait(), deferedExecution);
+            When(() => Task.Factory.StartNew(() => whenActionAsync().Wait()).Wait(), deferedExecution);
 #endif
         }
 
         internal override void TriggerTest(bool expectExceptions)
         {
             TriggerTest(() => whenAction(), expectExceptions);
+        }
+
+        /// <summary>
+        /// Records an asynchronous precondition.
+        /// </summary>
+        public void Given(Func<Task> givenActionAsync)
+        {
+#if NET45
+            Given(() => Task.Run(givenActionAsync).Wait());
+#else
+            Given(() => Task.Factory.StartNew(() => givenActionAsync().Wait()).Wait());
+#endif
         }
 
         /// <summary>
