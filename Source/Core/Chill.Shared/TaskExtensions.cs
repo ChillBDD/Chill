@@ -7,18 +7,20 @@ namespace Chill
     {
         public static void WaitAndFlattenExceptions(this Task t)
         {
-            try
-            {
 #if NET45
-                Task.Run(() => t.Wait()).Wait();
+            Task.Run(() => t.GetAwaiter().GetResult()).GetAwaiter().GetResult();
 #else
-                Task.Factory.StartNew(t.Wait).Wait();
+            Task.Factory.StartNew(() => t.GetAwaiter().GetResult()).GetAwaiter().GetResult();
 #endif
-            }
-            catch (AggregateException aggregateException)
-            {
-                throw aggregateException.Flatten();
-            }
+        }
+
+        public static TResult WaitAndFlattenExceptions<TResult>(this Task<TResult> t)
+        {
+#if NET45
+            return Task.Run(() => t.GetAwaiter().GetResult()).GetAwaiter().GetResult();
+#else
+            return Task.Factory.StartNew(() => t.GetAwaiter().GetResult()).GetAwaiter().GetResult();
+#endif
         }
     }
 }
