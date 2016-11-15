@@ -62,8 +62,7 @@ namespace Chill
         /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
         protected void When(Func<Task<TResult>> whenFunc, bool? deferedExecution = null)
         {
-            When(() => whenFunc().Result, deferedExecution);
-
+            this.When(() => whenFunc().WaitAndFlattenExceptions(), deferedExecution);
         }
 
         internal override void TriggerTest(bool expectExceptions)

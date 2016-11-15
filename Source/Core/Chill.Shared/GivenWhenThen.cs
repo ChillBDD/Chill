@@ -72,11 +72,7 @@ namespace Chill
         /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
         protected void When(Func<Task<TResult>> whenFunc, bool? deferedExecution = null)
         {
-#if NET45
-            When(() => Task.Run(whenFunc).Result, deferedExecution);
-#else
-            When(() => Task.Factory.StartNew(() => whenFunc().Result).Result, deferedExecution);
-#endif
+            this.When(() => whenFunc().WaitAndFlattenExceptions(), deferedExecution);
         }
 
         /// <summary>
@@ -152,11 +148,7 @@ namespace Chill
         /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
         public void When(Func<Task> whenActionAsync, bool? deferedExecution = null)
         {
-#if NET45
-            When(() => Task.Run(whenActionAsync).Wait(), deferedExecution);
-#else
-            When(() => Task.Factory.StartNew(() => whenActionAsync().Wait()).Wait(), deferedExecution);
-#endif
+            this.When(() => whenActionAsync().WaitAndFlattenExceptions(), deferedExecution);
         }
 
         internal override void TriggerTest(bool expectExceptions)
