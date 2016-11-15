@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using TinyIoC;
 
 namespace Chill
 {
     public class TinyIocChillContainer : IChillContainer
     {
-        private TinyIoCContainer _container;
+        private readonly TinyIoCContainer _container;
+
         public TinyIocChillContainer()
         {
             _container = new TinyIoCContainer();
@@ -32,12 +30,12 @@ namespace Chill
 
         public T Get<T>(string key = null) where T : class
         {
-            return _container.Resolve<T>(key);
+            return _container.Resolve<T>(key ?? string.Empty);
         }
 
         public T Set<T>(T valueToSet, string key = null) where T : class
         {
-            _container.Register<T>(valueToSet, key);
+            _container.Register(valueToSet, key ?? string.Empty);
             return valueToSet;
         }
 

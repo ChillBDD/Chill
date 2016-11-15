@@ -59,6 +59,12 @@ namespace Chill.Tests.CoreScenarios
             {
                 The<CodeObject>().Should().BeSameAs(The<CodeObject>());
             }
+
+            [Fact]
+            public void Then_can_resolve_concrete_type_depending_on_a_registered_interface()
+            {
+                The<DependentService>().TestService.GetType().Should().Be(typeof(TestService));
+            }
         }
 
 
@@ -66,9 +72,20 @@ namespace Chill.Tests.CoreScenarios
         {
 
         }
+
         public class TestService : ITestService
         {
 
+        }
+
+        public class DependentService
+        {
+            public DependentService(ITestService testService)
+            {
+                TestService = testService;
+            }
+
+            public ITestService TestService { get; }
         }
     }
 }
