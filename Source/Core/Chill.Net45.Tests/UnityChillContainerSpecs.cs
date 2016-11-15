@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -54,6 +55,12 @@ namespace Chill.Tests.CoreScenarios
                 The<ITestService>().TryMe().Returns(true);
                 The<ITestService>().TryMe().Should().BeTrue();
                 The<ITestService>().Received().TryMe();
+            }
+
+            [Fact]
+            public void Resolving_concrete_type_twice_returns_the_same_object()
+            {
+                The<CodeObject>().Should().BeSameAs(The<CodeObject>());
             }
         }
     }
