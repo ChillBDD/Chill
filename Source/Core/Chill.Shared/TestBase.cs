@@ -221,7 +221,14 @@ namespace Chill
         public T The<T>()
             where T : class
         {
-            return Container.Get<T>();
+            T value = Container.Get<T>();
+
+            if (!Container.IsRegistered<T>())
+            {
+                Container.Set(value);
+            }
+
+            return value;
         }
 
         /// <summary>

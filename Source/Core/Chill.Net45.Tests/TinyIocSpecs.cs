@@ -54,6 +54,11 @@ namespace Chill.Tests.CoreScenarios
                 The<CodeObject>().Should().NotBeNull();
             }
 
+            [Fact]
+            public void Then_resolving_concrete_type_twice_returns_the_same_object()
+            {
+                The<CodeObject>().Should().BeSameAs(The<CodeObject>());
+            }
         }
 
 
