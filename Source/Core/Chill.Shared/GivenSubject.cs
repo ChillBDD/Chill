@@ -62,7 +62,7 @@ namespace Chill
         /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
         protected void When(Func<Task<TResult>> whenFunc, bool? deferedExecution = null)
         {
-            this.When(() => whenFunc().WaitAndFlattenExceptions(), deferedExecution);
+            this.When(() => whenFunc.ExecuteInDefaultSynchronizationContext(), deferedExecution);
         }
 
         internal override void TriggerTest(bool expectExceptions)
@@ -86,7 +86,7 @@ namespace Chill
         /// <param name="givenFuncASync">The async precondition.</param>
         public void Given(Func<Task> givenFuncASync)
         {
-            this.Given(() => givenFuncASync().WaitAndFlattenExceptions());
+            this.Given(() => givenFuncASync.ExecuteInDefaultSynchronizationContext());
         }
 
     }
@@ -141,7 +141,7 @@ namespace Chill
         /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
         public void When(Func<Task> whenActionAsync, bool? deferedExecution = null)
         {
-            When(() => whenActionAsync().WaitAndFlattenExceptions(), deferedExecution);
+            When(() => whenActionAsync.ExecuteInDefaultSynchronizationContext(), deferedExecution);
         }
 
         internal override void TriggerTest(bool expectExceptions)
@@ -155,7 +155,7 @@ namespace Chill
         /// <param name="givenFuncASync">The async precondition</param>
         public void Given(Func<Task> givenFuncASync)
         {
-            this.Given(() => givenFuncASync().WaitAndFlattenExceptions());
+            this.Given(() => givenFuncASync.ExecuteInDefaultSynchronizationContext());
         }
 
         /// <summary>
