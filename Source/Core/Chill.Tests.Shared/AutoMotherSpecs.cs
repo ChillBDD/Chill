@@ -6,7 +6,7 @@ using Xunit;
 namespace Chill.Tests
 {
     [ChillContainer(typeof(AutofacNSubstituteChillContainer))]
-    public class AutoMotherSpecs : TestBase
+    public class AutoMotherSpecs : SyncTestBase
     {
         [Fact]
         public void Can_build_a_type_using_automother()
