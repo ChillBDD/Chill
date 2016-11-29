@@ -72,7 +72,7 @@ namespace Chill
         /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
         protected void When(Func<Task<TResult>> whenFunc, bool? deferedExecution = null)
         {
-            this.When(() => whenFunc().WaitAndFlattenExceptions(), deferedExecution);
+            this.When(() => whenFunc.ExecuteInDefaultSynchronizationContext(), deferedExecution);
         }
 
         /// <summary>
@@ -80,11 +80,7 @@ namespace Chill
         /// </summary>
         public void Given(Func<Task> givenActionAsync)
         {
-#if NET45
-            Given(() => Task.Run(givenActionAsync).Wait());
-#else
-            Given(() => Task.Factory.StartNew(() => givenActionAsync().Wait()).Wait());
-#endif
+            this.Given(() => givenActionAsync.ExecuteInDefaultSynchronizationContext());
         }
 
         /// <summary>
@@ -148,7 +144,7 @@ namespace Chill
         /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
         public void When(Func<Task> whenActionAsync, bool? deferedExecution = null)
         {
-            this.When(() => whenActionAsync().WaitAndFlattenExceptions(), deferedExecution);
+            this.When(() => whenActionAsync.ExecuteInDefaultSynchronizationContext(), deferedExecution);
         }
 
         internal override void TriggerTest(bool expectExceptions)
@@ -161,11 +157,7 @@ namespace Chill
         /// </summary>
         public void Given(Func<Task> givenActionAsync)
         {
-#if NET45
-            Given(() => Task.Run(givenActionAsync).Wait());
-#else
-            Given(() => Task.Factory.StartNew(() => givenActionAsync().Wait()).Wait());
-#endif
+            this.Given(() => givenActionAsync.ExecuteInDefaultSynchronizationContext());
         }
 
         /// <summary>
