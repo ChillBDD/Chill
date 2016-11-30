@@ -24,7 +24,7 @@ namespace Chill.Examples.Tests
             }
 
             [Fact]
-            public void Then_model_is_the_existing_custmoer()
+            public void Then_model_is_the_existing_customer()
             {
                 this.The<ICustomerStore>().Received().DeleteCustomer(customerId);
             }
@@ -63,7 +63,7 @@ namespace Chill.Examples.Tests
             }
 
             [Fact]
-            public void Then_model_is_the_existing_custmoer()
+            public void Then_model_is_the_existing_customer()
             {
                 // One assert per test
                 Result.Model.Should().Be(The<Customer>());
@@ -97,7 +97,7 @@ namespace Chill.Examples.Tests
             }
 
             [Fact]
-            public void Then_model_is_the_existing_custmoer()
+            public void Then_model_is_the_existing_customer()
             {
                 Result.Model.Should().Be(The<Customer>());
             }
