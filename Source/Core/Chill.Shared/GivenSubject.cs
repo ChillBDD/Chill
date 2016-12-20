@@ -20,7 +20,11 @@ namespace Chill
         /// </summary>
         protected TResult Result
         {
-            get { return result; }
+            get
+            {
+                TriggerTest(false);
+                return result;
+            }
         }
 
         /// <summary>
