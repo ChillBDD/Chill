@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Chill.Tests.TestSubjects;
+
 using FluentAssertions;
 using Xunit;
 
@@ -109,6 +110,19 @@ namespace Chill.Tests.CoreScenarios
 
                 return true;
             }
+        }
+    }
+
+    public class GivenSubjectResultSpecs : GivenSubject<object, string>
+    {
+        [Fact]
+        public void When_calling_when_deffered_then_whenaction_is_called_on_result()
+        {
+            string message = "";
+            Given(() => message += "given");
+            When(() => message += "when", deferedExecution: true);
+            message.Should().Be("given");
+            Result.Should().Be("givenwhen");
         }
     }
 
