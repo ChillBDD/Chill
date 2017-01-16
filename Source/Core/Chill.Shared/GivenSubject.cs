@@ -22,7 +22,7 @@ namespace Chill
         {
             get
             {
-                TriggerTest(false);
+                EnsureTestTriggered(false);
                 return result;
             }
         }
