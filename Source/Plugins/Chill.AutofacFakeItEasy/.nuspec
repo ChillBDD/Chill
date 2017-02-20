@@ -14,7 +14,7 @@
         
     </releaseNotes>
     <copyright>Copyright 2014</copyright>
-    <tags>BDD TDD Autofac</tags>
+    <tags>BDD TDD Autofac FakeItEasy</tags>
     <dependencies>
       <group>
         <dependency id="Chill" version="[2.2,3.0)" />
