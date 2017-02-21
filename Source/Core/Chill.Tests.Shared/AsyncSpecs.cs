@@ -50,7 +50,7 @@ namespace Chill.Tests.Shared
 #endif
                         throw new ApplicationException();
                     },
-                    deferedExecution: true);
+                    deferredExecution: true);
             }
 
             [Fact]
@@ -80,7 +80,7 @@ namespace Chill.Tests.Shared
 #endif
                         throw new ApplicationException();
                     }),
-                    deferedExecution: true);
+                    deferredExecution: true);
             }
 
             [Fact]
@@ -112,7 +112,7 @@ namespace Chill.Tests.Shared
 #endif
                         throw new ApplicationException();
                     },
-                    deferedExecution: true);
+                    deferredExecution: true);
             }
 
             [Fact]
@@ -142,7 +142,7 @@ namespace Chill.Tests.Shared
 #endif
                         throw new ApplicationException();
                     }),
-                    deferedExecution: true);
+                    deferredExecution: true);
             }
 
             [Fact]

@@ -16,7 +16,7 @@ namespace Chill
     public abstract partial class TestBase : IDisposable
     {
         /// <summary>
-        /// Should the test execution start immediately on the When method or should execution be deffered until needed. 
+        /// Should the test execution start immediately on the When method or should execution be deferred until needed. 
         /// </summary>
         protected bool DefferedExecution { get; set; }
     
@@ -34,7 +34,7 @@ namespace Chill
 
         /// <summary>
         /// Any exception that might be thrown in the course of executing the When Method. Note, this property is often used
-        /// in conjunction with deffered excecution. 
+        /// in conjunction with deferred excecution. 
         /// </summary>
         protected Exception CaughtException
         {

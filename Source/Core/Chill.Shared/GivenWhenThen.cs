@@ -26,7 +26,7 @@ namespace Chill
         }
 
         /// <summary>
-        /// The action that triggers the actual test. This can be used in combination with deffered execution and fluent assertions 
+        /// The action that triggers the actual test. This can be used in combination with deferred execution and fluent assertions 
         /// to detect exceptions, if you don't wnat to use the <see cref="TestBase.CaughtException"/>
         /// </summary>
         public Func<TResult> WhenAction
@@ -43,10 +43,10 @@ namespace Chill
         /// Records the action that will trigger the actual test
         /// </summary>
         /// <param name="whenFunc"></param>
-        /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
-        protected void When(Func<TResult> whenFunc, bool? deferedExecution = null)
+        /// <param name="deferredExecution">Should the test be executed immediately or be deferred?</param>
+        protected void When(Func<TResult> whenFunc, bool? deferredExecution = null)
         {
-            DefferedExecution = deferedExecution ?? DefferedExecution;
+            DefferedExecution = deferredExecution ?? DefferedExecution;
             EnsureContainer();
             if (WhenAction != null)
             {
@@ -69,10 +69,10 @@ namespace Chill
         /// Records the asynchronous action that will trigger the actual test
         /// </summary>
         /// <param name="whenFunc"></param>
-        /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
-        protected void When(Func<Task<TResult>> whenFunc, bool? deferedExecution = null)
+        /// <param name="deferredExecution">Should the test be executed immediately or be deferred?</param>
+        protected void When(Func<Task<TResult>> whenFunc, bool? deferredExecution = null)
         {
-            this.When(() => whenFunc.ExecuteInDefaultSynchronizationContext(), deferedExecution);
+            this.When(() => whenFunc.ExecuteInDefaultSynchronizationContext(), deferredExecution);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Chill
         private Action whenAction;
 
         /// <summary>
-        /// The action that triggers the actual test. This can be used in combination with deffered execution and fluent assertions 
+        /// The action that triggers the actual test. This can be used in combination with deferred execution and fluent assertions 
         /// to detect exceptions, if you don't wnat to use the <see cref="TestBase.CaughtException"/>
         /// </summary>
         public Action WhenAction
@@ -120,10 +120,10 @@ namespace Chill
         /// Records the action that will trigger the actual test
         /// </summary>
         /// <param name="whenAction"></param>
-        /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
-        public void When(Action whenAction, bool? deferedExecution = null)
+        /// <param name="deferredExecution">Should the test be executed immediately or be deferred?</param>
+        public void When(Action whenAction, bool? deferredExecution = null)
         {
-            DefferedExecution = deferedExecution ?? DefferedExecution;
+            DefferedExecution = deferredExecution ?? DefferedExecution;
             EnsureContainer();
             if (WhenAction != null)
             {
@@ -141,10 +141,10 @@ namespace Chill
         /// Records the asynchronous action that will trigger the actual test
         /// </summary>
         /// <param name="whenActionAsync"></param>
-        /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
-        public void When(Func<Task> whenActionAsync, bool? deferedExecution = null)
+        /// <param name="deferredExecution">Should the test be executed immediately or be deferred?</param>
+        public void When(Func<Task> whenActionAsync, bool? deferredExecution = null)
         {
-            this.When(() => whenActionAsync.ExecuteInDefaultSynchronizationContext(), deferedExecution);
+            this.When(() => whenActionAsync.ExecuteInDefaultSynchronizationContext(), deferredExecution);
         }
 
         internal override void TriggerTest(bool expectExceptions)

@@ -25,7 +25,7 @@ namespace Chill.Tests.CoreScenarios
             [Fact]
             public void Subject_is_not_generated_by_nsubstitute()
             {
-                When(() => Subject.Received().DoSomething(), deferedExecution: true);
+                When(() => Subject.Received().DoSomething(), deferredExecution: true);
                 WhenAction.ShouldThrow<NotASubstituteException>();
             }
 
