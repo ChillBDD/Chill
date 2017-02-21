@@ -47,14 +47,14 @@ namespace Chill
         /// <param name="deferredExecution">Should the test be executed immediately or be deferred?</param>
         protected void When(Func<TResult> whenFunc, bool? deferredExecution = null)
         {
-            DefferedExecution = deferredExecution ?? DefferedExecution;
+            DeferredExecution = deferredExecution ?? DeferredExecution;
             EnsureSubject();
             if (WhenAction != null)
             {
                 throw new InvalidOperationException("When already defined");
             }
             whenAction = whenFunc;
-            if (!DefferedExecution)
+            if (!DeferredExecution)
             {
                 EnsureTestTriggered(false);
             }
@@ -124,14 +124,14 @@ namespace Chill
         /// <param name="deferredExecution">Should the test be executed immediately or be deferred?</param>
         public void When(Action whenAction, bool? deferredExecution = null)
         {
-            DefferedExecution = deferredExecution ?? DefferedExecution;
+            DeferredExecution = deferredExecution ?? DeferredExecution;
             EnsureContainer();
             if (WhenAction != null)
             {
                 throw new InvalidOperationException("When already defined");
             }
             this.whenAction = whenAction;
-            if (!DefferedExecution)
+            if (!DeferredExecution)
             {
                 EnsureTestTriggered(false);
             }

@@ -66,7 +66,7 @@ namespace Chill.Tests.CoreScenarios
         [Fact]
         public void When_deferred_and_calling_when_then_whenaction_is_not_called_automatically()
         {
-            DefferedExecution = true;
+            DeferredExecution = true;
             string message = "";
             Given(() => message += "given");
             When(() => message += "when");

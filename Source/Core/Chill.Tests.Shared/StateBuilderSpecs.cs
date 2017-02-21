@@ -34,7 +34,7 @@ namespace Chill.Tests
         [Fact]
         public void When_deferring_execution_as_property_then_action_is_not_executed_immediately()
         {
-            DefferedExecution = true;
+            DeferredExecution = true;
             When(() => { throw new Exception(); });
         }
         
