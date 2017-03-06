@@ -307,7 +307,7 @@ namespace Chill
         /// <returns></returns>
         public T UseThe<T>(T valueToSet, string named) where T : class
         {
-            return Container.Set<T>(valueToSet);
+            return Container.Set<T>(valueToSet, named);
         }
 
         /// <summary>
