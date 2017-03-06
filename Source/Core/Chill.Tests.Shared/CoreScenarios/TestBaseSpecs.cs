@@ -44,6 +44,16 @@ namespace Chill.Tests.CoreScenarios
             The<AClass>().Name.Should().Be("abc");
         }
 
+        [Fact]
+        public void Can_get_different_named_objects()
+        {
+            UseThe(new TestSubjects.AClass("abc"), "abcName");
+            UseThe(new TestSubjects.AClass("def"), "defName");
+
+            TheNamed<TestSubjects.AClass>("abcName").Name.Should().Be("abc");
+            TheNamed<TestSubjects.AClass>("defName").Name.Should().Be("def");
+        }
+
 
         /// <summary>
         /// Testing if Dispose() is called on our subjects is tricky, because this happens AFTER a test, it's hard to test if it is actually called
