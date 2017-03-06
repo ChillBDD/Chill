@@ -7,7 +7,7 @@ namespace Chill
     /// BDD style test base class for tests that have a fixed subject and a fixed result. 
     /// The TSubject type defines the type of the subject, and the TResult defines the type of the result. 
     /// </summary>
-    /// <typeparam name="TSubject">The type of the subject</typeparam>esu
+    /// <typeparam name="TSubject">The type of the subject</typeparam>
     /// <typeparam name="TResult">The type of the result</typeparam>
     public abstract class GivenSubject<TSubject, TResult> : TestFor<TSubject>
         where TSubject : class
@@ -28,7 +28,7 @@ namespace Chill
         }
 
         /// <summary>
-        /// The action that triggers the test. Typically used in combination with deffered execution. 
+        /// The action that triggers the test. Typically used in combination with deferred execution. 
         /// </summary>
         public Func<TResult> WhenAction
         {
@@ -44,17 +44,17 @@ namespace Chill
         /// Records the action that will trigger the actual test
         /// </summary>
         /// <param name="whenFunc"></param>
-        /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
-        protected void When(Func<TResult> whenFunc, bool? deferedExecution = null)
+        /// <param name="deferredExecution">Should the test be executed immediately or be deferred?</param>
+        protected void When(Func<TResult> whenFunc, bool? deferredExecution = null)
         {
-            DefferedExecution = deferedExecution ?? DefferedExecution;
+            DeferredExecution = deferredExecution ?? DeferredExecution;
             EnsureSubject();
             if (WhenAction != null)
             {
                 throw new InvalidOperationException("When already defined");
             }
             whenAction = whenFunc;
-            if (!DefferedExecution)
+            if (!DeferredExecution)
             {
                 EnsureTestTriggered(false);
             }
@@ -63,10 +63,10 @@ namespace Chill
         /// Records the asynchronous action that will trigger the actual test
         /// </summary>
         /// <param name="whenFunc"></param>
-        /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
-        protected void When(Func<Task<TResult>> whenFunc, bool? deferedExecution = null)
+        /// <param name="deferredExecution">Should the test be executed immediately or be deferred?</param>
+        protected void When(Func<Task<TResult>> whenFunc, bool? deferredExecution = null)
         {
-            this.When(() => whenFunc.ExecuteInDefaultSynchronizationContext(), deferedExecution);
+            this.When(() => whenFunc.ExecuteInDefaultSynchronizationContext(), deferredExecution);
         }
 
         internal override void TriggerTest(bool expectExceptions)
@@ -105,7 +105,7 @@ namespace Chill
         private Action whenAction;
 
         /// <summary>
-        /// The action that triggers the test. Typically used in combination with deffered execution. 
+        /// The action that triggers the test. Typically used in combination with deferred execution. 
         /// </summary>
         public Action WhenAction
         {
@@ -121,17 +121,17 @@ namespace Chill
         /// Records the action that will trigger the actual test
         /// </summary>
         /// <param name="whenAction"></param>
-        /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
-        public void When(Action whenAction, bool? deferedExecution = null)
+        /// <param name="deferredExecution">Should the test be executed immediately or be deferred?</param>
+        public void When(Action whenAction, bool? deferredExecution = null)
         {
-            DefferedExecution = deferedExecution ?? DefferedExecution;
+            DeferredExecution = deferredExecution ?? DeferredExecution;
             EnsureContainer();
             if (WhenAction != null)
             {
                 throw new InvalidOperationException("When already defined");
             }
             this.whenAction = whenAction;
-            if (!DefferedExecution)
+            if (!DeferredExecution)
             {
                 EnsureTestTriggered(false);
             }
@@ -142,10 +142,10 @@ namespace Chill
         /// Records the asynchronous action that will trigger the actual test
         /// </summary>
         /// <param name="whenActionAsync"></param>
-        /// <param name="deferedExecution">Should the test be executed immediately or be deffered?</param>
-        public void When(Func<Task> whenActionAsync, bool? deferedExecution = null)
+        /// <param name="deferredExecution">Should the test be executed immediately or be deferred?</param>
+        public void When(Func<Task> whenActionAsync, bool? deferredExecution = null)
         {
-            When(() => whenActionAsync.ExecuteInDefaultSynchronizationContext(), deferedExecution);
+            When(() => whenActionAsync.ExecuteInDefaultSynchronizationContext(), deferredExecution);
         }
 
         internal override void TriggerTest(bool expectExceptions)

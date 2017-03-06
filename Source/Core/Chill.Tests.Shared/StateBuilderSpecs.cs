@@ -26,15 +26,15 @@ namespace Chill.Tests
         }
 
         [Fact]
-        public void When_deffering_execution_then_action_is_not_executed_immediately()
+        public void When_deferring_execution_then_action_is_not_executed_immediately()
         {
-            When(() => { throw new Exception(); }, deferedExecution:true);
+            When(() => { throw new Exception(); }, deferredExecution:true);
         }
 
         [Fact]
-        public void When_deffering_execution_as_property_then_action_is_not_executed_immediately()
+        public void When_deferring_execution_as_property_then_action_is_not_executed_immediately()
         {
-            DefferedExecution = true;
+            DeferredExecution = true;
             When(() => { throw new Exception(); });
         }
         
@@ -47,32 +47,32 @@ namespace Chill.Tests
         }
 
         [Fact]
-        public void When_exception_is_thrown_in_async_method_in_deffered_execution_expected_exception_is_filled()
+        public void When_exception_is_thrown_in_async_method_in_deferred_execution_expected_exception_is_filled()
         {
             Func<Task> whenActionASync = () => Task.Factory.StartNew(() => { throw new AbandonedMutexException(); });
-            When(whenActionASync, deferedExecution: true);
+            When(whenActionASync, deferredExecution: true);
             CaughtException.Should().BeOfType<AbandonedMutexException>();
         }
 
         [Fact]
-        public void When_exception_is_thrown_in_deffered_execution_expected_exception_is_filled()
+        public void When_exception_is_thrown_in_deferred_execution_expected_exception_is_filled()
         {
             Action whenActionASync = () => { throw new AbandonedMutexException(); };
-            When(whenActionASync, deferedExecution:true);
+            When(whenActionASync, deferredExecution:true);
             CaughtException.Should().BeOfType<AbandonedMutexException>();
         }
 
         [Fact]
-        public void When_deffering_execution_then_whenaction_can_be_used_to_test_for_exceptions()
+        public void When_deferring_execution_then_whenaction_can_be_used_to_test_for_exceptions()
         {
-            When(() => { throw new AbandonedMutexException(); }, deferedExecution: true);
+            When(() => { throw new AbandonedMutexException(); }, deferredExecution: true);
             WhenAction.ShouldThrow<AbandonedMutexException>();
         }
 
         [Fact]
         public void When_no_exception_is_thrown_but_expected_exception_is_used_then_caughtexceptoin_throws()
         {
-            When(() => { }, deferedExecution: true);
+            When(() => { }, deferredExecution: true);
             Action a = () =>
             {
                 Exception e = CaughtException;
