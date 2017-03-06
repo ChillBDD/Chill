@@ -56,35 +56,35 @@ One of the most important ways on how Chill helps with unit testing is by using 
 
 Compare the following code snippets:
 
-    [TestMethod]
-    public void TestWithoutTheChillFactor()
+```csharp
+[TestMethod]
+public void TestWithoutTheChillFactor()
+{
+    // You have to explicitly create mocks for your dependencies and store them in variables.
+    var mockCustomerStore = Substitute.For<ICustomerStore>();
+
+    // Also, you have to explicitly create a variable for your test data. 
+    var expectedCustomer = new Customer()
     {
-        // You have to explicitly create mocks for your dependencies and store them in variables.
-        var mockCustomerStore = Substitute.For<ICustomerStore>();
+        Name = "Erwin",
+        Address = "At home",
+        Id = 123
+    };
+    
+    mockCustomerStore.GetCustomer(123).Returns(expectedCustomer);
 
-        // Also, you have to explicitly create a variable for your test data. 
-        var expectedCustomer = new Customer()
-        {
-            Name = "Erwin",
-            Address = "At home",
-            Id = 123
-        };
+    // Also, you have to explicitly create the subject under test and insert the mocked dependencies. 
+    // Need to add or remove a dependency? prepare yourself to modify ALL your test. 
+    var sut = new CustomerController(mockCustomerStore);
 
-        
-        mockCustomerStore.GetCustomer(123).Returns(expectedCustomer);
+    // Call the actual function.. but you also have to create a variable to store your tests. 
+    var result = sut.Get(123);
 
-        // Also, you have to explicitly create the subject under test and insert the mocked dependencies. 
-        // Need to add or remove a dependency? prepare yourself to modify ALL your test. 
-        var sut = new CustomerController(mockCustomerStore);
-
-
-        // Call the actual function.. but you also have to create a variable to store your tests. 
-        var result = sut.Get(123);
-
-        // Multiple asserts per test? 
-        Assert.AreSame(expectedCustomer, result.Model);
-        mockCustomerStore.Received().GetCustomer(123);
-    }
+    // Multiple asserts per test? 
+    Assert.AreSame(expectedCustomer, result.Model);
+    mockCustomerStore.Received().GetCustomer(123);
+}
+```
 
 There are a lot of things wrong with this example:
 * The knowledge about which dependencies by your Subject are needed are duplicated among all your tests. 
@@ -95,40 +95,39 @@ There are a lot of things wrong with this example:
 
 Compare this with a Chill example:
 
-        public class When_retrieving_existing_customer : GivenSubject<CustomerController, View>
+```csharp
+public class When_retrieving_existing_customer : GivenSubject<CustomerController, View>
+{
+    const int customerId = 12;
+
+    public When_retrieving_existing_customer()
+    {
+        Given(() =>
         {
-            const int customerId = 12;
+            // Storage for data used in the test. No need to create fields or variables. 
+            SetThe<Customer>().To(EntityMother.BuildACustomer()
+                .With(x => x.Id = customerId));
 
-            public When_retrieving_existing_customer()
-            {
-                Given(() =>
-                {
-                    // Storage for data used in the test. No need to create fields or variables. 
-                    SetThe<Customer>().To(EntityMother.BuildACustomer()
-                        .With(x => x.Id = customerId));
+            The<ICustomerStore>().GetCustomer(customerId).Returns(The<Customer>());
+        });
 
-                    The<ICustomerStore>().GetCustomer(customerId).Returns(The<Customer>());
-                });
+        // Subject under test is created automatically and accessable via the Subject property
+        When(() => Subject.Get(customerId));
+    }
 
-                // Subject under test is created automatically and accessable via the Subject property
-                When(() => Subject.Get(customerId));
-            }
+    [Fact]
+    public void Then_view_is_returned()
+    {
+        Result.Should().NotBeNull();
+    }
 
-  
-
-            [Fact]
-            public void Then_view_is_returned()
-            {
-                Result.Should().NotBeNull();
-            }
-
-            [Fact]
-            public void Then_model_is_the_existing_custmoer()
-            {
-                Result.Model.Should().Be(The<Customer>());
-            }
-        }
-        
+    [Fact]
+    public void Then_model_is_the_existing_custmoer()
+    {
+        Result.Model.Should().Be(The<Customer>());
+    }
+}
+```       
 
 The automocking container sets up your **Subject** and automatically injects mock objects for any dependencies it needs. This is great if you have many tests against the same subject and you need to add a dependency. Your tests might fail, but that's exactly what you want. But they still compile and run!
 
@@ -145,38 +144,38 @@ The Async Await certainly helps to make the asynchronous code more readable. Alo
 
 Assume the following simple example. You have an asynchronous webapi controller. Why is this controller async? Let’s assume it needs to do IO. In this case, this is encapsulated in an async call to ICustomerStore.GetCustomerAsync(). 
 
-        public class When_retrieving_existing_customer_async : GivenSubject<CustomerController, View>
+```csharp
+public class When_retrieving_existing_customer_async : GivenSubject<CustomerController, View>
+{
+    const int customerId = 12;
+
+    public When_retrieving_existing_customer_async()
+    {
+        Given(() =>
         {
-            const int customerId = 12;
+            SetThe<Customer>().To(EntityMother.BuildACustomer()
+                .With(x => x.Id = customerId));
 
-            public When_retrieving_existing_customer_async()
-            {
-                Given(() =>
-                {
-                    SetThe<Customer>().To(EntityMother.BuildACustomer()
-                        .With(x => x.Id = customerId));
+            The<ICustomerStore>()
+                .GetCustomerAsync(customerId)
+                .Returns(The<Customer>().Asynchronously());
+        });
 
-                    The<ICustomerStore>()
-                        .GetCustomerAsync(customerId)
-                        .Returns(The<Customer>().Asynchronously());
-                });
+        When(() => Subject.GetAsync(customerId));
+    }
 
-                When(() => Subject.GetAsync(customerId));
-            }
+    [Fact]
+    public void Then_view_is_returned()
+    {
+        Result.Should().NotBeNull();
+    }
 
-            [Fact]
-            public void Then_view_is_returned()
-            {
-                Result.Should().NotBeNull();
-            }
+    [Fact]
+    public void Then_model_is_the_existing_custmoer()
+    {
+        Result.Model.Should().Be(The<Customer>());
+    }
+}
+```
 
-            [Fact]
-            public void Then_model_is_the_existing_custmoer()
-            {
-                Result.Model.Should().Be(The<Customer>());
-            }
-
-In Chill, you can just define an asynchronous method in your call to **When()**. Chill will take care of handling the asynchronous complexity for you. Now all you need to do is to make sure your dependency return a Task instead of the ‘normal’ result. You can do this by calling the **.Asynchronously()** extension method. 
-
-
-
+In Chill, you can just define an asynchronous method in your call to **When()**. Chill will take care of handling the asynchronous complexity for you. Now all you need to do is to make sure your dependency return a Task instead of the ‘normal’ result. You can do this by calling the **.Asynchronously()** extension method.
