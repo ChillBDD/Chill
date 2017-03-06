@@ -14,7 +14,7 @@
         
     </releaseNotes>
     <copyright>Copyright 2014</copyright>
-    <tags>BDD TDD Autofac NSubsittue</tags>
+    <tags>BDD TDD Autofac NSubstitute</tags>
     <dependencies>
       <group>
         <dependency id="Chill" version="[2.2,3.0)" />
