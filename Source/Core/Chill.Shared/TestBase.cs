@@ -1,54 +1,25 @@
-﻿using System;
+﻿using Chill.StateBuilders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-using Chill.StateBuilders;
 
 namespace Chill
 {
-    /// <summary>
-    /// Base class for all Chill tests. This baseclass set's up your automocking container. 
-    /// 
-    /// It also has a convenient method TriggerTest you can call that will trigger an async test func
-    /// and capture any exceptions that might have occurred. 
-    /// </summary>
     public abstract partial class TestBase : IDisposable
     {
-        /// <summary>
-        /// Should the test execution start immediately on the When method or should execution be deffered until needed. 
-        /// </summary>
-        protected bool DefferedExecution { get; set; }
-    
-        private bool testTriggered;
         private bool containerInitialized;
+        private IChillContainer container;
+
         internal readonly IChillContainerInitializer ChillContainerInitializer;
 
         /// <summary>
         /// Creates a new instance of the testbase and creates the TestInitializer from the attribute
         /// </summary>
-        public TestBase()
+        protected TestBase()
         {
             ChillContainerInitializer = BuildInitializer();
         }
-
-        /// <summary>
-        /// Any exception that might be thrown in the course of executing the When Method. Note, this property is often used
-        /// in conjunction with deffered excecution. 
-        /// </summary>
-        protected Exception CaughtException
-        {
-            get
-            {
-                EnsureTestTriggered(expectExceptions: true);
-                return caughtException;
-            }
-            set { caughtException = value; }
-        }
-
-
-        private IChillContainer container;
-        private Exception caughtException;
 
         /// <summary>
         /// Automocking IOC container that you can use to build subjects. 
@@ -63,55 +34,6 @@ namespace Chill
         }
 
         /// <summary>
-        /// Method that ensures that the test has actually been triggered. 
-        /// </summary>
-        /// <param name="expectExceptions"></param>
-        protected internal void EnsureTestTriggered(bool expectExceptions)
-        {
-            if (!testTriggered)
-            {
-                testTriggered = true;
-                TriggerTest(expectExceptions);
-            }
-        }
-
-        /// <summary>
-        /// Method that can be overriden to trigger the actual test
-        /// </summary>
-        /// <param name="expectExceptions"></param>
-        internal virtual void TriggerTest(bool expectExceptions)
-        {
-        }
-
-        internal void TriggerTest(Action testAction, bool expectExceptions)
-        {
-            if (expectExceptions)
-            {
-                try
-                {
-                    testAction();
-                }
-                catch (AggregateException ex)
-                {
-                    CaughtException = ex.GetBaseException();
-                }
-                catch (Exception ex)
-                {
-                    CaughtException = ex;
-                }
-                finally
-                {
-                    if (expectExceptions && CaughtException == null)
-                        throw new InvalidOperationException("Expected exception but no exception was thrown");
-                }
-            }
-            else
-            {
-                testAction();
-            }
-        }
-
-        /// <summary>
         /// Makes sure the container has been created. 
         /// </summary>
         protected virtual void EnsureContainer()
@@ -120,6 +42,7 @@ namespace Chill
             {
                 container = ChillContainerInitializer.BuildChillContainer(this);
             }
+
             EnsureContainerInitialized();
         }
 
@@ -146,7 +69,7 @@ namespace Chill
         /// created. 
         /// </summary>
         /// <returns>The automocking container that's used for this test. </returns>
-        public virtual IChillContainer BuildContainer(Type containerType) 
+        public virtual IChillContainer BuildContainer(Type containerType)
         {
             return (IChillContainer)Activator.CreateInstance(containerType);
         }
@@ -161,11 +84,11 @@ namespace Chill
             object attribute =
                 GetType()
                     .GetTypeInfo()
-                    .GetCustomAttributes(typeof (ChillContainerInitializerAttribute), false)
+                    .GetCustomAttributes(typeof(ChillContainerInitializerAttribute), false)
                     .SingleOrDefault() ??
                 GetType()
                     .GetTypeInfo()
-                    .Assembly.GetCustomAttributes(typeof (ChillContainerInitializerAttribute))
+                    .Assembly.GetCustomAttributes(typeof(ChillContainerInitializerAttribute))
                     .SingleOrDefault();
 #else
             object attribute = GetType().GetCustomAttributes(typeof (ChillContainerInitializerAttribute), false).SingleOrDefault() ??
@@ -180,7 +103,7 @@ namespace Chill
                 throw new InvalidOperationException(
                     "Could not find the Chill Container. You must have a Chill container registered using the ChillContainerInitializer. Get the Chill Container from one of the extensions. ");
             }
-            var type = ((ChillContainerInitializerAttribute) attribute).ChillContainerInitializerType;
+            var type = ((ChillContainerInitializerAttribute)attribute).ChillContainerInitializerType;
 
             if (type == null)
             {
@@ -188,10 +111,10 @@ namespace Chill
                     "The type property on the ChillContainerInitializerAttribute should not be null");
             }
 
-            return (IChillContainerInitializer) Activator.CreateInstance(type);
+            return (IChillContainerInitializer)Activator.CreateInstance(type);
         }
 
-        partial void GetBuiltInContainer(ref object attribute) ;
+        partial void GetBuiltInContainer(ref object attribute);
 
         /// <summary>
         /// Cleans up all usages. 
@@ -241,7 +164,7 @@ namespace Chill
             where T : class
         {
             var items = Container.Get<Dictionary<Tuple<Type, string>, object>>();
-            var key = Tuple.Create(typeof (T), named);
+            var key = Tuple.Create(typeof(T), named);
 
             object item;
             if (!items.TryGetValue(key, out item))
@@ -250,7 +173,7 @@ namespace Chill
                 items.Add(key, item);
                 container.Set(items);
             }
-            return (T) item;
+            return (T)item;
         }
 
         /// <summary>

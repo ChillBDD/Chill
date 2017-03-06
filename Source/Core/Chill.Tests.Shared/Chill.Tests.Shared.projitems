@@ -9,6 +9,7 @@
     <Import_RootNamespace>Chill.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AsyncTestSpecs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AsyncSpecs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AutoMotherSpecs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CoreScenarios\AutofacChillContainerSpecs.cs" />

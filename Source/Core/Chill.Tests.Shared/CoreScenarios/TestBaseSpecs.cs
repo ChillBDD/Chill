@@ -7,7 +7,7 @@ using Xunit.Extensions;
 
 namespace Chill.Tests.CoreScenarios
 {
-    public abstract class TestBaseSpecs : TestBase
+    public abstract class TestBaseSpecs : SyncTestBase
     {
 
 

@@ -9,7 +9,7 @@ namespace Chill
     /// will be. 
     /// </summary>
     /// <typeparam name="TResult">The type of the result that you expect from your tests</typeparam>
-    public abstract class GivenWhenThen<TResult> : TestBase
+    public abstract class GivenWhenThen<TResult> : SyncTestBase
     {
         private Func<TResult> whenAction;
         private TResult result;
@@ -27,7 +27,7 @@ namespace Chill
 
         /// <summary>
         /// The action that triggers the actual test. This can be used in combination with deffered execution and fluent assertions 
-        /// to detect exceptions, if you don't wnat to use the <see cref="TestBase.CaughtException"/>
+        /// to detect exceptions, if you don't wnat to use the <see cref="SyncTestBase.CaughtException"/>
         /// </summary>
         public Func<TResult> WhenAction
         {
@@ -98,13 +98,13 @@ namespace Chill
     /// Baseclass for tests that follow the BDD style GivenWhenThen approach, but do not have 
     /// a fixed subject. This class does not use a predefined subject. 
     /// </summary>
-    public abstract class GivenWhenThen : TestBase
+    public abstract class GivenWhenThen : SyncTestBase
     {
         private Action whenAction;
 
         /// <summary>
         /// The action that triggers the actual test. This can be used in combination with deffered execution and fluent assertions 
-        /// to detect exceptions, if you don't wnat to use the <see cref="TestBase.CaughtException"/>
+        /// to detect exceptions, if you don't wnat to use the <see cref="SyncTestBase.CaughtException"/>
         /// </summary>
         public Action WhenAction
         {

@@ -9,7 +9,7 @@ namespace Chill
     /// the <see cref="BuildSubject"/> method. 
     /// </summary>
     /// <typeparam name="TSubject">The type of the subject you're testing. </typeparam>
-    public abstract class TestFor<TSubject> : TestBase
+    public abstract class TestFor<TSubject> : SyncTestBase
         where TSubject : class
     {
         private Func<IChillContainer, TSubject> subjectFactory;
