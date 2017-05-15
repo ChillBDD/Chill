@@ -19,6 +19,10 @@ Import-Module .\build\xunit.psm1
 
 Invoke-Psake .\build\default.ps1 $task -framework "4.5.1x64" -properties @{ build_number=$buildNumber }
 
+$exitCode = $psake.build_success
+
 Remove-Module psake
 Remove-Module teamcity
 Remove-Module xunit
+
+exit (!$exitCode)
