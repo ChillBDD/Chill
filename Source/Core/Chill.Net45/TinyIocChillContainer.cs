@@ -13,11 +13,6 @@ namespace Chill
             _container = new TinyIoCContainer();
         }
 
-        public TinyIocChillContainer(TinyIoCContainer container)
-        {
-            _container = container;
-        }
-
         public void Dispose()
         {
             _container.Dispose();
