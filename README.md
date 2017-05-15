@@ -1,3 +1,4 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/rvn5ihumqpmp40e2/branch/master?svg=true)](https://ci.appveyor.com/project/Erwinvandervalk/chill/branch/master)  
 Chill, a BDD style testing framework
 =====
 ##*"If you stick it in a container, Chill will keep it cool."*
@@ -138,11 +139,11 @@ If you want to explicitly register a value, you can use the **SetThe<>().To()** 
 Note the use of the **.With()** extension method. This simple little extension method makes it easy to modify objects afther they have been built, in a very clean way. 
 
 ##Asynchronous testing
-Let’s face it. Async programming is difficult. 
+Letâ€™s face it. Async programming is difficult. 
 
 The Async Await certainly helps to make the asynchronous code more readable. Along that lines, Chill attempts to help to make your tests more readable as well. 
 
-Assume the following simple example. You have an asynchronous webapi controller. Why is this controller async? Let’s assume it needs to do IO. In this case, this is encapsulated in an async call to ICustomerStore.GetCustomerAsync(). 
+Assume the following simple example. You have an asynchronous webapi controller. Why is this controller async? Letâ€™s assume it needs to do IO. In this case, this is encapsulated in an async call to ICustomerStore.GetCustomerAsync(). 
 
 ```csharp
 public class When_retrieving_existing_customer_async : GivenSubject<CustomerController, View>
@@ -178,4 +179,4 @@ public class When_retrieving_existing_customer_async : GivenSubject<CustomerCont
 }
 ```
 
-In Chill, you can just define an asynchronous method in your call to **When()**. Chill will take care of handling the asynchronous complexity for you. Now all you need to do is to make sure your dependency return a Task instead of the ‘normal’ result. You can do this by calling the **.Asynchronously()** extension method.
+In Chill, you can just define an asynchronous method in your call to **When()**. Chill will take care of handling the asynchronous complexity for you. Now all you need to do is to make sure your dependency return a Task instead of the â€˜normalâ€™ result. You can do this by calling the **.Asynchronously()** extension method.
