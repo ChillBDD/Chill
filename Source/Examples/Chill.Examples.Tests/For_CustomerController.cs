@@ -113,7 +113,10 @@ namespace Chill.Examples.Tests
                 {
                     // Automatic creating of mock objects. Here using NSubstitute as a friendly mocking framework
                     The<ICustomerStore>().GetCustomer(customerId)
-                        .Returns(args => throw new ArgumentException($"No customer with id {args[0]}"));
+                        .Returns(args =>
+                        {
+                            throw new ArgumentException($"No customer with id {args[0]}");
+                        });
 
                 });
 
