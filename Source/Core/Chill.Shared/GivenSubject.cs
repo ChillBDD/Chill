@@ -41,6 +41,14 @@ namespace Chill
         }
 
         /// <summary>
+        /// Records the action that will trigger the actual test, when later executing the <see cref="WhenAction"/>
+        /// </summary>
+        protected void WhenLater(Func<TResult> whenFunc)
+        {
+            When(whenFunc, deferredExecution: true);
+        }
+
+        /// <summary>
         /// Records the action that will trigger the actual test
         /// </summary>
         /// <param name="whenFunc"></param>
@@ -59,6 +67,15 @@ namespace Chill
                 EnsureTestTriggered(false);
             }
         }
+
+        /// <summary>
+        /// Records the asynchronous action that will trigger the actual test, when later executing the <see cref="WhenAction"/>
+        /// </summary>
+        protected void WhenLater(Func<Task<TResult>> whenFunc)
+        {
+            When(whenFunc, deferredExecution: true);
+        }
+
         /// <summary>
         /// Records the asynchronous action that will trigger the actual test
         /// </summary>
@@ -118,6 +135,14 @@ namespace Chill
         }
 
         /// <summary>
+        /// Records the action that will trigger the actual test, when later executing the <see cref="WhenAction"/>
+        /// </summary>
+        public void WhenLater(Action whenAction)
+        {
+            When(whenAction, deferredExecution: true);
+        }
+
+        /// <summary>
         /// Records the action that will trigger the actual test
         /// </summary>
         /// <param name="whenAction"></param>
@@ -136,6 +161,14 @@ namespace Chill
                 EnsureTestTriggered(false);
             }
 
+        }
+
+        /// <summary>
+        /// Records the asynchronous action that will trigger the actual test, when later executing the <see cref="WhenAction"/>
+        /// </summary>
+        public void WhenLater(Func<Task> whenActionAsync)
+        {
+            When(whenActionAsync, deferredExecution: true);
         }
 
         /// <summary>

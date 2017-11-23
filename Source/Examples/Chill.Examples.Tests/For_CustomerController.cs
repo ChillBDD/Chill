@@ -1,5 +1,4 @@
-﻿using Chill;
-using Chill.Autofac;
+﻿using System;
 using Chill.Examples.Tests.TestSubjects;
 using FluentAssertions;
 using NSubstitute;
@@ -103,5 +102,32 @@ namespace Chill.Examples.Tests
             }
         }
 
+        public class When_trying_to_retrieve_non_existing_customer : GivenSubject<CustomerController>
+        {
+            public When_trying_to_retrieve_non_existing_customer()
+            {
+                const int customerId = 12;
+
+                // Explicit phases for setup
+                Given(() =>
+                {
+                    // Automatic creating of mock objects. Here using NSubstitute as a friendly mocking framework
+                    The<ICustomerStore>().GetCustomer(customerId)
+                        .Returns(args => throw new ArgumentException($"No customer with id {args[0]}"));
+
+                });
+
+                // WhenLater will defer the execution so you can check on exceptions using the WhenAction
+                WhenLater(() => Subject.Get(customerId));
+            }
+
+
+
+            [Fact]
+            public void Then_an_argument_exception_should_be_thrown()
+            {
+                WhenAction.ShouldThrow<ArgumentException>().WithMessage("No customer with id 12");
+            }
+        }
     }
 }

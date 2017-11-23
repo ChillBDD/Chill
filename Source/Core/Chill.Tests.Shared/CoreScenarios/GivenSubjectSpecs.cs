@@ -76,6 +76,17 @@ namespace Chill.Tests.CoreScenarios
         }
 
         [Fact]
+        public void When_calling_whenlater_then_whenaction_is_not_called_automatically()
+        {
+            string message = "";
+            Given(() => message += "given");
+            WhenLater(() => message += "when");
+            message.Should().Be("given");
+            WhenAction();
+            message.Should().Be("givenwhen");
+        }
+
+        [Fact]
         public void When_calling_async_when_method_the_func_is_awaited()
         {
             SetThe<IAsyncService>().To(new AsyncService());
@@ -132,6 +143,16 @@ namespace Chill.Tests.CoreScenarios
             Given(() => message += "given");
             When(() => message += "when");
             message.Should().Be("givenwhen");
+            Result.Should().Be("givenwhen");
+        }
+
+        [Fact]
+        public void When_calling_when_later_then_whenaction_is_called_on_result()
+        {
+            string message = "";
+            Given(() => message += "given");
+            WhenLater(() => message += "when");
+            message.Should().Be("given");
             Result.Should().Be("givenwhen");
         }
     }
