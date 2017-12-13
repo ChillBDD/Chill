@@ -5,15 +5,15 @@
     <version>2.2.0-beta0001</version>
     <title>Chill BDD Testing</title>
     <authors>Erwin van der Valk, Dennis Doomen</authors>
-    <owners>Erwin van der Valk</owners>
+    <owners>Erwin van der Valk, Dennis Doomen</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
-    <projectUrl>http://github.com/erwinvandervalk/chill</projectUrl>
+    <projectUrl>http://github.com/ChillBdd/Chill</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A BDD style testing framework, heavily relying on auto mocking containers. </description>
     <releaseNotes>
         
     </releaseNotes>
-    <copyright>Copyright 2014</copyright>
+    <copyright>Copyright 2017</copyright>
     <tags>BDD TDD AutoMocking</tags>
     <dependencies>
       <group targetFramework="net40">

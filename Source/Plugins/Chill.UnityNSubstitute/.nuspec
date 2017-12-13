@@ -5,15 +5,15 @@
     <version>2.2.0-beta0001</version>
     <title>Chill Unity NSubstitute extension</title>
     <authors>Erwin van der Valk, Dennis Doomen</authors>
-    <owners>Erwin van der Valk</owners>
+    <owners>Erwin van der Valk, Dennis Doomen</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
-    <projectUrl>http://github.com/erwinvandervalk/chill</projectUrl>
+    <projectUrl>http://github.com/ChillBDD/Chill</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A chill container that uses unity as a dependency injection container and NSubsitute as it's mocking framework</description>
     <releaseNotes>
         
     </releaseNotes>
-    <copyright>Copyright 2014</copyright>
+    <copyright>Copyright 2017</copyright>
     <tags>BDD TDD Unity NSubstitute</tags>
     <dependencies>
       <group>
