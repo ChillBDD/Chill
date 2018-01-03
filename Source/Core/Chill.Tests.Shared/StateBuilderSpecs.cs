@@ -26,6 +26,12 @@ namespace Chill.Tests
         }
 
         [Fact]
+        public void When_executing_later_then_action_is_not_executed_immediately()
+        {
+            WhenLater(() => { throw new Exception(); });
+        }
+
+        [Fact]
         public void When_deferring_execution_then_action_is_not_executed_immediately()
         {
             When(() => { throw new Exception(); }, deferredExecution:true);
@@ -47,6 +53,14 @@ namespace Chill.Tests
         }
 
         [Fact]
+        public void When_exception_is_thrown_in_async_method_in_later_execution_expected_exception_is_filled()
+        {
+            Func<Task> whenActionASync = () => Task.Factory.StartNew(() => { throw new AbandonedMutexException(); });
+            WhenLater(whenActionASync);
+            CaughtException.Should().BeOfType<AbandonedMutexException>();
+        }
+
+        [Fact]
         public void When_exception_is_thrown_in_async_method_in_deferred_execution_expected_exception_is_filled()
         {
             Func<Task> whenActionASync = () => Task.Factory.StartNew(() => { throw new AbandonedMutexException(); });
@@ -54,6 +68,13 @@ namespace Chill.Tests
             CaughtException.Should().BeOfType<AbandonedMutexException>();
         }
 
+        [Fact]
+        public void When_exception_is_thrown_in_later_execution_expected_exception_is_filled()
+        {
+            Action whenActionASync = () => { throw new AbandonedMutexException(); };
+            WhenLater(whenActionASync);
+            CaughtException.Should().BeOfType<AbandonedMutexException>();
+        }
         [Fact]
         public void When_exception_is_thrown_in_deferred_execution_expected_exception_is_filled()
         {
@@ -67,6 +88,24 @@ namespace Chill.Tests
         {
             When(() => { throw new AbandonedMutexException(); }, deferredExecution: true);
             WhenAction.ShouldThrow<AbandonedMutexException>();
+        }
+
+        [Fact]
+        public void When_executing_later_then_whenaction_can_be_used_to_test_for_exceptions()
+        {
+            WhenLater(() => { throw new AbandonedMutexException(); });
+            WhenAction.ShouldThrow<AbandonedMutexException>();
+        }
+
+        [Fact]
+        public void When_later_no_exception_would_be_thrown_but_caught_exception_is_used_it_should_throw()
+        {
+            WhenLater(() => { });
+            Action a = () =>
+            {
+                Exception e = CaughtException;
+            };
+            a.ShouldThrow<InvalidOperationException>().WithMessage("Expected exception but no exception was thrown");
         }
 
         [Fact]

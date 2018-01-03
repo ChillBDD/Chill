@@ -36,6 +36,35 @@ namespace Chill.Tests.Shared
             }
         }
 
+        public class When_later_async_act_throws : GivenWhenThen
+        {
+            public When_later_async_act_throws()
+            {
+                WhenLater(
+                    async () =>
+                    {
+#if NET45
+                        await Task.Delay(10);
+#else
+                        await TaskEx.Delay(10);
+#endif
+                        throw new ApplicationException();
+                    });
+            }
+
+            [Fact]
+            public void Then_the_exception_should_be_observed()
+            {
+                WhenAction.ShouldThrow<ApplicationException>();
+            }
+
+            [Fact]
+            public void Then_the_exception_should_not_be_wrapped_to_an_aggregate_exception()
+            {
+                WhenAction.ShouldNotThrow<AggregateException>();
+            }
+        }
+
         public class When_a_deferred_async_act_throws : GivenWhenThen
         {
             public When_a_deferred_async_act_throws()
@@ -63,6 +92,37 @@ namespace Chill.Tests.Shared
             public void Then_the_exception_should_not_be_wrapped_to_an_aggregate_exception()
             {
                 WhenAction.ShouldNotThrow<AggregateException>();
+            }
+        }
+
+        public class When_later_async_act_throws_in_a_test_with_result : GivenWhenThen<object>
+        {
+            public When_later_async_act_throws_in_a_test_with_result()
+            {
+                WhenLater((Func<Task<object>>) (
+                    async () =>
+                    {
+#if NET45
+                        await Task.Delay(10);
+#else
+                        await TaskEx.Delay(10);
+#endif
+                        throw new ApplicationException();
+                    }));
+            }
+
+            [Fact]
+            public void Then_the_exception_should_be_observed()
+            {
+                Action action = () => WhenAction();
+                action.ShouldThrow<ApplicationException>();
+            }
+
+            [Fact]
+            public void Then_the_exception_should_not_be_wrapped_to_an_aggregate_exception()
+            {
+                Action action = () => WhenAction();
+                action.ShouldNotThrow<AggregateException>();
             }
         }
 
