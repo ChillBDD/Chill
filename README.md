@@ -9,10 +9,9 @@ Chill, a BDD style testing framework
 * Unit Tests should hide unneeded complexity!
 * Unit Testing should be Cool! I dare say.. it should be Chill!
 
-Chill helps you to write better unit tests. It works wity any test framework, any container, any mocking framework and any assertion library. 
+Chill helps you to write better unit tests. It works with any test framework, any container, any mocking framework and any assertion library.
 
 Look at this:
-
 
 ```csharp
 namespace For_CustomerController
@@ -40,7 +39,7 @@ namespace For_CustomerController
         }
         
         [Fact]
-        public void Then_model_is_the_existing_custmoer()
+        public void Then_model_is_the_existing_customer()
         {
             Result.Model.Should().Be(The<Customer>());
         }
@@ -48,7 +47,7 @@ namespace For_CustomerController
 }
 ```
 
-This style  a bit of a mixture between MSpec style, BDD Style testing, and using some really useful frameworks such as [XUnit](https://github.com/xunit/xunit), [AutoFac](http://autofac.org/), [NSubstitute](http://nsubstitute.github.io/), [FluentAssertions](http://www.fluentassertions.com/) and [AutoFixture](https://github.com/AutoFixture/AutoFixture). 
+This style is a bit of a mixture between MSpec style, BDD Style testing, and using some really useful frameworks such as [XUnit](https://github.com/xunit/xunit), [AutoFac](http://autofac.org/), [NSubstitute](http://nsubstitute.github.io/), [FluentAssertions](http://www.fluentassertions.com/) and [AutoFixture](https://github.com/AutoFixture/AutoFixture).
 
 
 ## Automocking container
@@ -75,7 +74,7 @@ public void TestWithoutTheChillFactor()
     mockCustomerStore.GetCustomer(123).Returns(expectedCustomer);
 
     // Also, you have to explicitly create the subject under test and insert the mocked dependencies. 
-    // Need to add or remove a dependency? prepare yourself to modify ALL your test. 
+    // Need to add or remove a dependency? Prepare yourself to modify ALL your tests.
     var sut = new CustomerController(mockCustomerStore);
 
     // Call the actual function.. but you also have to create a variable to store your tests. 
@@ -88,8 +87,8 @@ public void TestWithoutTheChillFactor()
 ```
 
 There are a lot of things wrong with this example:
-* The knowledge about which dependencies by your Subject are needed are duplicated among all your tests. 
-* In each test, you'll have to explicitly create mock objects. This clutters your test with code that does add any value. 
+* The knowledge about which dependencies by your Subject are needed is duplicated among all your tests.
+* In each test, you'll have to explicitly create mock objects. This clutters your test with code that does not add any value.
 * Multiple asserts per test make it more difficult to figure out what exactly goes wrong. 
 * No explicit structure to this test. What exactly is setup code. 
 * Even though most tests use a subject, a result and variables, the naming of these variables will be very different across different tests by different authors, making them more difficult to understand. 
@@ -112,7 +111,7 @@ public class When_retrieving_existing_customer : GivenSubject<CustomerController
             The<ICustomerStore>().GetCustomer(customerId).Returns(The<Customer>());
         });
 
-        // Subject under test is created automatically and accessable via the Subject property
+        // Subject under test is created automatically and accessible via the Subject property.
         When(() => Subject.Get(customerId));
     }
 
@@ -123,7 +122,7 @@ public class When_retrieving_existing_customer : GivenSubject<CustomerController
     }
 
     [Fact]
-    public void Then_model_is_the_existing_custmoer()
+    public void Then_model_is_the_existing_customer()
     {
         Result.Model.Should().Be(The<Customer>());
     }
@@ -136,14 +135,15 @@ There is no need to explicitly create mock objects anymore. The **The<>** method
 
 If you want to explicitly register a value, you can use the **SetThe<>().To()** method to an object. There is also a shorthand for this: **UseThe()**. 
 
-Note the use of the **.With()** extension method. This simple little extension method makes it easy to modify objects afther they have been built, in a very clean way. 
+Note the use of the **.With()** extension method. This simple little extension method makes it easy to modify objects after they have been built, in a very clean way. 
 
 ##Asynchronous testing
-Let’s face it. Async programming is difficult. 
 
-The Async Await certainly helps to make the asynchronous code more readable. Along that lines, Chill attempts to help to make your tests more readable as well. 
+Let’s face it: Async programming is difficult.
 
-Assume the following simple example. You have an asynchronous webapi controller. Why is this controller async? Let’s assume it needs to do IO. In this case, this is encapsulated in an async call to ICustomerStore.GetCustomerAsync(). 
+`async` / `await` certainly helps to make asynchronous code more readable. Along those lines, Chill attempts to help to make your tests more readable as well.
+
+Assume the following simple example. You have an asynchronous Web API controller. Why is this controller async? Let’s assume it needs to do I/O. In this case, this is encapsulated in an async call to ICustomerStore.GetCustomerAsync().
 
 ```csharp
 public class When_retrieving_existing_customer_async : GivenSubject<CustomerController, View>
@@ -172,11 +172,11 @@ public class When_retrieving_existing_customer_async : GivenSubject<CustomerCont
     }
 
     [Fact]
-    public void Then_model_is_the_existing_custmoer()
+    public void Then_model_is_the_existing_customer()
     {
         Result.Model.Should().Be(The<Customer>());
     }
 }
 ```
 
-In Chill, you can just define an asynchronous method in your call to **When()**. Chill will take care of handling the asynchronous complexity for you. Now all you need to do is to make sure your dependency return a Task instead of the ‘normal’ result. You can do this by calling the **.Asynchronously()** extension method.
+In Chill, you can just define an asynchronous method in your call to **When()**. Chill will take care of handling the asynchronous complexity for you. Now all you need to do is to make sure your dependency returns a Task instead of the ‘normal’ result. You can do this by calling the **.Asynchronously()** extension method.
