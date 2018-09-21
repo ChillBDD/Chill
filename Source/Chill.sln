@@ -54,6 +54,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Chill.Unity", "Plugins\Chil
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Chill.UnityNSubstitute", "Plugins\Chill.UnityNSubstitute\Chill.UnityNSubstitute.shproj", "{8CF14A5A-CCA0-46C5-948F-E46F7C4F1666}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.NetCore21", "Core\Chill.NetCore21\Chill.NetCore21.csproj", "{7730D4BF-76C2-4323-8824-5430D6A71D40}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Core\Chill.Tests.Shared\Chill.Tests.Shared.projitems*{48cc618c-de45-4a20-aceb-1ae5b2eb5c1c}*SharedItemsImports = 13
@@ -108,6 +110,10 @@ Global
 		{1C71180A-266B-4D4D-82DB-C5D85C00FEBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C71180A-266B-4D4D-82DB-C5D85C00FEBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C71180A-266B-4D4D-82DB-C5D85C00FEBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7730D4BF-76C2-4323-8824-5430D6A71D40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7730D4BF-76C2-4323-8824-5430D6A71D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7730D4BF-76C2-4323-8824-5430D6A71D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7730D4BF-76C2-4323-8824-5430D6A71D40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -126,5 +132,6 @@ Global
 		{48CC618C-DE45-4A20-ACEB-1AE5B2EB5C1C} = {7F3C4D9B-4901-47EF-ABB6-B14D9EA3DDFC}
 		{CEA26D8F-7186-4EAF-B285-7D85A8FCE5EA} = {02E12BC2-5722-479D-A403-B8C0468865DC}
 		{8CF14A5A-CCA0-46C5-948F-E46F7C4F1666} = {02E12BC2-5722-479D-A403-B8C0468865DC}
+		{7730D4BF-76C2-4323-8824-5430D6A71D40} = {DD0DDAC9-872E-4C5B-AB54-97F6103B396E}
 	EndGlobalSection
 EndGlobal
