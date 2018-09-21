@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+        <AssemblyName>Chill</AssemblyName>
+        <RootNamespace>Chill</RootNamespace>
+    </PropertyGroup>
+
+    <Import Project="..\Chill.Shared\Chill.Shared.projitems" Label="Shared" />
+
+</Project>
