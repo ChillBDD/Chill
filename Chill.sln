@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill", "Src\Chill\Chill.csproj", "{790748B6-4C5C-45C5-950F-DCF4A30E38DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chill.Specs", "Tests\Chill.Specs\Chill.Specs.csproj", "{ECB7681F-AEF1-46D3-9FDC-BE5FCD7D0B4C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{88CFD756-EED9-4C1D-A8BA-AAFCEF90F15E}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Core\Chill.Tests.Shared\Chill.Tests.Shared.projitems*{48cc618c-de45-4a20-aceb-1ae5b2eb5c1c}*SharedItemsImports = 13
+		Plugins\Chill.UnityNSubstitute\Chill.UnityNSubstitute.projitems*{8cf14a5a-cca0-46c5-948f-e46f7c4f1666}*SharedItemsImports = 13
+		Core\Chill.Shared\Chill.Shared.projitems*{608f1b86-2d5c-448f-9ecb-f649fb5a5b6e}*SharedItemsImports = 4
+		Core\Chill.Shared\Chill.Shared.projitems*{b56888bb-74e2-4a75-8fb6-017ba7023874}*SharedItemsImports = 4
+		Plugins\Chill.Unity\Chill.Unity.projitems*{cea26d8f-7186-4eaf-b285-7d85a8fce5ea}*SharedItemsImports = 13
+		Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems*{b287d2b7-6050-47bf-8a6c-118aef6f93c6}*SharedItemsImports = 13
+		Core\Chill.Tests.Shared\Chill.Tests.Shared.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
+		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
+		Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
+		Plugins\Chill.Autofac\Chill.Autofac.projitems*{1c71180a-266b-4d4d-82db-c5d85c00febe}*SharedItemsImports = 4
+		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{1a70f8c2-9c74-4bc3-ab96-89190e2210e9}*SharedItemsImports = 4
+		Plugins\Chill.Autofac\Chill.Autofac.projitems*{1a70f8c2-9c74-4bc3-ab96-89190e2210e9}*SharedItemsImports = 4
+		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{bd0e5fd7-97ee-4fb0-a2f3-38a3c5b18c41}*SharedItemsImports = 13
+		Core\Chill.Shared\Chill.Shared.projitems*{de6907cc-326a-4621-af39-f3c1bfcbd375}*SharedItemsImports = 4
+		Core\Chill.Shared\Chill.Shared.projitems*{29cd0883-250a-4121-a344-1377e99e3886}*SharedItemsImports = 13
+		Plugins\Chill.Autofac\Chill.Autofac.projitems*{0153e5be-fde8-4b00-84e5-d6c7f0eab03d}*SharedItemsImports = 13
+		Plugins\Chill.UnityNSubstitute\Chill.UnityNSubstitute.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
+		Core\Chill.Tests.Shared\Chill.Tests.Shared.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
+		Plugins\Chill.AutofacNSubstitute\Chill.AutofacNSubstitute.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
+		Plugins\Chill.Unity\Chill.Unity.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
+		Plugins\Chill.AutofacFakeItEasy\Chill.AutofacFakeItEasy.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
+		Plugins\Chill.Autofac\Chill.Autofac.projitems*{10871583-2fe0-4acd-8787-6d6d285c82d9}*SharedItemsImports = 4
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88CFD756-EED9-4C1D-A8BA-AAFCEF90F15E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88CFD756-EED9-4C1D-A8BA-AAFCEF90F15E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{790748B6-4C5C-45C5-950F-DCF4A30E38DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{790748B6-4C5C-45C5-950F-DCF4A30E38DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{790748B6-4C5C-45C5-950F-DCF4A30E38DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{790748B6-4C5C-45C5-950F-DCF4A30E38DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECB7681F-AEF1-46D3-9FDC-BE5FCD7D0B4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECB7681F-AEF1-46D3-9FDC-BE5FCD7D0B4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECB7681F-AEF1-46D3-9FDC-BE5FCD7D0B4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECB7681F-AEF1-46D3-9FDC-BE5FCD7D0B4C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal
