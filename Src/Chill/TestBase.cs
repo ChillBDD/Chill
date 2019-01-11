@@ -187,7 +187,13 @@ namespace Chill
             return (IChillContainerInitializer) Activator.CreateInstance(type);
         }
 
-        partial void GetBuiltInContainer(ref object attribute) ;
+        private void GetBuiltInContainer(ref object attribute)
+        {
+            if (attribute == null)
+            {
+                attribute = new ChillContainerAttribute(typeof(AutofacChillContainer));
+            }
+        }
 
         /// <summary>
         /// Cleans up all usages. 
