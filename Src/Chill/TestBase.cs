@@ -15,15 +15,6 @@ namespace Chill
     /// </summary>
     public abstract partial class TestBase : IDisposable
     {
-        /// <summary>
-        /// Should the test execution start immediately on the When method or should execution be deferred until needed. 
-        /// </summary>
-        [Obsolete("Because of the typo and will be removed. Consider using DeferredExecution property instead.")]
-        protected bool DefferedExecution
-        {
-            get { return DeferredExecution; }
-            set { DeferredExecution = value; }
-        }
 
         /// <summary>
         /// Should the test execution start immediately on the When method or should execution be deferred until needed. 
