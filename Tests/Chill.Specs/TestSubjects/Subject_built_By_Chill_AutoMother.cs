@@ -1,4 +1,4 @@
-namespace Chill.Tests.TestSubjects
+namespace Chill.Specs.TestSubjects
 {
     public class Subject_built_By_Chill_AutoMother
     {

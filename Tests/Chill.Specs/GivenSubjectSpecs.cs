@@ -1,11 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using Chill.Tests.TestSubjects;
-
+using Chill.Specs.TestSubjects;
 using FluentAssertions;
 using Xunit;
 
-namespace Chill.Tests.CoreScenarios
+namespace Chill.Specs
 {
     public abstract class GivenSubjectSpecs : GivenSubject<TestSubject>
     {

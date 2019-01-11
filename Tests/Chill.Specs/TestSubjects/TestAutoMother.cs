@@ -1,6 +1,6 @@
 using System;
 
-namespace Chill.Tests.TestSubjects
+namespace Chill.Specs.TestSubjects
 {
     public class TestAutoMother : IAutoMother
     {

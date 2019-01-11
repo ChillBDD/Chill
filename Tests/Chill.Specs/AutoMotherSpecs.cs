@@ -1,8 +1,8 @@
-using Chill.Tests.TestSubjects;
+using Chill.Specs.TestSubjects;
 using FluentAssertions;
 using Xunit;
 
-namespace Chill.Tests
+namespace Chill.Specs
 {
     public class AutoMotherSpecs : TestBase
     {
