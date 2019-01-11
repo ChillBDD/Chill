@@ -4,40 +4,22 @@
 # User-specific files
 *.suo
 *.user
-*.userosscache
 *.sln.docstates
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-Source/**/build/
-bld/
-[Bb]in/
-[Oo]bj/
 
-# Roslyn cache directories
-*.ide/
+[Dd]ebug/
+[Rr]elease/
+x64/
+[Oo]bj/
+[Bb]in/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
-#NUNIT
-*.VisualState.xml
-TestResult.xml
-
-# Build Results of an ATL Project
-[Dd]ebugPS/
-[Rr]eleasePS/
-dlldata.c
-
 *_i.c
 *_p.c
-*_i.h
 *.ilk
 *.meta
 *.obj
@@ -57,11 +39,8 @@ dlldata.c
 *.vssscc
 .builds
 *.pidb
-*.svclog
+*.log
 *.scc
-
-# Chutzpah Test files
-_Chutzpah*
 
 # Visual C++ cache files
 ipch/
@@ -76,19 +55,12 @@ ipch/
 *.vsp
 *.vspx
 
-# TFS 2012 Local Workspace
-$tf/
-
 # Guidance Automation Toolkit
 *.gpState
 
 # ReSharper is a .NET coding add-in
 _ReSharper*/
 *.[Rr]e[Ss]harper
-*.DotSettings.user
-
-# JustCode is a .NET coding addin-in
-.JustCode
 
 # TeamCity is a build add-in
 _TeamCity*
@@ -97,15 +69,8 @@ _TeamCity*
 *.dotCover
 
 # NCrunch
-_NCrunch_*
+
 .*crunch*.local.xml
-
-# MightyMoose
-*.mm.*
-AutoTest.Net/
-
-# Web workbench (sass)
-.sass-cache/
 
 # Installshield output folder
 [Ee]xpress/
@@ -124,27 +89,14 @@ DocProject/Help/html
 publish/
 
 # Publish Web Output
-*.[Pp]ublish.xml
-*.azurePubxml
-# TODO: Comment the next line if you want to checkin your web deploy settings 
-# but database connection strings (with potential passwords) will be unencrypted
-*.pubxml
-*.publishproj
+*.Publish.xml
 
-# NuGet Packages
-# The packages folder can be ignored because of Package Restore
-# except build/, which is used as an MSBuild target.
-*.nupkg
+# NuGet Packages Directory
+## TODO: If you have NuGet Package Restore enabled, uncomment the next line
+packages/
 
-
-!**packages/Microsoft.Bcl.Build*/tools/Microsoft.Bcl.Build.targets
-packages
-# If using the old MSBuild-Integrated Package Restore, uncomment this:
-#!**/packages/repositories.config
-!**/.nuget/*
-Package/*
 # Windows Azure Build Output
-csx/
+csx
 *.build.csdef
 
 # Windows Store app package directory
@@ -158,34 +110,71 @@ ClientBin/
 ~$*
 *~
 *.dbmdl
-*.dbproj.schemaview
+*.[Pp]ublish.xml
 *.pfx
 *.publishsettings
-node_modules/
 
 # RIA/Silverlight projects
 Generated_Code/
 
-# Backup & report files from converting an old project file
-# to a newer Visual Studio version. Backup files are not needed,
-# because we have git ;-)
+# Backup & report files from converting an old project file to a newer
+# Visual Studio version. Backup files are not needed, because we have git ;-)
 _UpgradeReport_Files/
 Backup*/
 UpgradeLog*.XML
 UpgradeLog*.htm
 
 # SQL Server files
-*.mdf
-*.ldf
+App_Data/*.mdf
+App_Data/*.ldf
 
-# Business Intelligence projects
-*.rdl.data
-*.bim.layout
-*.bim_*.settings
 
-# Microsoft Fakes
-FakesAssemblies/
+#LightSwitch generated files
+GeneratedArtifacts/
+_Pvt_Extensions/
+ModelManifest.xml
 
-Source/Package/Lib/
-Source/Package/*.nupkg
-Source/packages/
+# =========================
+# Windows detritus
+# =========================
+
+# Some stackdump file that sometimes appears
+us.stackdump
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Mac desktop service store files
+.DS_Store
+Package/Lib
+*.nupkg
+
+# Temporary files created when merging
+*.orig
+*.LOCAL.*.xml
+*.REMOTE.*.xml
+*.BASE.*.xml
+*.BACKUP.*.xml
+
+# Symbolic links and other files created by ConfigureSolutions
+Output/*
+**/*/Raven/CompiledIndexCache/
+
+#Visual Studio 2015 files
+**/*.sln.ide/**
+_NCrunch_LiquidProjections/
+Artifacts/**
+
+# User-specific stuff:
+.idea*
+
+# Visual Studio
+**/.vs/**
+.vs/**
