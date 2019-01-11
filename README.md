@@ -1,4 +1,9 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/fqb1vhtn7m38a5m2/branch/master?svg=true)](https://ci.appveyor.com/project/Erwinvandervalk/chill-7vfry/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/q5ebbayj2yyjavtd/branch/master?svg=true)](https://ci.appveyor.com/project/dennisdoomen/chill-hacqo/branch/develop)
+[![](https://img.shields.io/github/release/ChillBDD/Chill.svg?label=latest%20release)](https://github.com/ChillBDD/Chill/releases/latest)
+[![](https://img.shields.io/nuget/dt/Chill.svg?label=nuget%20downloads)](https://www.nuget.org/packages/chill)
+![](https://img.shields.io/badge/release%20strategy-gitflow-orange.svg)
+
+
 Chill, a BDD style testing framework
 =====
 ##*"If you stick it in a container, Chill will keep it cool."*
