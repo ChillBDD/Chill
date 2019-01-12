@@ -1,11 +1,12 @@
-using Chill.Tests.TestSubjects;
-using FluentAssertions;
 using System;
 using System.Threading;
+using Chill.Specs.TestSubjects;
+using FluentAssertions;
 using Xunit;
-using Xunit.Extensions;
 
-namespace Chill.Tests.CoreScenarios
+// ReSharper disable xUnit1025
+
+namespace Chill.Specs
 {
     public abstract class TestBaseSpecs : TestBase
     {
@@ -68,8 +69,9 @@ namespace Chill.Tests.CoreScenarios
         /// </summary>
         #region Tests_if_disposable_is_called
         
-        [Theory, InlineData(), InlineData(), InlineData()]
+        [Theory, InlineData()]
     
+        // ReSharper disable once xUnit1006
         public void Will_dispose_object()
         {
             DisposableObject.DisposableObjectAlive.Should().BeFalse(); 

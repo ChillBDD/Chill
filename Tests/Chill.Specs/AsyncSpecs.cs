@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
 
-namespace Chill.Tests.Shared
+namespace Chill.Specs
 {
     namespace AsyncSpecs
     {

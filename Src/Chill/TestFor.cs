@@ -9,6 +9,10 @@ namespace Chill
     /// the <see cref="BuildSubject"/> method. 
     /// </summary>
     /// <typeparam name="TSubject">The type of the subject you're testing. </typeparam>
+    /// <remarks>
+    /// We purposely named this class so badly because we want to avoid a consumer of our package to
+    /// accidentally select it when deriving from a class starting with 'G'.
+    /// </remarks>
     public abstract class TestFor<TSubject> : TestBase
         where TSubject : class
     {

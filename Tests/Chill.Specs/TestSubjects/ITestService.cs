@@ -1,4 +1,4 @@
-namespace Chill.Tests.TestSubjects
+namespace Chill.Specs.TestSubjects
 {
     public interface ITestService
     {

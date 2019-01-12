@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Chill.Autofac;
 using Chill.StateBuilders;
 
 namespace Chill
@@ -13,18 +14,12 @@ namespace Chill
     /// It also has a convenient method TriggerTest you can call that will trigger an async test func
     /// and capture any exceptions that might have occurred. 
     /// </summary>
-    public abstract partial class TestBase : IDisposable
+    /// <remarks>
+    /// We purposely named this class so badly because we want to avoid a consumer of our package to
+    /// accidentally select it when deriving from a class starting with 'G'.
+    /// </remarks>
+    public abstract class TestBase : IDisposable
     {
-        /// <summary>
-        /// Should the test execution start immediately on the When method or should execution be deferred until needed. 
-        /// </summary>
-        [Obsolete("Because of the typo and will be removed. Consider using DeferredExecution property instead.")]
-        protected bool DefferedExecution
-        {
-            get { return DeferredExecution; }
-            set { DeferredExecution = value; }
-        }
-
         /// <summary>
         /// Should the test execution start immediately on the When method or should execution be deferred until needed. 
         /// </summary>
@@ -32,6 +27,9 @@ namespace Chill
 
         private bool testTriggered;
         private bool containerInitialized;
+        private IChillContainer container;
+        private Exception caughtException;
+
         internal readonly IChillContainerInitializer ChillContainerInitializer;
 
         /// <summary>
@@ -55,10 +53,6 @@ namespace Chill
             }
             set { caughtException = value; }
         }
-
-
-        private IChillContainer container;
-        private Exception caughtException;
 
         /// <summary>
         /// Automocking IOC container that you can use to build subjects. 
@@ -112,7 +106,9 @@ namespace Chill
                 finally
                 {
                     if (expectExceptions && CaughtException == null)
+                    {
                         throw new InvalidOperationException("Expected exception but no exception was thrown");
+                    }
                 }
             }
             else
@@ -130,6 +126,7 @@ namespace Chill
             {
                 container = ChillContainerInitializer.BuildChillContainer(this);
             }
+
             EnsureContainerInitialized();
         }
 
@@ -156,9 +153,9 @@ namespace Chill
         /// created. 
         /// </summary>
         /// <returns>The automocking container that's used for this test. </returns>
-        public virtual IChillContainer BuildContainer(Type containerType) 
+        public virtual IChillContainer BuildContainer(Type containerType)
         {
-            return (IChillContainer)Activator.CreateInstance(containerType);
+            return (IChillContainer) Activator.CreateInstance(containerType);
         }
 
         /// <summary>
@@ -170,21 +167,21 @@ namespace Chill
             object attribute =
                 GetType()
                     .GetTypeInfo()
-                    .GetCustomAttributes(typeof (ChillContainerInitializerAttribute), false)
+                    .GetCustomAttributes(typeof(ChillContainerInitializerAttribute), false)
                     .SingleOrDefault() ??
                 GetType()
                     .GetTypeInfo()
-                    .Assembly.GetCustomAttributes(typeof (ChillContainerInitializerAttribute))
+                    .Assembly.GetCustomAttributes(typeof(ChillContainerInitializerAttribute))
                     .SingleOrDefault();
 
             GetBuiltInContainer(ref attribute);
 
             if (attribute == null)
             {
-
                 throw new InvalidOperationException(
                     "Could not find the Chill Container. You must have a Chill container registered using the ChillContainerInitializer. Get the Chill Container from one of the extensions. ");
             }
+
             var type = ((ChillContainerInitializerAttribute) attribute).ChillContainerInitializerType;
 
             if (type == null)
@@ -196,7 +193,13 @@ namespace Chill
             return (IChillContainerInitializer) Activator.CreateInstance(type);
         }
 
-        partial void GetBuiltInContainer(ref object attribute) ;
+        private void GetBuiltInContainer(ref object attribute)
+        {
+            if (attribute == null)
+            {
+                attribute = new ChillContainerAttribute(typeof(AutofacChillContainer));
+            }
+        }
 
         /// <summary>
         /// Cleans up all usages. 
@@ -246,7 +249,7 @@ namespace Chill
             where T : class
         {
             var items = Container.Get<Dictionary<Tuple<Type, string>, object>>();
-            var key = Tuple.Create(typeof (T), named);
+            var key = Tuple.Create(typeof(T), named);
 
             object item;
             if (!items.TryGetValue(key, out item))
@@ -255,6 +258,7 @@ namespace Chill
                 items.Add(key, item);
                 container.Set(items);
             }
+
             return (T) item;
         }
 
