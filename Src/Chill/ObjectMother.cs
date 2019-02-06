@@ -3,35 +3,25 @@ using System;
 namespace Chill
 {
     /// <summary>
-    /// Base class for object mothers that construct a single object. 
+    /// Convenience class for object mothers that construct a single type of object. 
     /// </summary>
-    /// <typeparam name="TTarget">The type of the target.</typeparam>
-    public abstract class ObjectMother<TTarget> : IAutoMother
+    public abstract class ObjectMother<TTarget> : IObjectMother
     {
-        /// <summary>
-        /// Checks if the specified type applies.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns></returns>
+        public bool IsFallback => false;
+
         public bool Applies(Type type)
         {
             return type == typeof(TTarget);
         }
 
-        /// <summary>
-        /// Creates the specified type using the specified container
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="container">The container.</param>
-        /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException">ServerMother only applies to </exception>
-        public T Create<T>(IChillContainer container)
+        public object Create(Type type, IChillObjectResolver container) 
         {
-            if (!Applies(typeof(T)))
+            if (!Applies(type))
             {
-                throw new InvalidOperationException("ServerMother only applies to ");
+                throw new InvalidOperationException("ObjectMother only applies to ");
             }
-            return (T)(object)Create();
+
+            return Create();
         }
 
         /// <summary>
@@ -39,6 +29,5 @@ namespace Chill
         /// </summary>
         /// <returns></returns>
         protected abstract TTarget Create();
-
     }
 }

@@ -10,8 +10,6 @@ namespace Chill.Specs
 {
     public abstract class TestBaseSpecs : TestBase
     {
-
-
         [Fact]
         public void Can_get_mock_for_subject()
         {
@@ -67,14 +65,15 @@ namespace Chill.Specs
         /// 
         /// The Theory and the InlineData attribute causes the test to be called several times. 
         /// </summary>
+
         #region Tests_if_disposable_is_called
-        
+
         [Theory, InlineData()]
-    
+
         // ReSharper disable once xUnit1006
         public void Will_dispose_object()
         {
-            DisposableObject.DisposableObjectAlive.Should().BeFalse(); 
+            DisposableObject.DisposableObjectAlive.Should().BeFalse();
             var target = new DisposableObject();
             UseThe(target);
         }
@@ -92,6 +91,7 @@ namespace Chill.Specs
             Monitor.Enter(syncroot);
             DisposableObjectAlive = true;
         }
+
         public void Dispose()
         {
             DisposableObjectAlive = false;

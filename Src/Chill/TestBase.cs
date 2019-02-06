@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-using Chill.Autofac;
 using Chill.StateBuilders;
 
 namespace Chill
@@ -27,17 +25,17 @@ namespace Chill
 
         private bool testTriggered;
         private bool containerInitialized;
-        private IChillContainer container;
+        private ObjectMotherContainerDecorator decorator;
         private Exception caughtException;
 
-        internal readonly IChillContainerInitializer ChillContainerInitializer;
+        private readonly IChillContainerInitializer chillContainerInitializer;
 
         /// <summary>
         /// Creates a new instance of the testbase and creates the TestInitializer from the attribute
         /// </summary>
         public TestBase()
         {
-            ChillContainerInitializer = BuildInitializer();
+            chillContainerInitializer = BuildInitializer();
         }
 
         /// <summary>
@@ -57,12 +55,12 @@ namespace Chill
         /// <summary>
         /// Automocking IOC container that you can use to build subjects. 
         /// </summary>
-        public IChillContainer Container
+        public IChillContainer Decorator
         {
             get
             {
                 EnsureContainer();
-                return container;
+                return decorator;
             }
         }
 
@@ -122,9 +120,9 @@ namespace Chill
         /// </summary>
         protected virtual void EnsureContainer()
         {
-            if (container == null)
+            if (decorator == null)
             {
-                container = ChillContainerInitializer.BuildChillContainer(this);
+                decorator = new ObjectMotherContainerDecorator(chillContainerInitializer.BuildChillContainer(this));
             }
 
             EnsureContainerInitialized();
@@ -144,18 +142,8 @@ namespace Chill
         /// </summary>
         protected virtual void InitializeContainer()
         {
-            ChillContainerInitializer.InitializeContainer(this);
-        }
-
-        /// <summary>
-        /// Creates an automocking container. By default, it will look in your assemblies to find an implementation 
-        /// of <see cref="IChillContainer"/> and use that. You can override this method to customize how the container is being 
-        /// created. 
-        /// </summary>
-        /// <returns>The automocking container that's used for this test. </returns>
-        public virtual IChillContainer BuildContainer(Type containerType)
-        {
-            return (IChillContainer) Activator.CreateInstance(containerType);
+            chillContainerInitializer.InitializeContainer(this);
+            decorator.LoadAutoMothers(new[] {GetType().GetTypeInfo().Assembly});
         }
 
         /// <summary>
@@ -165,40 +153,35 @@ namespace Chill
         protected IChillContainerInitializer BuildInitializer()
         {
             object attribute =
-                GetType()
-                    .GetTypeInfo()
-                    .GetCustomAttributes(typeof(ChillContainerInitializerAttribute), false)
-                    .SingleOrDefault() ??
-                GetType()
-                    .GetTypeInfo()
-                    .Assembly.GetCustomAttributes(typeof(ChillContainerInitializerAttribute))
-                    .SingleOrDefault();
+                GetContainerAttributeFromTestClass() ??
+                GetContainerAttributeFromTestAssembly() ?? 
+                new ChillContainerAttribute(typeof(AutofacChillContainer));
 
-            GetBuiltInContainer(ref attribute);
-
-            if (attribute == null)
-            {
-                throw new InvalidOperationException(
-                    "Could not find the Chill Container. You must have a Chill container registered using the ChillContainerInitializer. Get the Chill Container from one of the extensions. ");
-            }
-
-            var type = ((ChillContainerInitializerAttribute) attribute).ChillContainerInitializerType;
-
+            Type type = ((ChillContainerInitializerAttribute) attribute).ChillContainerInitializerType;
             if (type == null)
             {
                 throw new InvalidOperationException(
-                    "The type property on the ChillContainerInitializerAttribute should not be null");
+                    $"The type property on the {nameof(ChillContainerInitializerAttribute)} should not be null");
             }
 
             return (IChillContainerInitializer) Activator.CreateInstance(type);
         }
 
-        private void GetBuiltInContainer(ref object attribute)
+        private Attribute GetContainerAttributeFromTestClass()
         {
-            if (attribute == null)
-            {
-                attribute = new ChillContainerAttribute(typeof(AutofacChillContainer));
-            }
+            return GetType()
+                .GetTypeInfo()
+                .GetCustomAttributes(typeof(ChillContainerInitializerAttribute), false)
+                .OfType<Attribute>()
+                .SingleOrDefault();
+        }
+
+        private Attribute GetContainerAttributeFromTestAssembly()
+        {
+            return GetType()
+                .GetTypeInfo()
+                .Assembly.GetCustomAttributes(typeof(ChillContainerInitializerAttribute))
+                .SingleOrDefault();
         }
 
         /// <summary>
@@ -229,11 +212,11 @@ namespace Chill
         public T The<T>()
             where T : class
         {
-            T value = Container.Get<T>();
+            T value = Decorator.Get<T>();
 
-            if (!Container.IsRegistered<T>())
+            if (!Decorator.IsRegistered(typeof(T)))
             {
-                Container.Set(value);
+                Decorator.Set(value);
             }
 
             return value;
@@ -248,15 +231,15 @@ namespace Chill
         public T TheNamed<T>(string named)
             where T : class
         {
-            var items = Container.Get<Dictionary<Tuple<Type, string>, object>>();
+            var items = Decorator.Get<Dictionary<Tuple<Type, string>, object>>();
             var key = Tuple.Create(typeof(T), named);
 
             object item;
             if (!items.TryGetValue(key, out item))
             {
-                item = Container.Get<T>(named);
+                item = Decorator.Get<T>(named);
                 items.Add(key, item);
-                container.Set(items);
+                decorator.Set(items);
             }
 
             return (T) item;
@@ -271,7 +254,7 @@ namespace Chill
         public IEnumerable<T> SetAll<T>(params T[] items)
             where T : class
         {
-            return container.AddToList(items);
+            return decorator.AddToList(items);
         }
 
         /// <summary>
@@ -283,7 +266,7 @@ namespace Chill
         public IEnumerable<T> SetAll<T>(IEnumerable<T> items)
             where T : class
         {
-            return container.AddToList(items.ToArray());
+            return decorator.AddToList(items.ToArray());
         }
 
         /// <summary>
@@ -293,7 +276,7 @@ namespace Chill
         /// <returns></returns>
         public IEnumerable<T> All<T>() where T : class
         {
-            return Container.GetList<T>();
+            return Decorator.GetList<T>();
         }
 
         /// <summary>
@@ -304,7 +287,7 @@ namespace Chill
         /// <returns></returns>
         public T UseThe<T>(T valueToSet) where T : class
         {
-            return Container.Set<T>(valueToSet);
+            return Decorator.Set<T>(valueToSet);
         }
 
         /// <summary>
@@ -316,7 +299,7 @@ namespace Chill
         /// <returns></returns>
         public T UseThe<T>(T valueToSet, string named) where T : class
         {
-            return Container.Set<T>(valueToSet, named);
+            return Decorator.Set<T>(valueToSet, named);
         }
 
         /// <summary>
@@ -327,7 +310,7 @@ namespace Chill
         {
             if (disposing)
             {
-                Container.Dispose();
+                Decorator.Dispose();
             }
         }
     }
