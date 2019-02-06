@@ -6,7 +6,7 @@ namespace Chill
     /// <summary>
     /// Extensions to the Chill container
     /// </summary>
-    internal static class AutoMockingContainerExtensions
+    internal static class ChillContainerExtensions
     {
         /// <summary>
         /// chill keeps a list of registered items in memory. This method adds a value to that list

@@ -43,8 +43,8 @@ namespace Chill
             EnsureContainer();
             if (subject == null)
             {
-                Container.RegisterType<TSubject>();
-                subject = (subjectFactory != null) ? subjectFactory(Container) : BuildSubject();
+                Decorator.RegisterType<TSubject>();
+                subject = (subjectFactory != null) ? subjectFactory(Decorator) : BuildSubject();
             }
         }
 
@@ -64,7 +64,7 @@ namespace Chill
         /// <returns></returns>
         protected virtual TSubject BuildSubject()
         {
-            return Container.Get<TSubject>();
+            return Decorator.Get<TSubject>();
         }
 
         protected override void Dispose(bool disposing)

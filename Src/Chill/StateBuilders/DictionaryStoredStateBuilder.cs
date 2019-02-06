@@ -39,12 +39,12 @@ namespace Chill.StateBuilders
 
         private void AppendToList(T valueToSet)
         {
-            TestBase.Container.AddToList(valueToSet);
+            TestBase.Decorator.AddToList(valueToSet);
         }
 
         private void AppendToDictionary(T valueToSet)
         {
-            var dictionary = TestBase.Container.Get<Dictionary<Tuple<Type, string>, object>>();
+            var dictionary = TestBase.Decorator.Get<Dictionary<Tuple<Type, string>, object>>();
 
             var key = Tuple.Create(typeof(T), Named);
 
@@ -54,7 +54,7 @@ namespace Chill.StateBuilders
             }
 
             dictionary[key] = valueToSet;
-            TestBase.Container.Set(dictionary);
+            TestBase.Decorator.Set(dictionary);
         }
     }
 }

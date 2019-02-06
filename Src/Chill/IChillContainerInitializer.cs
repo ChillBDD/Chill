@@ -10,13 +10,6 @@ namespace Chill
     public interface IChillContainerInitializer
     {
         /// <summary>
-        /// Finds the relevant assemblies. 
-        /// </summary>
-        /// <param name="test">The test.</param>
-        /// <returns></returns>
-        IEnumerable<Assembly> FindRelevantAssemblies(TestBase test);
-
-        /// <summary>
         /// Builds the chill container.
         /// </summary>
         /// <param name="test">The test.</param>

@@ -31,7 +31,14 @@ namespace Chill
         /// </summary>
         public Func<TResult> WhenAction
         {
-            get { return whenAction; }
+            get
+            {
+                return () =>
+                {
+                    result = whenAction();
+                    return result;
+                };
+            }
             set
             {
                 EnsureContainer(); 
@@ -56,16 +63,16 @@ namespace Chill
         {
             DeferredExecution = deferredExecution ?? DeferredExecution;
             EnsureContainer();
-            if (WhenAction != null)
+            if (whenAction != null)
             {
                 throw new InvalidOperationException("When already defined");
             }
+            
             whenAction = whenFunc;
             if (!this.DeferredExecution)
             {
                 EnsureTestTriggered(false);
             }
-
         }
 
         internal override void TriggerTest(bool expectExceptions)

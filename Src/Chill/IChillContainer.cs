@@ -11,7 +11,6 @@ namespace Chill
     /// </remarks>
     public interface IChillContainer : IDisposable
     {
-
         /// <summary>
         /// Registers a type to the container. For example, autofac cannot create objects until you register them
         /// This allows containers like autofac to create the object. 
@@ -39,15 +38,9 @@ namespace Chill
         /// <summary>
         /// Determines whether an instance of this type is registered.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        bool IsRegistered<T>() where T : class;
-
-        /// <summary>
-        /// Determines whether an instance of this type is registered.
-        /// </summary>
         /// <param name="type">The type.</param>
         /// <returns></returns>
         bool IsRegistered(Type type);
     }
+
 }

@@ -24,7 +24,7 @@ namespace Chill.StateBuilders
         /// <returns></returns>
         public virtual TestBase To(T valueToSet)
         {
-            TestBase.Container.Set(valueToSet);
+            TestBase.Decorator.Set(valueToSet);
             return TestBase;
         }
 

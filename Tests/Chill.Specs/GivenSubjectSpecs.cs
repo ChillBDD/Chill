@@ -2,15 +2,18 @@ using System;
 using System.Threading.Tasks;
 using Chill.Specs.TestSubjects;
 using FluentAssertions;
+using NSubstitute;
 using Xunit;
 
 namespace Chill.Specs
 {
-    public abstract class GivenSubjectSpecs : GivenSubject<TestSubject>
+    public class GivenSubjectSpecs : GivenSubject<TestSubject>
     {
         [Fact]
-        public void When_creating_a_subject_then_gets_dependencies_injected()
+        public void When_the_subject_has_dependencies_it_should_inject_them_from_the_container()
         {
+            UseThe(Substitute.For<ITestService>());
+            
             Subject.TestService.Should().NotBeNull();
         }
 
@@ -18,79 +21,87 @@ namespace Chill.Specs
         public void When_configuring_mock_in_given_then_injected_mock_should_be_same()
         {
             ITestService testService = null;
-            Given(() => testService = The<ITestService>());
+
+            Given(() =>
+            {
+                UseThe(Substitute.For<ITestService>());
+                
+                testService = The<ITestService>();
+            });
 
             Subject.TestService.Should().BeSameAs(testService);
-        }
-
-        [Fact]
-        public void When_getting_a_mock_twice_should_return_same_instance()
-        {
-            The<ITestService>().Should().BeSameAs(The<ITestService>());
-        }
-
-        [Fact]
-        public void When_getting_mock_it_should_be_created()
-        {
-            The<ITestService>().Should().NotBeNull();
-        }
-
-        [Fact]
-        public void When_getting_named_service_it_should_be_created()
-        {
-            TheNamed<ITestService>("abc").Should().NotBeNull();
         }
 
         [Fact]
         public void When_using_both_givens_and_whens_the_givens_are_executed_before_the_when()
         {
             string message = "";
-            Given(() => message += "given");
-            Given(() => message += "given");
+            
+            Given(() => message += "given1");
+            
+            Given(() => message += "given2");
+            
             When(() => message += "when");
-            message.Should().Be("givengivenwhen");
+            
+            message.Should().Be("given1given2when");
         }
 
         [Fact]
-        public void When_calling_when_deferred_then_whenaction_is_not_called_automatically()
+        public void When_calling_the_when_in_deferred_mode_it_should_not_execute_it_until_the_action_is_evaluated()
         {
             string message = "";
             Given(() => message += "given");
+            
             When(() => message += "when", deferredExecution: true);
+            
             message.Should().Be("given");
+            
             WhenAction();
+            
             message.Should().Be("givenwhen");
         }
 
         [Fact]
-        public void When_deferred_and_calling_when_then_whenaction_is_not_called_automatically()
+        public void When_configuring_the_test_to_use_deferred_mode_the_when_should_not_execute_until_it_is_requested()
         {
             DeferredExecution = true;
             string message = "";
+            
             Given(() => message += "given");
+            
             When(() => message += "when");
+            
             message.Should().Be("given");
+            
             WhenAction();
+            
             message.Should().Be("givenwhen");
         }
 
         [Fact]
-        public void When_calling_whenlater_then_whenaction_is_not_called_automatically()
+        public void When_setting_up_the_call_to_when_later_then_whenaction_is_not_called_automatically()
         {
             string message = "";
+            
             Given(() => message += "given");
+            
             WhenLater(() => message += "when");
+            
             message.Should().Be("given");
+            
             WhenAction();
+            
             message.Should().Be("givenwhen");
         }
 
         [Fact]
-        public void When_calling_async_when_method_the_func_is_awaited()
+        public void When_the_when_is_async_it_should_await_the_body()
         {
             SetThe<IAsyncService>().To(new AsyncService());
             bool result = false;
+            
             When(async () => result = await The<IAsyncService>().DoSomething());
+            
             result.Should().Be(true);
         }
 
@@ -197,4 +208,25 @@ namespace Chill.Specs
 
         public bool IsDisposed { get; set; }
     }
+    
+    public class TestSubject
+    {
+        private readonly ITestService testService;
+
+        public TestSubject(ITestService testService)
+        {
+            this.testService = testService;
+        }
+
+        public bool DoSomething()
+        {
+            return testService.TryMe();
+        }
+
+        public ITestService TestService
+        {
+            get { return testService; }
+        }
+    }
+
 }
