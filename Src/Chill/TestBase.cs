@@ -7,9 +7,9 @@ using Chill.StateBuilders;
 namespace Chill
 {
     /// <summary>
-    /// Base class for all Chill tests. This baseclass set's up your automocking container. 
+    /// Base class for all Chill tests. This base class sets up your container and object mothers. 
     /// 
-    /// It also has a convenient method TriggerTest you can call that will trigger an async test func
+    /// It also has a convenient method <see cref="TriggerTest(System.Action,bool)"/> you can call that will trigger an async test func
     /// and capture any exceptions that might have occurred. 
     /// </summary>
     /// <remarks>
@@ -18,29 +18,32 @@ namespace Chill
     /// </remarks>
     public abstract class TestBase : IDisposable
     {
-        /// <summary>
-        /// Should the test execution start immediately on the When method or should execution be deferred until needed. 
-        /// </summary>
-        protected bool DeferredExecution { get; set; }
-
         private bool testTriggered;
+
         private bool containerInitialized;
+
         private ObjectMotherContainerDecorator decorator;
+
         private Exception caughtException;
 
         private readonly IChillContainerInitializer chillContainerInitializer;
 
         /// <summary>
-        /// Creates a new instance of the testbase and creates the TestInitializer from the attribute
+        /// Creates a new instance of the class and creates the TestInitializer from the attribute
         /// </summary>
-        public TestBase()
+        protected TestBase()
         {
             chillContainerInitializer = BuildInitializer();
         }
 
         /// <summary>
+        /// Should the test execution start immediately on the When method or should execution be deferred until needed. 
+        /// </summary>
+        protected bool DeferredExecution { get; set; }
+
+        /// <summary>
         /// Any exception that might be thrown in the course of executing the When Method. Note, this property is often used
-        /// in conjunction with deferred excecution. 
+        /// in conjunction with deferred execution. 
         /// </summary>
         protected Exception CaughtException
         {
@@ -49,11 +52,11 @@ namespace Chill
                 EnsureTestTriggered(expectExceptions: true);
                 return caughtException;
             }
-            set { caughtException = value; }
+            private set { caughtException = value; }
         }
 
         /// <summary>
-        /// Automocking IOC container that you can use to build subjects. 
+        /// The IOC container that you can use to build subjects. 
         /// </summary>
         public IChillContainer Decorator
         {
@@ -68,7 +71,7 @@ namespace Chill
         /// Method that ensures that the test has actually been triggered. 
         /// </summary>
         /// <param name="expectExceptions"></param>
-        protected internal void EnsureTestTriggered(bool expectExceptions)
+        protected void EnsureTestTriggered(bool expectExceptions)
         {
             if (!testTriggered)
             {
@@ -103,7 +106,7 @@ namespace Chill
                 }
                 finally
                 {
-                    if (expectExceptions && CaughtException == null)
+                    if (CaughtException == null)
                     {
                         throw new InvalidOperationException("Expected exception but no exception was thrown");
                     }
@@ -150,7 +153,7 @@ namespace Chill
         /// Searches the loaded assemblies to find an implementation of <see cref="IChillContainer"/>
         /// </summary>
         /// <returns></returns>
-        protected IChillContainerInitializer BuildInitializer()
+        private IChillContainerInitializer BuildInitializer()
         {
             object attribute =
                 GetContainerAttributeFromTestClass() ??
@@ -185,14 +188,6 @@ namespace Chill
         }
 
         /// <summary>
-        /// Cleans up all usages. 
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-        }
-
-        /// <summary>
         /// Fluent Syntax for storing a value in the Chill Container. 
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -202,15 +197,13 @@ namespace Chill
             return new StoreStateBuilder<T>(this);
         }
 
-
         /// <summary>
         /// Get a value from the container. If you haven't explicitly registered any value, it will use the AutoMockingContainer to 
         /// create a mock object for you. However, you can use the <see cref="SetThe{T}"/> method to explicitly register an object or value. 
         /// </summary>
         /// <typeparam name="T">The type of object you wish to register</typeparam>
         /// <returns>An object of a specific type registered to the container. </returns>
-        public T The<T>()
-            where T : class
+        public T The<T>() where T : class
         {
             T value = Decorator.Get<T>();
 
@@ -287,7 +280,7 @@ namespace Chill
         /// <returns></returns>
         public T UseThe<T>(T valueToSet) where T : class
         {
-            return Decorator.Set<T>(valueToSet);
+            return Decorator.Set(valueToSet);
         }
 
         /// <summary>
@@ -299,7 +292,15 @@ namespace Chill
         /// <returns></returns>
         public T UseThe<T>(T valueToSet, string named) where T : class
         {
-            return Decorator.Set<T>(valueToSet, named);
+            return Decorator.Set(valueToSet, named);
+        }
+
+        /// <summary>
+        /// Cleans up all usages. 
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
         }
 
         /// <summary>

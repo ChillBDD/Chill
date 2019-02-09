@@ -13,10 +13,9 @@ namespace Chill
     /// We purposely named this class so badly because we want to avoid a consumer of our package to
     /// accidentally select it when deriving from a class starting with 'G'.
     /// </remarks>
-    public abstract class TestFor<TSubject> : TestBase
-        where TSubject : class
+    public abstract class TestFor<TSubject> : TestBase where TSubject : class
     {
-        private Func<IChillContainer, TSubject> subjectFactory;
+        private Func<IChillObjectResolver, TSubject> subjectFactory;
         private TSubject subject;
 
         /// <summary>
@@ -44,7 +43,8 @@ namespace Chill
             if (subject == null)
             {
                 Decorator.RegisterType<TSubject>();
-                subject = (subjectFactory != null) ? subjectFactory(Decorator) : BuildSubject();
+                subject = (subjectFactory != null) ? 
+                    subjectFactory(new ContainerResolverAdapter(Decorator)) : BuildSubject();
             }
         }
 
@@ -52,7 +52,7 @@ namespace Chill
         /// Call this method to override how the subject is being created, or to augment the created subject. 
         /// </summary>
         /// <param name="subjectFactory">The factory method that will create the subject for you. </param>
-        protected void WithSubject(Func<IChillContainer, TSubject> subjectFactory)
+        protected void WithSubject(Func<IChillObjectResolver, TSubject> subjectFactory)
         {
             this.subjectFactory = subjectFactory;
         }
@@ -67,13 +67,11 @@ namespace Chill
             return Decorator.Get<TSubject>();
         }
 
+        /// <inheritdoc />
         protected override void Dispose(bool disposing)
         {
             var disposable = subject as IDisposable;
-            if (disposable != null)
-            {
-                disposable.Dispose();
-            }
+            disposable?.Dispose();
 
             base.Dispose(disposing);
         }

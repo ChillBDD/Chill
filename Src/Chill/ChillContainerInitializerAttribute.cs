@@ -9,17 +9,17 @@ namespace Chill
     public class ChillContainerInitializerAttribute : Attribute
     {
         /// <summary>
-        /// The type of test initializer to user. 
-        /// </summary>
-        public Type ChillContainerInitializerType { get; private set; }
-
-        /// <summary>
         /// Assigns a Chill Test Initializer to a class / assembly
         /// </summary>
-        /// <param name="ChillContainerInitializerType"></param>
+        /// <param name="chillContainerInitializerType"></param>
         public ChillContainerInitializerAttribute(Type chillContainerInitializerType)
         {
             ChillContainerInitializerType = chillContainerInitializerType;
         }
+
+        /// <summary>
+        /// The type of test initializer to user. 
+        /// </summary>
+        public Type ChillContainerInitializerType { get; private set; }
     }
 }
