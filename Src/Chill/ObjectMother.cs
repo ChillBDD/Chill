@@ -7,13 +7,16 @@ namespace Chill
     /// </summary>
     public abstract class ObjectMother<TTarget> : IObjectMother
     {
+        /// <inheritdoc />
         public bool IsFallback => false;
 
+        /// <inheritdoc />
         public bool Applies(Type type)
         {
             return type == typeof(TTarget);
         }
 
+        /// <inheritdoc />
         public object Create(Type type, IChillObjectResolver container) 
         {
             if (!Applies(type))
@@ -30,4 +33,4 @@ namespace Chill
         /// <returns></returns>
         protected abstract TTarget Create();
     }
-}
+}    

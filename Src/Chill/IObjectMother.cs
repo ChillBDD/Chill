@@ -29,6 +29,9 @@ namespace Chill
         object Create(Type type, IChillObjectResolver objectResolver);
     }
 
+    /// <summary>
+    /// Represents an object that allows resolving an object from the Chill container. 
+    /// </summary>
     public interface IChillObjectResolver
     {
         /// <summary>

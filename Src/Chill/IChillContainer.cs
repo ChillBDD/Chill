@@ -3,43 +3,36 @@
 namespace Chill
 {
     /// <summary>
-    /// Represents an auto-mocking container to be used to build-up the subject-under-test as well as providing
-    /// mock dependencies.
+    /// Represents a container to be used to build-up the subject-under-test as well as providing
+    /// any dependencies.
     /// </summary>
-    /// <remarks>
-    /// The implementation must allow creating instances of unregistered concrete types. 
-    /// </remarks>
     public interface IChillContainer : IDisposable
     {
         /// <summary>
-        /// Registers a type to the container. For example, autofac cannot create objects until you register them
-        /// This allows containers like autofac to create the object. 
+        /// Registers a concrete type at the container. 
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <remarks>
+        /// For example, Autofac cannot create objects until you register them.
+        /// </remarks>
         void RegisterType<T>() where T : class;
 
         /// <summary>
-        /// Gets a value of the specified type from the container, optionally registered under a key.
+        /// Gets a instance of the specified <typeparamref name="T"/> from the container, optionally
+        /// registered under <paramref name="key"/>.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="key">The key.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// Returns an instance or implementation of the registered type or <c>null</c> if no such type exists in the container. 
+        /// </returns>
         T Get<T>(string key = null) where T : class;
 
         /// <summary>
         /// Sets a value in the container, so that from now on, it will be returned when you call <see cref="Get{T}"/>
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="valueToSet">The value to set.</param>
-        /// <param name="key">The key.</param>
-        /// <returns></returns>
         T Set<T>(T valueToSet, string key = null) where T : class;
 
         /// <summary>
-        /// Determines whether an instance of this type is registered.
+        /// Determines whether an instance of this type is currently .
         /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns></returns>
         bool IsRegistered(Type type);
     }
 
