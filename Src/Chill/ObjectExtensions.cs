@@ -37,19 +37,5 @@ namespace Chill
             func(subject);
             return subject;
         }
-
-        /// <summary>
-        /// More fluent syntax for returning a value from a method asynchronously. If you don't like this syntax, typically you can also use 
-        /// async () => result; 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="subject"></param>
-        /// <returns></returns>
-        public static Task<T> Asynchronously<T>(this T subject)
-        {
-            // Ideally you'd like to do: Task.FromResult() but that's not available in .Net 4.0. This works as well (through is less efficient) 
-            return Task.Factory.StartNew(() => subject);
-        }
-
     }
 }
