@@ -8,7 +8,7 @@
     <owners>Dennis Doomen</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <iconUrl>https://raw.githubusercontent.com/ChillBDD/Chill/master/Docs/Assets/Images/chillIcon.png</iconUrl>
-    <projectUrl>https://github.com/ChillBdd/Chill</projectUrl>
+    <projectUrl>https://chillbdd.com/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A BDD style testing framework, heavily relying on (auto mocking) containers. </description>
     <releaseNotes>
