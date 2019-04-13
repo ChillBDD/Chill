@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Chill.Common;
 
 namespace Chill
 {
@@ -54,6 +55,29 @@ namespace Chill
             When(whenFunc, deferredExecution: true);
         }
 
+        internal override void TriggerTest(bool expectExceptions)
+        {
+            TriggerTest(() => result = whenAction(), expectExceptions);
+        }
+
+        /// <summary>
+        /// Records the asynchronous action that will trigger the actual test, when later executing the <see cref="WhenAction"/>
+        /// </summary>
+        protected void WhenLater(Func<Task<TResult>> whenFunc)
+        {
+            When(whenFunc, deferredExecution: true);
+        }
+
+        /// <summary>
+        /// Records the asynchronous action that will trigger the actual test
+        /// </summary>
+        /// <param name="whenFunc"></param>
+        /// <param name="deferredExecution">Should the test be executed immediately or be deferred?</param>
+        protected void When(Func<Task<TResult>> whenFunc, bool? deferredExecution = null)
+        {
+            When(() => whenFunc().GetAwaiter().GetResult(), deferredExecution);
+        }
+
         /// <summary>
         /// Records the action that will trigger the actual test
         /// </summary>
@@ -68,34 +92,11 @@ namespace Chill
                 throw new InvalidOperationException("When already defined");
             }
             
-            whenAction = whenFunc;
+            whenAction = whenFunc.ExecuteInDefaultSynchronizationContext;
             if (!this.DeferredExecution)
             {
                 EnsureTestTriggered(false);
             }
-        }
-
-        internal override void TriggerTest(bool expectExceptions)
-        {
-            TriggerTest(() => result = whenAction(), expectExceptions);
-        }
-
-        /// <summary>
-        /// Records the asynchronous action that will trigger the actual test, when later executing the <see cref="WhenAction"/>
-        /// </summary>
-        protected void WhenLater(Func<Task<TResult>> whenFunc)
-        {
-            When(() => whenFunc.ExecuteInDefaultSynchronizationContext(), deferredExecution: true);
-        }
-
-        /// <summary>
-        /// Records the asynchronous action that will trigger the actual test
-        /// </summary>
-        /// <param name="whenFunc"></param>
-        /// <param name="deferredExecution">Should the test be executed immediately or be deferred?</param>
-        protected void When(Func<Task<TResult>> whenFunc, bool? deferredExecution = null)
-        {
-            this.When(() => whenFunc.ExecuteInDefaultSynchronizationContext(), deferredExecution);
         }
 
         /// <summary>
@@ -103,17 +104,17 @@ namespace Chill
         /// </summary>
         public void Given(Func<Task> givenActionAsync)
         {
-            this.Given(() => givenActionAsync.ExecuteInDefaultSynchronizationContext());
+            Given(() => givenActionAsync().GetAwaiter().GetResult());
         }
 
         /// <summary>
         /// Records a precondition
         /// </summary>
-        /// <param name="a"></param>
-        public void Given(Action a)
+        /// <param name="action"></param>
+        public void Given(Action action)
         {
             EnsureContainer();
-            a();
+            action.ExecuteInDefaultSynchronizationContext();
         }
     }
 
@@ -148,6 +149,24 @@ namespace Chill
         }
 
         /// <summary>
+        /// Records the asynchronous action that will trigger the actual test, when later executing the <see cref="WhenAction"/>
+        /// </summary>
+        protected void WhenLater(Func<Task> whenActionAsync)
+        {
+            When(() => whenActionAsync().GetAwaiter().GetResult(), deferredExecution: true);
+        }
+
+        /// <summary>
+        /// Records the asynchronous action that will trigger the actual test
+        /// </summary>
+        /// <param name="whenActionAsync"></param>
+        /// <param name="deferredExecution">Should the test be executed immediately or be deferred?</param>
+        public void When(Func<Task> whenActionAsync, bool? deferredExecution = null)
+        {
+            When(() => whenActionAsync().GetAwaiter().GetResult(), deferredExecution);
+        }
+
+        /// <summary>
         /// Records the action that will trigger the actual test
         /// </summary>
         /// <param name="whenAction"></param>
@@ -160,30 +179,12 @@ namespace Chill
             {
                 throw new InvalidOperationException("When already defined");
             }
-            this.whenAction = whenAction;
-            if (!this.DeferredExecution)
+            this.whenAction = whenAction.ExecuteInDefaultSynchronizationContext;
+            if (!DeferredExecution)
             {
                 EnsureTestTriggered(false);
             }
 
-        }
-
-        /// <summary>
-        /// Records the asynchronous action that will trigger the actual test, when later executing the <see cref="WhenAction"/>
-        /// </summary>
-        protected void WhenLater(Func<Task> whenActionAsync)
-        {
-            When(() => whenActionAsync.ExecuteInDefaultSynchronizationContext(), deferredExecution: true);
-        }
-        
-        /// <summary>
-        /// Records the asynchronous action that will trigger the actual test
-        /// </summary>
-        /// <param name="whenActionAsync"></param>
-        /// <param name="deferredExecution">Should the test be executed immediately or be deferred?</param>
-        public void When(Func<Task> whenActionAsync, bool? deferredExecution = null)
-        {
-            this.When(() => whenActionAsync.ExecuteInDefaultSynchronizationContext(), deferredExecution);
         }
 
         internal override void TriggerTest(bool expectExceptions)
@@ -196,17 +197,17 @@ namespace Chill
         /// </summary>
         public void Given(Func<Task> givenActionAsync)
         {
-            this.Given(() => givenActionAsync.ExecuteInDefaultSynchronizationContext());
+            Given(() => givenActionAsync().GetAwaiter().GetResult());
         }
 
         /// <summary>
         /// Records a precondition
         /// </summary>
-        /// <param name="a"></param>
-        public void Given(Action a)
+        /// <param name="action"></param>
+        public void Given(Action action)
         {
             EnsureContainer();
-            a();
+            action.ExecuteInDefaultSynchronizationContext();
         }
     }
 }

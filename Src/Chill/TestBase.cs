@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Chill.Common;
 using Chill.StateBuilders;
 
 namespace Chill
@@ -88,7 +89,7 @@ namespace Chill
         {
         }
 
-        internal void TriggerTest(Action testAction, bool expectExceptions)
+        protected void TriggerTest(Action testAction, bool expectExceptions)
         {
             if (expectExceptions)
             {
