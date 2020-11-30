@@ -93,10 +93,12 @@ public class Build : NukeBuild
                 .SetFramework("netstandard2.0"));
 
             ILRepack($"/out:{ArtifactsDirectory}\\netstandard1.1\\Chill.dll /xmldocs " +
+                     $"/keyfile:{SourceDirectory}\\Chill\\strongname.snk " +
                      $"{SourceDirectory}\\Chill\\bin/{Configuration}\\netstandard1.1\\publish\\Chill.dll " +
                      $"{SourceDirectory}\\Chill\\bin/{Configuration}\\netstandard1.1\\publish\\Autofac.dll ");
 
             ILRepack($"/out:{ArtifactsDirectory}\\netstandard2.0\\Chill.dll /xmldocs " +
+                     $"/keyfile:{SourceDirectory}\\Chill\\strongname.snk " +
                      $"{SourceDirectory}\\Chill\\bin/{Configuration}\\netstandard2.0\\publish\\Chill.dll " +
                      $"{SourceDirectory}\\Chill\\bin/{Configuration}\\netstandard2.0\\publish\\Autofac.dll ");
 
